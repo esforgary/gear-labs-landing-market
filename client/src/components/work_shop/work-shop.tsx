@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, Sparkles } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./work-shop.scss";
+
+type WorkshopCategory = "sites" | "apps" | "bots";
 
 const previewImages = [
   "./img/banner/gearlabs-web-3d-v2.jpg",
@@ -16,25 +18,45 @@ function WorkShop() {
   const { t } = useThemeLang();
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [activeCategory, setActiveCategory] = useState<WorkshopCategory>("sites");
 
-  const items = Array.from({ length: 17 }, (_, i) => ({
-    id: i,
-    title: t("workshop.card.prefix", { number: i + 1 }),
-    text: t("workshop.card.text"),
-    img: previewImages[i % previewImages.length],
-    type: ["Landing", "Dashboard", "Automation"][i % 3],
-    time: [t("workshop.time.0"), t("workshop.time.1"), t("workshop.time.2")][i % 3],
-  }));
+  const categories = useMemo(
+    () => [
+      { id: "sites" as const, label: t("workshop.tabs.sites"), type: "Landing", img: previewImages[0] },
+      { id: "apps" as const, label: t("workshop.tabs.apps"), type: "Dashboard", img: previewImages[1] },
+      { id: "bots" as const, label: t("workshop.tabs.bots"), type: "Automation", img: previewImages[2] },
+    ],
+    [t]
+  );
+
+  const items = Array.from({ length: 18 }, (_, i) => {
+    const category = categories[i % categories.length];
+
+    return {
+      id: i,
+      category: category.id,
+      title: t("workshop.card.prefix", { number: i + 1 }),
+      text: t("workshop.card.text"),
+      img: category.img,
+      type: category.type,
+      time: [t("workshop.time.0"), t("workshop.time.1"), t("workshop.time.2")][i % 3],
+    };
+  });
 
   // Пагинация
   const perPage = 6;
-  const totalPages = Math.ceil(items.length / perPage);
-  const pageItems = items.slice((page - 1) * perPage, page * perPage);
+  const filteredItems = items.filter((item) => item.category === activeCategory);
+  const totalPages = Math.ceil(filteredItems.length / perPage);
+  const pageItems = filteredItems.slice((page - 1) * perPage, page * perPage);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    setPage(1);
+  }, [activeCategory]);
 
   return (
     <div className="workshop-section">
@@ -50,6 +72,21 @@ function WorkShop() {
             <span>{t("workshop.summary")}</span>
           </div>
         </div>
+      </div>
+
+      <div className="workshop-tabs scroll-animate" role="tablist" aria-label={t("workshop.title")}>
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            type="button"
+            role="tab"
+            aria-selected={activeCategory === category.id}
+            className={`workshop-tab ${activeCategory === category.id ? "active" : ""}`}
+            onClick={() => setActiveCategory(category.id)}
+          >
+            {category.label}
+          </button>
+        ))}
       </div>
 
       <div className="workshop-grid">
