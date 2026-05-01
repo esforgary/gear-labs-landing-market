@@ -37,17 +37,23 @@
 
   .feature-item {
     align-items: center;
+    appearance: none;
     background: color-mix(in srgb, var(--surface) 82%, transparent);
     border: 1px solid var(--border-soft);
     border-radius: 22px;
     box-shadow: var(--shadow-soft);
+    color: inherit;
     display: grid;
+    font: inherit;
     gap: 22px;
     grid-template-columns: 132px minmax(0, 1fr);
     overflow: hidden;
     padding: 18px;
     position: relative;
+    text-align: left;
+    text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    width: 100%;
 
     &::before {
       background: linear-gradient(180deg, color-mix(in srgb, var(--orange) 70%, transparent), color-mix(in srgb, var(--blue) 50%, transparent));
@@ -58,10 +64,24 @@
       width: 4px;
     }
 
+    &.is-clickable {
+      cursor: pointer;
+    }
+
     &:hover {
       border-color: color-mix(in srgb, var(--blue) 34%, transparent);
       box-shadow: var(--shadow-strong);
       transform: translateY(-4px);
+    }
+
+    &:focus-visible {
+      border-color: color-mix(in srgb, var(--blue) 48%, transparent);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 18%, transparent), var(--shadow-strong);
+      outline: none;
+    }
+
+    &.is-selected {
+      border-color: color-mix(in srgb, var(--orange) 42%, transparent);
     }
   }
 
@@ -87,6 +107,16 @@
       height: 36px;
       width: 36px;
       filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.16));
+    }
+
+    svg.selected-project-icon {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 16px;
+      box-sizing: content-box;
+      height: 30px;
+      padding: 10px;
+      width: 30px;
     }
 
     .feature-number {
@@ -126,11 +156,19 @@
 
   .feature-text {
     h3 {
+      align-items: center;
       color: var(--text-primary);
+      display: flex;
+      gap: 9px;
       font-size: clamp(21px, 2.6vw, 30px);
       font-weight: 900;
       line-height: 1.08;
       margin: 0 0 9px;
+
+      svg {
+        color: var(--blue);
+        flex-shrink: 0;
+      }
     }
 
     p {

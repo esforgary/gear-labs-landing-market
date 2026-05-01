@@ -1,23 +1,60 @@
-import { ClipboardCheck, FileArchive, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import type { ReactNode } from "react";
+import { ClipboardCheck, ExternalLink, FileArchive, LayoutTemplate, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
+import { useProjectSelection } from "../../context/ProjectSelectionContext";
 import "./fitback-form.scss";
+
+type FeatureTone = "orange" | "blue" | "silver";
+
+interface FeatureItem {
+  icon: ReactNode;
+  title: string;
+  text: string;
+  tone: FeatureTone;
+  upload?: boolean;
+  selected?: boolean;
+  onClick?: () => void;
+  href?: string;
+  external?: boolean;
+}
+
+const googleFormsPlaceholderUrl = "https://docs.google.com/forms/";
 
 export default function FitbackForm() {
   const { t } = useThemeLang();
+  const { selectedProject } = useProjectSelection();
 
-  const featureItems = [
+  const scrollToCatalog = () => {
+    const element = document.getElementById("catalog");
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", "#catalog");
+    }
+  };
+
+  const featureItems: FeatureItem[] = [
     {
-      icon: <ShoppingBag />,
+      icon: selectedProject ? <LayoutTemplate className="selected-project-icon" /> : <ShoppingBag />,
       title: t("fitback.feature.site.title"),
-      text: t("fitback.feature.site.text"),
+      text: selectedProject
+        ? t("fitback.feature.project.selected", {
+            name: selectedProject.title,
+            price: selectedProject.price,
+          })
+        : t("fitback.feature.site.text"),
       tone: "orange",
+      selected: Boolean(selectedProject),
+      onClick: scrollToCatalog,
     },
     {
       icon: <PenLine />,
       title: t("fitback.feature.wishes.title"),
       text: t("fitback.feature.wishes.text"),
       tone: "blue",
+      href: googleFormsPlaceholderUrl,
+      external: true,
     },
     {
       icon: <FileArchive />,
@@ -27,6 +64,28 @@ export default function FitbackForm() {
       upload: true,
     },
   ];
+
+  const renderFeatureContent = (item: FeatureItem, index: number) => (
+    <>
+      <div className={`feature-box tone-${item.tone}`}>
+        <span className="feature-number">{String(index + 1).padStart(2, "0")}</span>
+        {item.upload ? (
+          <label htmlFor="file-upload" aria-label={item.title}>
+            {item.icon}
+          </label>
+        ) : (
+          item.icon
+        )}
+      </div>
+      <div className="feature-text">
+        <h3>
+          {item.title}
+          {item.external && <ExternalLink size={20} />}
+        </h3>
+        <p>{item.text}</p>
+      </div>
+    </>
+  );
 
   return (
     <section className="fitback-form-section">
@@ -40,24 +99,42 @@ export default function FitbackForm() {
 
       <div className="fitback-form-wrapper">
         <div className="form-left">
-          {featureItems.map((item, index) => (
-            <article className="feature-item scroll-animate" key={item.title}>
-              <div className={`feature-box tone-${item.tone}`}>
-                <span className="feature-number">{String(index + 1).padStart(2, "0")}</span>
-                {item.upload ? (
-                  <label htmlFor="file-upload" aria-label={item.title}>
-                    {item.icon}
-                  </label>
-                ) : (
-                  item.icon
-                )}
-              </div>
-              <div className="feature-text">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
+          {featureItems.map((item, index) => {
+            const className = [
+              "feature-item",
+              "scroll-animate",
+              item.onClick || item.href ? "is-clickable" : "",
+              item.selected ? "is-selected" : "",
+            ].filter(Boolean).join(" ");
+
+            if (item.href) {
+              return (
+                <a
+                  className={className}
+                  href={item.href}
+                  key={item.title}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {renderFeatureContent(item, index)}
+                </a>
+              );
+            }
+
+            if (item.onClick) {
+              return (
+                <button className={className} key={item.title} onClick={item.onClick} type="button">
+                  {renderFeatureContent(item, index)}
+                </button>
+              );
+            }
+
+            return (
+              <article className={className} key={item.title}>
+                {renderFeatureContent(item, index)}
+              </article>
+            );
+          })}
           <input type="file" id="file-upload" className="hidden-upload" multiple />
         </div>
 

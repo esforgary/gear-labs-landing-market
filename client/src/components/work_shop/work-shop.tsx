@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, LayoutTemplate } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
+import { useProjectSelection } from "../../context/ProjectSelectionContext";
 import "./work-shop.scss";
 
 type WorkshopCategory = "sites" | "apps" | "bots";
@@ -16,6 +17,7 @@ const previewImages = [
 
 function WorkShop() {
   const { t } = useThemeLang();
+  const { selectProject } = useProjectSelection();
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState<WorkshopCategory>("sites");
@@ -39,6 +41,7 @@ function WorkShop() {
       text: t("workshop.card.text"),
       img: category.img,
       type: category.type,
+      price: "500 $",
       time: [t("workshop.time.0"), t("workshop.time.1"), t("workshop.time.2")][i % 3],
     };
   });
@@ -57,6 +60,23 @@ function WorkShop() {
   useEffect(() => {
     setPage(1);
   }, [activeCategory]);
+
+  const handleSelectProject = (item: (typeof items)[number]) => {
+    selectProject({
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      type: item.type,
+      category: item.category,
+    });
+
+    const element = document.getElementById("start");
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", "#start");
+    }
+  };
 
   return (
     <div className="workshop-section">
@@ -121,9 +141,14 @@ function WorkShop() {
                   <Card.Text>{item.text}</Card.Text>
 
                   <div className="buttons">
-                    <ButtonWithExplosion color="blue">
+                    <ButtonWithExplosion
+                      color="blue"
+                      type="button"
+                      aria-label={`${item.title}: ${item.price}`}
+                      onClick={() => handleSelectProject(item)}
+                    >
                       <BadgeDollarSign size={18} />
-                      500 $
+                      {item.price}
                     </ButtonWithExplosion>
                     <ButtonWithExplosion color="orange">
                       <Eye size={18} />
