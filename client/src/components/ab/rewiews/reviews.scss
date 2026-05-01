@@ -96,15 +96,23 @@
       position: absolute;
       right: 16px;
       bottom: 23px;
+      border: none;
+      padding: 0;
+      background: transparent;
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.3s;
       color: #ccc;
+      line-height: 0;
 
       &.active {
         opacity: 1;
         transform: translateY(0);
         cursor: pointer;
+      }
+
+      &:disabled {
+        cursor: default;
       }
     }
   }
