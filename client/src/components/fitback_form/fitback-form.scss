@@ -7,17 +7,7 @@
   }
 
   .fitback-eyebrow {
-    align-items: center;
-    background: color-mix(in srgb, var(--surface) 78%, transparent);
-    border: 1px solid var(--border-soft);
-    border-radius: 999px;
-    color: var(--text-secondary);
-    display: inline-flex;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 900;
     margin-bottom: 14px;
-    padding: 9px 13px;
 
     svg {
       color: var(--orange);

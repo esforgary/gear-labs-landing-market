@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: var(--page-bg);
+  background-color: transparent;
   padding: 50px 0 !important;
   height: 100%;
   padding: 0;
@@ -16,6 +16,36 @@ body {
 
 .page-section {
   scroll-margin-top: 110px;
+}
+
+.section-heading {
+  margin-bottom: 32px;
+}
+
+.section-eyebrow {
+  align-items: center;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  color: var(--text-secondary);
+  display: inline-flex;
+  gap: 10px;
+  font-size: clamp(14px, 1.35vw, 18px);
+  font-weight: 900;
+  letter-spacing: 0;
+  margin-bottom: 18px;
+  padding: 10px 16px;
+}
+
+.section-eyebrow svg {
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 h1 {

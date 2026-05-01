@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Sparkles } from 'lucide-react'
 import { useThemeLang } from '../../context/ThemeLangContext'
 import './technologys.scss'
 
@@ -133,7 +134,13 @@ export const Technologys = () => {
 
   return (
     <div className="technologys">
+      <div className="section-heading">
+        <span className="section-eyebrow scroll-animate">
+          <Sparkles size={18} />
+          {t("eyebrow.tech")}
+        </span>
         <h1 className="scroll-animate ">{t("tech.title")}</h1>
+      </div>
       <div className="technologys__grid scroll-animate">
         {cardsData.map((card, i) => {
           const iconColor = card.iconColor

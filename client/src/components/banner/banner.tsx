@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
+import { Sparkles } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
 
 const imageSources = [
-  "./img/banner/1.jpg",
-  "./img/banner/2.jpg",
-  "./img/banner/3.jpg",
+  "./img/banner/gearlabs-web-3d-v2.jpg",
+  "./img/banner/gearlabs-app-3d-v2.jpg",
+  "./img/banner/gearlabs-bot-3d-v2.jpg",
 ];
 
 export const Banner = () => {
@@ -47,6 +48,16 @@ export const Banner = () => {
 
   const fullText = typingTexts[currentTypingIndex].title + "\n" + typingTexts[currentTypingIndex].body;
   const currentImage = imageTexts[currentImageIndex];
+  const reserveText = useMemo(
+    () => typingTexts.reduce(
+      (longest, item) => ({
+        title: item.title.length > longest.title.length ? item.title : longest.title,
+        body: item.body.length > longest.body.length ? item.body : longest.body,
+      }),
+      typingTexts[0]
+    ),
+    [typingTexts]
+  );
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -133,8 +144,17 @@ export const Banner = () => {
 
       <div className="banner">
         <div className="banner-left scroll-animate">
-          <div className="hero-kicker">{t("banner.kicker")}</div>
-          <div className="typing-text">{renderTypingText()}</div>
+          <div className="hero-kicker section-eyebrow">
+            <Sparkles size={18} />
+            {t("eyebrow.banner")}
+          </div>
+          <div className="typing-text">
+            <div className="typing-reserve" aria-hidden="true">
+              <h3>{reserveText.title}</h3>
+              <p>{reserveText.body}</p>
+            </div>
+            <div className="typing-live">{renderTypingText()}</div>
+          </div>
 
           <div className="hero-actions">
             <ButtonWithExplosion color="orange">{t("banner.action.template")}</ButtonWithExplosion>

@@ -31,7 +31,7 @@ export default function FitbackForm() {
   return (
     <section className="fitback-form-section">
       <div className="fitback-heading">
-        <span className="fitback-eyebrow scroll-animate">
+        <span className="fitback-eyebrow section-eyebrow scroll-animate">
           <Sparkles size={18} />
           {t("fitback.form.badge")}
         </span>

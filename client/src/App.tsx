@@ -16,7 +16,7 @@ import { startFloatingParticles } from "./components/scripts/floatingParticles";
 
 function App() {
 useEffect(() => {
-    startFloatingParticles();
+    return startFloatingParticles();
   }, []);
 
 useEffect(() => {

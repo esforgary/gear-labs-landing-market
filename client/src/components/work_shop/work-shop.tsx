@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
+import { Sparkles } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./work-shop.scss";
 
@@ -29,7 +30,13 @@ function WorkShop() {
 
   return (
     <div className="workshop-section">
-      <h1 className="workshop-title scroll-animate">{t("workshop.title")}</h1>
+      <div className="section-heading workshop-heading">
+        <span className="section-eyebrow scroll-animate">
+          <Sparkles size={18} />
+          {t("eyebrow.catalog")}
+        </span>
+        <h1 className="workshop-title scroll-animate">{t("workshop.title")}</h1>
+      </div>
 
       <div className="workshop-grid">
         {pageItems.map((item) => (

@@ -82,23 +82,14 @@
       min-width: 0;
 
       .hero-kicker {
-        align-items: center;
-        background: color-mix(in srgb, var(--surface) 76%, transparent);
-        border: 1px solid var(--border-soft);
-        border-radius: 999px;
-        color: var(--text-secondary);
-        display: inline-flex;
-        font-size: 0.88rem;
-        font-weight: 800;
-        letter-spacing: 0;
         margin-bottom: 22px;
-        padding: 10px 14px;
       }
 
       .typing-text {
         font-size: 1.08rem;
         line-height: 1.6;
         max-width: 620px;
+        position: relative;
 
         h3 {
           color: var(--text-primary);
@@ -117,7 +108,6 @@
           line-height: 1.72;
           margin: 0;
           max-width: 58ch;
-          min-height: 7.2em;
           overflow-wrap: break-word;
           white-space: pre-wrap;
           word-wrap: break-word;
@@ -132,6 +122,16 @@
           margin-left: 4px;
           vertical-align: middle;
           width: 3px;
+        }
+
+        .typing-reserve {
+          pointer-events: none;
+          visibility: hidden;
+        }
+
+        .typing-live {
+          inset: 0;
+          position: absolute;
         }
       }
 
@@ -310,10 +310,6 @@
   .banner-wrapper {
     .banner {
       grid-template-columns: 1fr;
-
-      .banner-left .typing-text p {
-        min-height: 5.8em;
-      }
     }
   }
 }
@@ -343,7 +339,7 @@
           }
 
           p {
-            min-height: 9.2em;
+            max-width: none;
           }
         }
 
