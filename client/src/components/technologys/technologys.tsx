@@ -203,7 +203,7 @@ export const Technologys = () => {
         <h1 className="scroll-animate ">Технологии</h1>
       <div className="technologys__grid scroll-animate">
         {cardsData.map((card, i) => {
-          const iconColor = activeIndex === i ? (activeColor === 'orange' ? 'var(--orange)' : 'var(--blue)') : 'currentColor'
+          const iconColor = activeIndex === i ? (activeColor === 'orange' ? 'var(--orange)' : 'var(--blue)') : card.iconColor
           return (
             <div
               key={i}
