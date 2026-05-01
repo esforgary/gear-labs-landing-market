@@ -14,6 +14,48 @@ interface ReviewItem {
 const avatarColors = ["#FF6B6B", "#91e59cff", "#3777d1ff", "#b377e4ff", "#e29555ff"];
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
 const API_URL = `${apiBaseUrl}/api/comments`;
+const fallbackReviews: ReviewItem[] = [
+  {
+    id: 1,
+    name: "Alice",
+    date: "1 May 13:22",
+    rating: 4,
+    text: "Очень интересный продукт, понравилось всё, особенно внимание к деталям. Очень интересный продукт, понравилось всё, особенно внимание к деталям.",
+    avatarColor: avatarColors[0],
+  },
+  {
+    id: 2,
+    name: "Bob",
+    date: "1 May 13:22",
+    rating: 5,
+    text: "Отличная поддержка клиентов, помогли с настройкой быстро и удобно.",
+    avatarColor: avatarColors[1],
+  },
+  {
+    id: 3,
+    name: "Charlie",
+    date: "1 May 13:22",
+    rating: 3,
+    text: "В целом хороший сервис, но есть моменты, которые можно улучшить.",
+    avatarColor: avatarColors[2],
+  },
+  {
+    id: 4,
+    name: "Diana",
+    date: "1 May 13:22",
+    rating: 4,
+    text: "Продукт полностью соответствует описанию, буду рекомендовать друзьям.",
+    avatarColor: avatarColors[3],
+  },
+  {
+    id: 5,
+    name: "Edward",
+    date: "1 May 13:22",
+    rating: 5,
+    text: "Очень доволен, качественно, надежно и удобно.",
+    avatarColor: avatarColors[4],
+  },
+];
 
 const normalizeReview = (review: ReviewItem): ReviewItem => ({
   ...review,
@@ -82,9 +124,9 @@ const Reviews: React.FC = () => {
   // Инициализация комментариев из базы
   useEffect(() => {
     loadReviews().catch(() => {
-      allReviewsRef.current = [];
-      setAllReviews([]);
-      setReviews([]);
+      allReviewsRef.current = fallbackReviews;
+      setAllReviews(fallbackReviews);
+      setReviews(fallbackReviews.slice(0, 3));
     });
   }, [loadReviews]);
 
