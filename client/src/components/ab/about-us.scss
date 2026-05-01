@@ -1,0 +1,45 @@
+.about-section {
+  background:
+    radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--orange) 16%, transparent), transparent 28%),
+    radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--blue) 14%, transparent), transparent 32%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 94%, var(--page-bg)), var(--surface-soft));
+  border: 1px solid var(--border-soft);
+  border-radius: 30px;
+  box-shadow: var(--shadow-soft);
+  margin: 88px 30px;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 52px);
+  position: relative;
+}
+
+.about-heading {
+  margin-left: 0;
+
+  h1 {
+    color: var(--text-primary);
+    font-size: clamp(36px, 4.8vw, 58px);
+    font-weight: 900;
+    line-height: 1.06;
+    margin: 0;
+  }
+}
+
+.about-content {
+  align-items: center;
+  display: grid;
+  gap: clamp(28px, 4vw, 60px);
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+}
+
+@media (max-width: 1040px) {
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section {
+    margin: 64px 14px;
+    padding: 26px 18px;
+  }
+}

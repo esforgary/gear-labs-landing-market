@@ -1,114 +1,165 @@
 .reviews-wrapper {
   display: flex;
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   justify-content: center;
-  font-family: 'Roboto Mono', monospace;
 
   .reviews-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    max-width: 760px;
     width: 100%;
-    max-width: 700px;
 
-    .column-left, .column-right {
+    .column-left,
+    .column-right {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
     .column-right {
-      padding-top: 70px; // половина высоты главного комментария
+      padding-top: 70px;
     }
   }
 }
 
 .review-card {
-  width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: relative;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 98%, transparent), color-mix(in srgb, var(--surface-soft) 94%, transparent));
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+  color: var(--text-primary);
   cursor: pointer;
+  padding: 14px;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  width: 100%;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--blue) 34%, transparent);
+    box-shadow: var(--shadow-strong);
+    transform: translateY(-3px);
+  }
 
   .review-header {
-    display: flex;
     align-items: center;
+    display: flex;
+    gap: 10px;
+    min-width: 0;
 
     .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 15px;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: bold;
+      border-radius: 16px;
       color: #fff;
+      display: flex;
       flex-shrink: 0;
+      font-weight: 900;
+      height: 56px;
+      justify-content: center;
+      width: 56px;
     }
 
     .name-date {
-      margin-left: 10px;
-      flex-grow: 1;
       display: flex;
+      flex: 1;
       flex-direction: column;
+      min-width: 0;
 
-      .name { font-weight: bold; }
-      .date { font-size: 12px; color: #777; }
+      .name {
+        color: var(--text-primary);
+        font-weight: 900;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .date {
+        color: var(--text-muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
 
       input {
+        background: transparent;
         border: none;
-        outline: none;
+        color: var(--text-primary);
         font-family: inherit;
         font-size: 14px;
+        font-weight: 900;
+        outline: none;
+
+        &::placeholder {
+          color: var(--text-muted);
+        }
       }
     }
 
     .stars {
       display: flex;
+      flex-shrink: 0;
       gap: 2px;
-      margin-left: -90px;
 
-      .gray { color: #ccc; }
-      .yellow { color: #FFD700; }
+      .gray {
+        color: color-mix(in srgb, var(--text-muted) 36%, transparent);
+      }
+
+      .yellow {
+        color: var(--yellow);
+      }
     }
   }
 
-  .review-text, textarea {
-    margin-top: 10px;
-    width: 100%;
-    min-height: 70px;
-    padding: 6px;
-    border-radius: 8px;
-    border: none;
-    background: #f7f7f7;
+  .review-text,
+  textarea {
+    background: color-mix(in srgb, var(--surface-muted) 78%, transparent);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    color: var(--text-secondary);
     font-family: inherit;
-    resize: none;
-    position: relative;
+    line-height: 1.35;
+    margin-top: 12px;
+    min-height: 82px;
     overflow: hidden;
-    line-height: 1.2em;
+    padding: 12px;
+    position: relative;
+    resize: none;
+    width: 100%;
+  }
+
+  textarea {
+    outline: none;
+
+    &::placeholder {
+      color: var(--text-muted);
+    }
+
+    &:focus {
+      border-color: color-mix(in srgb, var(--blue) 44%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 14%, transparent);
+    }
   }
 
   &.main-review {
     z-index: 10;
 
     .send-arrow {
-      position: absolute;
-      right: 16px;
-      bottom: 23px;
-      border: none;
-      padding: 0;
       background: transparent;
+      border: none;
+      bottom: 24px;
+      color: var(--blue);
+      line-height: 0;
       opacity: 0;
+      padding: 0;
+      position: absolute;
+      right: 18px;
       transform: translateY(10px);
       transition: all 0.3s;
-      color: #ccc;
-      line-height: 0;
 
       &.active {
+        cursor: pointer;
         opacity: 1;
         transform: translateY(0);
-        cursor: pointer;
       }
 
       &:disabled {
@@ -120,12 +171,10 @@
   &.truncated {
     .review-text {
       display: -webkit-box;
-      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      overflow: hidden;
-      position: relative;
-      mask-image: linear-gradient(to bottom, black 80%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 80%, rgba(0,0,0,0) 100%);
+      -webkit-line-clamp: 3;
+      mask-image: linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0) 100%);
     }
   }
 
@@ -149,20 +198,20 @@
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(6px);
-  background: rgba(0,0,0,0.2);
-  display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 999;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.34);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
   opacity: 0;
   pointer-events: none;
+  position: fixed;
+  top: 0;
   transition: opacity 0.3s ease;
+  width: 100%;
+  z-index: 999;
 }
 
 .modal-overlay.show {
@@ -171,37 +220,30 @@
 }
 
 .modal-content {
-  width: 80%;
   max-width: 600px;
+  opacity: 0;
   transform: translateY(-20px);
   transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
+  width: 80%;
 }
 
 .modal-overlay.show .modal-content {
-  transform: translateY(0);
   opacity: 1;
+  transform: translateY(0);
 }
 
 .modal-content .review-card {
-  width: 100%;
   min-height: auto;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
 
   .review-text {
-    display: block;
-    overflow: visible;
-    -webkit-line-clamp: unset;
     -webkit-box-orient: unset;
+    -webkit-line-clamp: unset;
+    display: block;
     mask-image: none;
     -webkit-mask-image: none;
+    overflow: visible;
   }
-}
-
-
-.review-card {
-  position: relative;
 }
 
 .review-inner {
@@ -219,7 +261,6 @@
   transform: translateY(0);
 }
 
-
 .review-inner.fade {
   animation: fadeAnim 0.33s ease-in-out;
 }
@@ -228,4 +269,23 @@
   0% { opacity: 1; transform: translateY(0); }
   50% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .reviews-wrapper .reviews-grid {
+    grid-template-columns: 1fr;
+
+    .column-right {
+      padding-top: 0;
+    }
+  }
+
+  .review-card .review-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .stars {
+      width: 100%;
+    }
+  }
 }

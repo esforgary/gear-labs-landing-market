@@ -1,89 +1,264 @@
 .workshop-section {
-  width: 100%;
-  background: var(--space-gray);
-  padding: 40px 20px;
-  border-top-right-radius: 50px;
-  border-bottom-left-radius: 50px;
+  background:
+    radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--orange) 18%, transparent), transparent 30%),
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--blue) 18%, transparent), transparent 32%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 92%, var(--page-bg)), var(--surface-soft));
+  border: 1px solid var(--border-soft);
+  border-radius: 30px;
+  box-shadow: var(--shadow-soft);
   box-sizing: border-box;
+  margin: 70px 30px;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 48px);
+  position: relative;
+  width: auto;
 
-  border-top: 5px solid var(--orange);
-  border-bottom: 3px solid var(--orange);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.50);
-}
-
-.workshop-title {
-  color: #fff;
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 0;
-  margin-left: 5px;
+  &::before {
+    background: linear-gradient(90deg, var(--orange), var(--blue));
+    content: "";
+    height: 5px;
+    inset: 0 0 auto;
+    opacity: 0.92;
+    position: absolute;
+  }
 }
 
 .workshop-heading {
   margin-bottom: 32px;
 }
 
-/* сетка */
-.workshop-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 42px;
-  padding: 0 150px;
-}
-
-/* центрирование карточек */
-.workshop-card-wrapper {
+.workshop-heading-row {
+  align-items: flex-end;
   display: flex;
-  justify-content: center;
+  gap: 18px;
+  justify-content: space-between;
 }
 
-/* карточка */
-.workshop-card {
-  width: 18rem;
-  background: #fff;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
+.workshop-title {
+  color: var(--text-primary);
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0;
+}
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+.workshop-summary {
+  align-items: center;
+  background: color-mix(in srgb, var(--surface) 74%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 11px 15px;
+
+  svg {
+    color: var(--blue);
   }
 }
 
-/* кнопки контейнер */
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
+.workshop-grid {
+  display: grid;
+  gap: clamp(18px, 2.4vw, 28px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
 }
 
-/* пагинация */
-.pagination {
-  margin-top: 40px;
+.workshop-card-wrapper {
+  min-width: 0;
+}
+
+.workshop-card {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 98%, transparent), color-mix(in srgb, var(--surface-soft) 94%, transparent));
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  color: var(--text-primary);
+  height: 100%;
+  min-height: 430px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--blue) 36%, transparent);
+    box-shadow: var(--shadow-strong);
+    transform: translateY(-7px);
+
+    .card-corner-icon {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .workshop-preview img {
+      transform: scale(1.04);
+    }
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 206px;
+    padding: 22px;
+  }
+
+  .card-title {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+.workshop-preview {
+  aspect-ratio: 16 / 9.8;
+  background: var(--surface-muted);
+  overflow: hidden;
+  position: relative;
+
+  img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+    width: 100%;
+  }
+
+  &::after {
+    background: linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.28));
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+}
+
+.layout-type,
+.layout-time {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  padding: 8px 10px;
+  position: absolute;
+  z-index: 1;
+}
+
+.layout-type {
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--text-primary);
+  left: 14px;
+  top: 14px;
+}
+
+.layout-time {
+  background: color-mix(in srgb, var(--blue) 88%, transparent);
+  color: var(--space-gray);
+  bottom: 14px;
+  right: 14px;
+}
+
+.buttons {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+
+  .btn {
+    align-items: center;
+    border-radius: 14px !important;
+    display: inline-flex;
+    gap: 7px;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+}
+
+.card-corner-icon {
+  color: var(--blue);
+  opacity: 0;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  transform: translate(-8px, 8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
   justify-content: center;
-  gap: 12px;
+  margin-top: 34px;
 }
 
 .page-btn {
-  background: #444;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: 0.2s;
+  font-weight: 900;
+  min-width: 42px;
+  padding: 10px 15px;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
 
   &.active {
     background: var(--orange);
     color: var(--space-gray);
-    font-weight: bold;
   }
 
   &:hover {
-    filter: brightness(1.3);
+    color: var(--blue);
+    transform: translateY(-2px);
+  }
+}
+
+.workshop-card.skeleton {
+  .card-img-top {
+    aspect-ratio: 16 / 9.8;
+    background: var(--surface-muted);
+  }
+
+  .card-body {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .workshop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .workshop-section {
+    margin: 52px 14px;
+    padding: 26px 18px;
+  }
+
+  .workshop-heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .workshop-grid {
+    grid-template-columns: 1fr;
   }
 }

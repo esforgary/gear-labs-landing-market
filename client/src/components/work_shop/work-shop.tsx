@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
-import { Sparkles } from "lucide-react";
+import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, Sparkles } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./work-shop.scss";
+
+const previewImages = [
+  "./img/banner/gearlabs-web-3d-v2.jpg",
+  "./img/banner/gearlabs-app-3d-v2.jpg",
+  "./img/banner/gearlabs-bot-3d-v2.jpg",
+];
 
 function WorkShop() {
   const { t } = useThemeLang();
@@ -15,7 +21,9 @@ function WorkShop() {
     id: i,
     title: t("workshop.card.prefix", { number: i + 1 }),
     text: t("workshop.card.text"),
-    img: "./img/temp.jpg",
+    img: previewImages[i % previewImages.length],
+    type: ["Landing", "Dashboard", "Automation"][i % 3],
+    time: [t("workshop.time.0"), t("workshop.time.1"), t("workshop.time.2")][i % 3],
   }));
 
   // Пагинация
@@ -35,7 +43,13 @@ function WorkShop() {
           <Sparkles size={18} />
           {t("eyebrow.catalog")}
         </span>
-        <h1 className="workshop-title scroll-animate">{t("workshop.title")}</h1>
+        <div className="workshop-heading-row">
+          <h1 className="workshop-title scroll-animate">{t("workshop.title")}</h1>
+          <div className="workshop-summary scroll-animate">
+            <Layers3 size={20} />
+            <span>{t("workshop.summary")}</span>
+          </div>
+        </div>
       </div>
 
       <div className="workshop-grid">
@@ -60,16 +74,27 @@ function WorkShop() {
               </Card>
             ) : (
               <Card className="workshop-card">
-                <Card.Img variant="top" src={item.img} />
+                <div className="workshop-preview">
+                  <Card.Img variant="top" src={item.img} />
+                  <span className="layout-type">{item.type}</span>
+                  <span className="layout-time">{item.time}</span>
+                </div>
                 <Card.Body>
                   <Card.Title>{item.title}</Card.Title>
                   <Card.Text>{item.text}</Card.Text>
 
                   <div className="buttons">
-                    <ButtonWithExplosion color="blue">500 $</ButtonWithExplosion>
-                    <ButtonWithExplosion color="orange">{t("workshop.review")}</ButtonWithExplosion>
+                    <ButtonWithExplosion color="blue">
+                      <BadgeDollarSign size={18} />
+                      500 $
+                    </ButtonWithExplosion>
+                    <ButtonWithExplosion color="orange">
+                      <Eye size={18} />
+                      {t("workshop.review")}
+                    </ButtonWithExplosion>
                   </div>
                 </Card.Body>
+                <ArrowUpRight className="card-corner-icon" size={24} />
               </Card>
             )}
           </div>
