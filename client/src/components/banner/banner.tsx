@@ -10,6 +10,11 @@ const imageSources = [
   "./img/banner/gearlabs-bot-3d-v2.jpg",
 ];
 
+const createPointTones = () => {
+  const tones = ["orange", "blue", Math.random() > 0.5 ? "orange" : "blue"];
+  return tones.sort(() => Math.random() - 0.5);
+};
+
 export const Banner = () => {
   const { lang, t } = useThemeLang();
   const [currentTypingIndex, setCurrentTypingIndex] = useState(0);
@@ -18,6 +23,7 @@ export const Banner = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(false);
+  const pointTones = useMemo(createPointTones, []);
 
   const typingTexts = useMemo(
     () => [
@@ -48,6 +54,11 @@ export const Banner = () => {
 
   const fullText = typingTexts[currentTypingIndex].title + "\n" + typingTexts[currentTypingIndex].body;
   const currentImage = imageTexts[currentImageIndex];
+  const heroPoints = [
+    t("banner.point.design"),
+    t("banner.point.dev"),
+    t("banner.point.launch"),
+  ];
   const reserveText = useMemo(
     () => typingTexts.reduce(
       (longest, item) => ({
@@ -175,9 +186,11 @@ export const Banner = () => {
           </div>
 
           <div className="hero-points">
-            <span>{t("banner.point.design")}</span>
-            <span>{t("banner.point.dev")}</span>
-            <span>{t("banner.point.launch")}</span>
+            {heroPoints.map((point, index) => (
+              <span className={`point-${pointTones[index]}`} key={point}>
+                {point}
+              </span>
+            ))}
           </div>
         </div>
 

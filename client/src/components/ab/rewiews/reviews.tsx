@@ -14,6 +14,7 @@ interface ReviewItem {
 const avatarColors = ["#FF6B6B", "#91e59cff", "#3777d1ff", "#b377e4ff", "#e29555ff"];
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
 const API_URL = `${apiBaseUrl}/api/comments`;
+const localReviewsKey = "gearlabs-local-reviews";
 const fallbackReviews: ReviewItem[] = [
   {
     id: 1,
@@ -64,6 +65,26 @@ const normalizeReview = (review: ReviewItem): ReviewItem => ({
   avatarColor: review.avatarColor || avatarColors[0],
 });
 
+const colorForName = (name: string) => {
+  const hash = [...name].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return avatarColors[hash % avatarColors.length];
+};
+
+const readLocalReviews = (): ReviewItem[] => {
+  try {
+    const stored = localStorage.getItem(localReviewsKey);
+    if (!stored) return [];
+    return (JSON.parse(stored) as ReviewItem[]).map(normalizeReview);
+  } catch {
+    return [];
+  }
+};
+
+const saveLocalReview = (review: ReviewItem) => {
+  const nextReviews = [review, ...readLocalReviews()].slice(0, 20);
+  localStorage.setItem(localReviewsKey, JSON.stringify(nextReviews));
+};
+
 const Reviews: React.FC = () => {
   const [allReviews, setAllReviews] = useState<ReviewItem[]>([]);
   const [reviews, setReviews] = useState<ReviewItem[]>([]);
@@ -94,7 +115,11 @@ const Reviews: React.FC = () => {
     }
 
     const data = await response.json() as ReviewItem[];
-    const normalized = data.map(normalizeReview);
+    const localReviews = readLocalReviews();
+    const normalized = [
+      ...localReviews,
+      ...data.map(normalizeReview).filter((review) => !localReviews.some((localReview) => localReview.id === review.id)),
+    ];
     allReviewsRef.current = normalized;
     setAllReviews(normalized);
     setReviews(normalized.slice(0, 3));
@@ -124,9 +149,11 @@ const Reviews: React.FC = () => {
   // Инициализация комментариев из базы
   useEffect(() => {
     loadReviews().catch(() => {
-      allReviewsRef.current = fallbackReviews;
-      setAllReviews(fallbackReviews);
-      setReviews(fallbackReviews.slice(0, 3));
+      const localReviews = readLocalReviews();
+      const normalized = [...localReviews, ...fallbackReviews];
+      allReviewsRef.current = normalized;
+      setAllReviews(normalized);
+      setReviews(normalized.slice(0, 3));
     });
   }, [loadReviews]);
 
@@ -170,28 +197,48 @@ const Reviews: React.FC = () => {
   }, [allReviews]);
 
   const handleSend = async () => {
-    if (!mainText.trim() || isSending) return;
+    const cleanText = mainText.trim();
+    const cleanName = mainName.trim() || "Anonymous";
+    const rating = mainRating || 5;
+
+    if (!cleanText || isSending) return;
 
     setIsSending(true);
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: mainName,
-          text: mainText,
-          rating: mainRating || 5,
-        }),
-      });
+      let savedReview: ReviewItem;
 
-      if (!response.ok) {
-        throw new Error("Не удалось сохранить комментарий");
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: cleanName,
+            text: cleanText,
+            rating,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Не удалось сохранить комментарий");
+        }
+
+        savedReview = normalizeReview(await response.json() as ReviewItem);
+      } catch (error) {
+        console.warn("API комментариев недоступен, отзыв сохранен локально.", error);
+        savedReview = normalizeReview({
+          id: Date.now(),
+          name: cleanName,
+          date: formatDate(new Date()),
+          rating,
+          text: cleanText,
+          avatarColor: colorForName(cleanName),
+        });
+        saveLocalReview(savedReview);
       }
 
-      const savedReview = normalizeReview(await response.json() as ReviewItem);
       const nextReviews = [savedReview, ...allReviewsRef.current];
       allReviewsRef.current = nextReviews;
       setAllReviews(nextReviews);

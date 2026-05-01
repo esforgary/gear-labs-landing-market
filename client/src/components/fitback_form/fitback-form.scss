@@ -395,10 +395,16 @@
   .fitback-form-section {
     .fitback-form-wrapper {
       grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .form-left {
+      width: 100%;
     }
 
     .form-right {
-      justify-content: flex-start;
+      justify-content: center;
+      width: 100%;
     }
   }
 }

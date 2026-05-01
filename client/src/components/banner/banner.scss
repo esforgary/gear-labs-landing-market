@@ -155,13 +155,23 @@
         margin-top: 22px;
 
         span {
-          background: color-mix(in srgb, var(--surface) 72%, transparent);
-          border: 1px solid var(--border-soft);
+          --point-accent: var(--blue);
+          background: color-mix(in srgb, var(--point-accent) 16%, var(--surface));
+          border: 1px solid color-mix(in srgb, var(--point-accent) 24%, transparent);
           border-radius: 999px;
-          color: var(--text-muted);
+          box-shadow: 0 10px 24px color-mix(in srgb, var(--point-accent) 12%, transparent);
+          color: var(--point-accent);
           font-size: 0.9rem;
           font-weight: 800;
           padding: 8px 12px;
+
+          &.point-orange {
+            --point-accent: var(--orange);
+          }
+
+          &.point-blue {
+            --point-accent: var(--blue);
+          }
         }
       }
     }
