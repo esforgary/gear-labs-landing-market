@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
-import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, Sparkles } from "lucide-react";
+import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, LayoutTemplate } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./work-shop.scss";
 
@@ -62,7 +62,7 @@ function WorkShop() {
     <div className="workshop-section">
       <div className="section-heading workshop-heading">
         <span className="section-eyebrow scroll-animate">
-          <Sparkles size={18} />
+          <LayoutTemplate size={18} />
           {t("eyebrow.catalog")}
         </span>
         <div className="workshop-heading-row">

@@ -1,6 +1,6 @@
 import AboutUsCard from "./about_us_card/about-us";
 import Reviews from "./rewiews/reviews";
-import { Sparkles } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./about-us.scss";
 
@@ -11,7 +11,7 @@ export default function AboutUs() {
     <div className="about-section">
       <div className="section-heading about-heading">
         <span className="section-eyebrow scroll-animate">
-          <Sparkles size={18} />
+          <BadgeCheck size={18} />
           {t("eyebrow.about")}
         </span>
         <h1 className="scroll-animate">

@@ -1,5 +1,5 @@
 import type { MouseEvent } from "react";
-import { ArrowUpRight, Github, Mail, Send, Sparkles } from "lucide-react";
+import { ArrowUpRight, Github, Mail, Rocket, Send } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./footer.scss";
 
@@ -90,7 +90,7 @@ export default function Footer() {
 
         <div className="footer-cta">
           <span className="section-eyebrow">
-            <Sparkles size={18} />
+            <Rocket size={18} />
             {t("footer.cta.badge")}
           </span>
           <h2>{t("footer.cta.title")}</h2>

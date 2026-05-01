@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { Rocket } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
@@ -145,7 +145,7 @@ export const Banner = () => {
       <div className="banner">
         <div className="banner-left scroll-animate">
           <div className="hero-kicker section-eyebrow">
-            <Sparkles size={18} />
+            <Rocket size={18} />
             {t("eyebrow.banner")}
           </div>
           <div className="typing-text">

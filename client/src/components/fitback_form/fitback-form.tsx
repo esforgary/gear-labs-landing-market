@@ -1,4 +1,4 @@
-import { FileArchive, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import { ClipboardCheck, FileArchive, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./fitback-form.scss";
@@ -32,7 +32,7 @@ export default function FitbackForm() {
     <section className="fitback-form-section">
       <div className="fitback-heading">
         <span className="fitback-eyebrow section-eyebrow scroll-animate">
-          <Sparkles size={18} />
+          <ClipboardCheck size={18} />
           {t("fitback.form.badge")}
         </span>
         <h1 className="section-title scroll-animate">{t("fitback.title")}</h1>

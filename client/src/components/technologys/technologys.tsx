@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { Sparkles } from 'lucide-react'
+import { Cpu } from 'lucide-react'
 import { useThemeLang } from '../../context/ThemeLangContext'
 import './technologys.scss'
 
@@ -136,7 +136,7 @@ export const Technologys = () => {
     <div className="technologys">
       <div className="section-heading">
         <span className="section-eyebrow scroll-animate">
-          <Sparkles size={18} />
+          <Cpu size={18} />
           {t("eyebrow.tech")}
         </span>
         <h1 className="scroll-animate ">{t("tech.title")}</h1>
