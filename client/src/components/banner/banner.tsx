@@ -106,6 +106,15 @@ export const Banner = () => {
     setTypingPhase("typing");
   }, [lang]);
 
+  const scrollToSection = (target: string) => {
+    const element = document.getElementById(target);
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", `#${target}`);
+    }
+  };
+
   const renderTypingText = () => {
     const { title } = typingTexts[currentTypingIndex];
     const titleLength = title.length;
@@ -157,8 +166,12 @@ export const Banner = () => {
           </div>
 
           <div className="hero-actions">
-            <ButtonWithExplosion color="orange">{t("banner.action.template")}</ButtonWithExplosion>
-            <ButtonWithExplosion color="blue">{t("banner.action.order")}</ButtonWithExplosion>
+            <ButtonWithExplosion color="orange" type="button" onClick={() => scrollToSection("catalog")}>
+              {t("banner.action.template")}
+            </ButtonWithExplosion>
+            <ButtonWithExplosion color="blue" type="button" onClick={() => scrollToSection("start")}>
+              {t("banner.action.order")}
+            </ButtonWithExplosion>
           </div>
 
           <div className="hero-points">
