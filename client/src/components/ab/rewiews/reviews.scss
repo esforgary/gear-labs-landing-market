@@ -2,12 +2,13 @@
   display: flex;
   font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   justify-content: center;
+  width: 100%;
 
   .reviews-grid {
     display: grid;
     gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    max-width: 760px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 960px;
     width: 100%;
 
     .column-left,
@@ -15,6 +16,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      min-width: 0;
+      width: 100%;
     }
 
     .column-right {
@@ -31,6 +34,7 @@
   box-shadow: var(--shadow-soft);
   color: var(--text-primary);
   cursor: pointer;
+  min-width: 0;
   padding: 14px;
   position: relative;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
