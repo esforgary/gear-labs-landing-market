@@ -1,0 +1,85 @@
+.workshop-section {
+  width: 100%;
+  background: var(--space-gray);
+  padding: 40px 20px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  box-sizing: border-box;
+
+  border-top: 5px solid var(--orange);
+  border-bottom: 3px solid var(--orange);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.50);
+}
+
+.workshop-title {
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 32px;
+  margin-left: 5px;
+}
+
+/* сетка */
+.workshop-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 42px;
+  padding: 0 150px;
+}
+
+/* центрирование карточек */
+.workshop-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* карточка */
+.workshop-card {
+  width: 18rem;
+  background: #fff;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* кнопки контейнер */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* пагинация */
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.page-btn {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &.active {
+    background: var(--orange);
+    color: var(--space-gray);
+    font-weight: bold;
+  }
+
+  &:hover {
+    filter: brightness(1.3);
+  }
+}

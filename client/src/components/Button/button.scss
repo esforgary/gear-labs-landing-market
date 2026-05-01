@@ -1,0 +1,52 @@
+.btn-blue, .btn-orange {
+  position: relative;
+  border-radius: 8px !important;
+  overflow: visible; 
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 1; 
+}
+
+/* синяя кнопка */
+.btn-blue {
+  background: var(--blue);
+  border: none;
+  color: white;
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: 0 0 12px var(--blue);
+    background: var(--blue);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    background: var(--blue) !important;
+    transform: scale(0.96);
+  }
+}
+
+/* оранжевая кнопка */
+.btn-orange {
+  background: var(--orange);
+  border: none;
+  color: var(--space-gray) !important;
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: 0 0 12px var(--orange);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+/* частицы */
+.explosion-circle {
+  position: absolute; // вместо fixed
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1; // частицы под кнопкой, НЕ перекрывают текст
+}

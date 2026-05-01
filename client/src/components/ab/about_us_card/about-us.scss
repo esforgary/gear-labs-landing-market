@@ -1,0 +1,98 @@
+.about-us-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  padding-top: 50px;  
+}
+
+.pagination-about-us {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .pagination-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: gray;
+    transition: all 0.3s ease;
+    position: relative; // для частиц
+
+    &.active {
+      background: var(--blue);
+      color: white;
+    }
+
+    .pagination-svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.card-abut-us {
+  position: relative;
+  width: 300px;
+  height: 350px;
+  background: white;
+  border-radius: 20px;
+  padding: 0px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: none !important;
+
+  .top-circle {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .inner-circle {
+      width: 90px;
+      height: 90px;
+      background: var(--gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(238, 238, 238);
+      svg {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+
+  h2 {
+    margin-top: 60px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  p {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+/* Частицы для карточек */
+.explosion-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+}
