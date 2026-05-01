@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "blue" | "orange";
 }
 
-const ButtonWithExplosion: React.FC<ButtonProps> = ({ color = "blue", children, ...props }) => {
+const ButtonWithExplosion: React.FC<ButtonProps> = ({ color = "blue", children, onClick, ...props }) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const button = e.currentTarget;
     const rect = button.getBoundingClientRect();
@@ -50,6 +50,8 @@ const ButtonWithExplosion: React.FC<ButtonProps> = ({ color = "blue", children, 
 
       setTimeout(() => circle.remove(), 1000);
     }
+
+    onClick?.(e);
   };
 
   return (

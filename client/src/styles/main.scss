@@ -8,8 +8,13 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: white;
+  background: var(--page-bg);
+  color: var(--text-primary);
   min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 a {

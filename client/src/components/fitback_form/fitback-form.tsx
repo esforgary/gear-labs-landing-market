@@ -1,73 +1,109 @@
+import { FileArchive, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import ButtonWithExplosion from "../Button/button";
+import { useThemeLang } from "../../context/ThemeLangContext";
 import "./fitback-form.scss";
-import ButtonWithExplosion from "../Button/button"
 
 export default function FitbackForm() {
+  const { t } = useThemeLang();
+
+  const featureItems = [
+    {
+      icon: <ShoppingBag />,
+      title: t("fitback.feature.site.title"),
+      text: t("fitback.feature.site.text"),
+      tone: "orange",
+    },
+    {
+      icon: <PenLine />,
+      title: t("fitback.feature.wishes.title"),
+      text: t("fitback.feature.wishes.text"),
+      tone: "blue",
+    },
+    {
+      icon: <FileArchive />,
+      title: t("fitback.feature.content.title"),
+      text: t("fitback.feature.content.text"),
+      tone: "silver",
+      upload: true,
+    },
+  ];
+
   return (
     <section className="fitback-form-section">
-      <h1 className="section-title scroll-animate">Как это работает?</h1>
+      <div className="fitback-heading">
+        <span className="fitback-eyebrow scroll-animate">
+          <Sparkles size={18} />
+          {t("fitback.form.badge")}
+        </span>
+        <h1 className="section-title scroll-animate">{t("fitback.title")}</h1>
+      </div>
 
       <div className="fitback-form-wrapper">
-        {/* Левая часть — три блока */}
         <div className="form-left">
-          <div className="feature-item scroll-animate">
-            <div className="feature-box light-green">🛒</div>
-            <div className="feature-text">
-              <h3>Ваш сайт</h3>
-              <p>Выберите дизайн вашего будущего сайта из предложенных выше вариантов.</p>
-            </div>
-          </div>
-
-          <div className="feature-item scroll-animate">
-            <div className="feature-box light-purple">
-              <a href="#" target="_blank" rel="noopener noreferrer">📝</a>
-            </div>
-            <div className="feature-text">
-              <h3>Ваши пожелания</h3>
-              <p>Помогите нам ускорить работу. Опишите в мельчайших подробностях каким вы хотите видеть ваш сайт. Заполните Google форму.</p>
-            </div>
-          </div>
-
-          <div className="feature-item scroll-animate">
-            <div className="feature-box light-blue">
-              <label htmlFor="file-upload" style={{ cursor: "pointer" }}>📎</label>
-              <input
-                type="file"
-                id="file-upload"
-                style={{ display: "none" }}
-                multiple
-              />
-            </div>
-            <div className="feature-text">
-              <h3>Наполнение</h3>
-              <p>Прикрепите архив с фото и видео фрагментами, которые будут отображаться на вашем сайте.</p>
-            </div>
-          </div>
+          {featureItems.map((item, index) => (
+            <article className="feature-item scroll-animate" key={item.title}>
+              <div className={`feature-box tone-${item.tone}`}>
+                <span className="feature-number">{String(index + 1).padStart(2, "0")}</span>
+                {item.upload ? (
+                  <label htmlFor="file-upload" aria-label={item.title}>
+                    {item.icon}
+                  </label>
+                ) : (
+                  item.icon
+                )}
+              </div>
+              <div className="feature-text">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+          <input type="file" id="file-upload" className="hidden-upload" multiple />
         </div>
 
-        {/* Правая часть — форма */}
         <div className="form-right scroll-animate">
-          <div className="form-container">
-            <div className="form-title">Последний шаг ✨</div>
+          <form className="form-container" onSubmit={(event) => event.preventDefault()}>
+            <div className="form-orbit form-orbit-orange" />
+            <div className="form-orbit form-orbit-blue" />
 
-            <div className="form-field">
-              <input type="text" id="name" placeholder="Имя Фамилия" />
-              <label htmlFor="name">ФИО</label>
+            <div className="form-title">
+              <span>{t("fitback.form.title")}</span>
+              <Sparkles size={30} />
             </div>
 
-            <div className="form-field">
-              <input type="text" id="contact" placeholder="Телефон или email" />
-              <label htmlFor="contact">Контактные данные</label>
-            </div>
+            <label className="form-field" htmlFor="name">
+              <span className="field-icon">
+                <UserRound size={24} />
+              </span>
+              <input type="text" id="name" placeholder=" " autoComplete="name" />
+              <span className="field-label">{t("fitback.form.name")}</span>
+            </label>
 
-            <div className="form-field">
-              <textarea id="comment" placeholder="Здесь вы можете добавить " rows={6}></textarea>
-              <label htmlFor="comment">Комментарий</label>
-            </div>
+            <label className="form-field" htmlFor="contact">
+              <span className="field-icon">
+                <Mail size={24} />
+              </span>
+              <input type="text" id="contact" placeholder=" " autoComplete="email tel" />
+              <span className="field-label">{t("fitback.form.contact")}</span>
+            </label>
 
-            <div className="btn-wrapper">              
-              <ButtonWithExplosion color="orange">Отправить</ButtonWithExplosion>
+            <label className="form-field form-field-textarea" htmlFor="comment">
+              <span className="field-icon">
+                <MessageSquareText size={24} />
+              </span>
+              <textarea id="comment" placeholder=" " rows={6}></textarea>
+              <span className="field-label">{t("fitback.form.comment")}</span>
+            </label>
+
+            <div className="form-footer">
+              <label className="attach-pill" htmlFor="file-upload">
+                <Paperclip size={18} />
+              </label>
+              <ButtonWithExplosion color="orange" type="submit">
+                {t("fitback.form.submit")}
+              </ButtonWithExplosion>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>

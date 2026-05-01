@@ -1,24 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { useThemeLang } from '../../context/ThemeLangContext'
 import './technologys.scss'
-
-type ColorType = 'orange' | 'blue'
-type ParticleType = 'transfer' | 'burst'
-
-interface Particle {
-  id: number
-  x: number
-  y: number
-  dx: number
-  dy: number
-  size: number
-  color: ColorType
-  type: ParticleType
-  active: boolean
-}
-
-const COLORS: ColorType[] = ['orange', 'blue']
-let pid = 0
 
 const cardsData = [
   {
@@ -112,92 +95,15 @@ const cardsData = [
 ]
 
 export const Technologys = () => {
+  const { t } = useThemeLang()
   const [activeIndex, setActiveIndex] = useState(0)
-  const [particles, setParticles] = useState<Particle[]>([])
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
-  const containerRef = useRef<HTMLDivElement | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-
-  const randColor = () => COLORS[Math.floor(Math.random() * COLORS.length)]
-  const rectOf = (el: HTMLDivElement) => el.getBoundingClientRect()
-
-  const spawnTransferParticles = (fromIdx: number, toIdx: number) => {
-    const fromEl = cardsRef.current[fromIdx]
-    const toEl = cardsRef.current[toIdx]
-    const containerRect = containerRef.current?.getBoundingClientRect()
-    if (!fromEl || !toEl || !containerRect) return
-
-    const fromRect = rectOf(fromEl)
-    const toRect = rectOf(toEl)
-    const numParticles = 5
-    const created: Particle[] = []
-
-    const cx = toRect.left + toRect.width / 2 - containerRect.left
-    const cy = toRect.top + toRect.height / 2 - containerRect.top
-
-    for (let i = 0; i < numParticles; i++) {
-      const margin = 5
-      const sx = fromRect.left + margin + Math.random() * (fromRect.width - 2 * margin) - containerRect.left
-      const sy = fromRect.top + margin + Math.random() * (fromRect.height - 2 * margin) - containerRect.top
-      const dx = cx - sx + (Math.random() - 0.5) * 20
-      const dy = cy - sy + (Math.random() - 0.5) * 20
-
-      created.push({ id: ++pid, x: sx, y: sy, dx, dy, size: 5 + Math.random() * 10, color: randColor(), type: 'transfer', active: false })
-    }
-
-    setParticles(p => [...p, ...created])
-    requestAnimationFrame(() => {
-      setParticles(p => p.map(pt => (created.some(c => c.id === pt.id) ? { ...pt, active: true } : pt)))
-    })
-
-    created.forEach(() => {
-      setTimeout(() => {
-        setParticles(p => p.filter(pt => !created.some(c => c.id === pt.id)))
-      }, 800 + Math.random() * 400)
-    })
-  }
-
-  const spawnBurstParticles = (toIdx: number) => {
-    const el = cardsRef.current[toIdx]
-    const containerRect = containerRef.current?.getBoundingClientRect()
-    if (!el || !containerRect) return
-
-    const r = rectOf(el)
-    const edgePoint = () => {
-      const side = Math.floor(Math.random() * 4)
-      switch (side) {
-        case 0: return { x: r.left + Math.random() * r.width - containerRect.left, y: r.top - containerRect.top }
-        case 1: return { x: r.right - containerRect.left, y: r.top + Math.random() * r.height - containerRect.top }
-        case 2: return { x: r.left + Math.random() * r.width - containerRect.left, y: r.bottom - containerRect.top }
-        default: return { x: r.left - containerRect.left, y: r.top + Math.random() * r.height - containerRect.top }
-      }
-    }
-
-    const created: Particle[] = []
-    for (let i = 0; i < 14; i++) {
-      const start = edgePoint()
-      const angle = Math.random() * Math.PI * 2
-      const dist = 50 + Math.random() * 70
-      created.push({ id: ++pid, x: start.x, y: start.y, dx: Math.cos(angle) * dist, dy: Math.sin(angle) * dist, size: 8 + Math.random() * 5, color: randColor(), type: 'burst', active: false })
-    }
-
-    setParticles(p => [...p, ...created])
-    requestAnimationFrame(() => {
-      setParticles(p => p.map(pt => (created.some(c => c.id === pt.id) ? { ...pt, active: true } : pt)))
-    })
-
-    setTimeout(() => {
-      setParticles(p => p.filter(pt => !created.some(c => c.id === pt.id)))
-    }, 900)
-  }
 
   const resetInterval = () => {
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
       setActiveIndex(prev => {
         const next = (prev + 1) % cardsData.length
-        spawnTransferParticles(prev, next)
-        requestAnimationFrame(() => spawnBurstParticles(next))
         return next
       })
     }, 3500)
@@ -205,8 +111,6 @@ export const Technologys = () => {
 
   const changeActive = (next: number) => {
     if (next === activeIndex) return
-    spawnTransferParticles(activeIndex, next)
-    requestAnimationFrame(() => spawnBurstParticles(next))
     setActiveIndex(next)
     resetInterval()
   }
@@ -215,7 +119,6 @@ export const Technologys = () => {
     resetInterval()
     const handleVisibility = () => {
       if (document.hidden) {
-        setParticles([])
         if (intervalRef.current) clearInterval(intervalRef.current)
       } else {
         resetInterval()
@@ -229,8 +132,8 @@ export const Technologys = () => {
   }, [])
 
   return (
-    <div className="technologys" ref={containerRef}>
-        <h1 className="scroll-animate ">Технологии</h1>
+    <div className="technologys">
+        <h1 className="scroll-animate ">{t("tech.title")}</h1>
       <div className="technologys__grid scroll-animate">
         {cardsData.map((card, i) => {
           const iconColor = card.iconColor
@@ -242,7 +145,6 @@ export const Technologys = () => {
           return (
             <div
               key={i}
-              ref={el => { cardsRef.current = [...cardsRef.current]; cardsRef.current[i] = el }}
               className={`tech-card ${activeIndex === i ? 'active' : ''}`}
               onClick={() => changeActive(i)}
               style={cardStyle}
@@ -267,20 +169,6 @@ export const Technologys = () => {
           )
         })}
       </div>
-
-      {particles.map(p => (
-        <span
-          key={p.id}
-          className={`particle ${p.type} ${p.color} ${p.active ? 'active' : ''}`}
-          style={{
-            width: p.size,
-            height: p.size,
-            left: p.x,
-            top: p.y,
-            transform: p.active ? `translate(${p.dx}px, ${p.dy}px)` : 'translate(0,0)',
-          }}
-        />
-      ))}
     </div>
   )
 }

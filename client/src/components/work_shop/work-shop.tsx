@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
+import { useThemeLang } from "../../context/ThemeLangContext";
 import "./work-shop.scss";
 
 function WorkShop() {
+  const { t } = useThemeLang();
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   const items = Array.from({ length: 17 }, (_, i) => ({
     id: i,
-    title: `Макет №${i + 1}`,
-    text: "Описание макета. Здесь будет информация о нём.",
+    title: t("workshop.card.prefix", { number: i + 1 }),
+    text: t("workshop.card.text"),
     img: "./img/temp.jpg",
   }));
 
@@ -27,7 +29,7 @@ function WorkShop() {
 
   return (
     <div className="workshop-section">
-      <h1 className="workshop-title scroll-animate">Макеты</h1>
+      <h1 className="workshop-title scroll-animate">{t("workshop.title")}</h1>
 
       <div className="workshop-grid">
         {pageItems.map((item) => (
@@ -58,7 +60,7 @@ function WorkShop() {
 
                   <div className="buttons">
                     <ButtonWithExplosion color="blue">500 $</ButtonWithExplosion>
-                    <ButtonWithExplosion color="orange">обзор</ButtonWithExplosion>
+                    <ButtonWithExplosion color="orange">{t("workshop.review")}</ButtonWithExplosion>
                   </div>
                 </Card.Body>
               </Card>

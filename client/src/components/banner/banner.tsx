@@ -1,29 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ButtonWithExplosion from "../Button/button";
+import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
 
-const typingTexts = [
-  {
-    title: "Адаптивная верстка Web-сайтов на заказ",
-    body: "Легкая и интуитивная страница для вашего бизнесса может стать отличным инструментом в продвижении услуг и привлечения новых клиентов."
-  },
-  {
-    title: "Разработка мобильных и десктопных приложений",
-    body: "Все ещё выполняете ежедневные задачи в ручную? Мы поможем облегчить вам работу разработав специально для ваших целей уникальное приложение. Превратите рутину в нажатие одной кнопки."
-  },
-  {
-    title: "Создание Telegram ботов и приложений",
-    body: "Все мы ежедневно пользуемся онлайн месенджерами, а их развитие так же не стоит на месте. Улучшайте комфорт ваших клиетов интеграцией своих услуг в Telegram."
-  }
-];
-
-const imageTexts = [
-  { text: "Первый блок текста", img: "./img/banner/1.jpg" },
-  { text: "Второй блок текста", img: "./img/banner/2.jpg" },
-  { text: "Третий блок текста", img: "./img/banner/3.jpg" }
+const imageSources = [
+  "./img/banner/1.jpg",
+  "./img/banner/2.jpg",
+  "./img/banner/3.jpg",
 ];
 
 export const Banner = () => {
+  const { lang, t } = useThemeLang();
   const [currentTypingIndex, setCurrentTypingIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [typingPhase, setTypingPhase] = useState<"typing" | "pause" | "deleting">("typing");
@@ -31,7 +18,35 @@ export const Banner = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(false);
 
+  const typingTexts = useMemo(
+    () => [
+      {
+        title: t("banner.title.0"),
+        body: t("banner.body.0"),
+      },
+      {
+        title: t("banner.title.1"),
+        body: t("banner.body.1"),
+      },
+      {
+        title: t("banner.title.2"),
+        body: t("banner.body.2"),
+      },
+    ],
+    [t]
+  );
+
+  const imageTexts = useMemo(
+    () => imageSources.map((img, index) => ({
+      label: t(`banner.image.${index}.label`),
+      title: t(`banner.image.${index}.title`),
+      img,
+    })),
+    [t]
+  );
+
   const fullText = typingTexts[currentTypingIndex].title + "\n" + typingTexts[currentTypingIndex].body;
+  const currentImage = imageTexts[currentImageIndex];
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -74,6 +89,12 @@ export const Banner = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    setCurrentTypingIndex(0);
+    setDisplayedText("");
+    setTypingPhase("typing");
+  }, [lang]);
+
   const renderTypingText = () => {
     const { title } = typingTexts[currentTypingIndex];
     const titleLength = title.length;
@@ -106,27 +127,64 @@ export const Banner = () => {
 
   return (
     <div className="banner-wrapper">
-      <h1>Приветствуем в <span className="logo"><span className="orange">Gear</span><span className="blue">Labs</span></span></h1>
+      <span className="hero-glow hero-glow-orange" />
+      <span className="hero-glow hero-glow-blue" />
+      <h1>{t("banner.welcome")} <span className="logo"><span className="orange">Gear</span><span className="blue">Labs</span></span></h1>
 
       <div className="banner">
         <div className="banner-left scroll-animate">
+          <div className="hero-kicker">{t("banner.kicker")}</div>
           <div className="typing-text">{renderTypingText()}</div>
+
+          <div className="hero-actions">
+            <ButtonWithExplosion color="orange">{t("banner.action.template")}</ButtonWithExplosion>
+            <ButtonWithExplosion color="blue">{t("banner.action.order")}</ButtonWithExplosion>
+          </div>
+
+          <div className="hero-points">
+            <span>{t("banner.point.design")}</span>
+            <span>{t("banner.point.dev")}</span>
+            <span>{t("banner.point.launch")}</span>
+          </div>
         </div>
 
         <div className="banner-right scroll-animate">
           <div className="image-block">
+            <div className="visual-toolbar">
+              <div className="window-dots">
+                <span />
+                <span />
+                <span />
+              </div>
+              <span className="slide-counter">0{currentImageIndex + 1}/03</span>
+            </div>
+
             <div className="image-container">
               <div className={`content ${fade ? "fade-out" : "fade-in"}`}>
-                <p className="image-caption">{imageTexts[currentImageIndex].text}</p>
-                <img src={imageTexts[currentImageIndex].img} alt="" />
+                <img src={currentImage.img} alt={currentImage.title} />
+                <div className="image-caption">
+                  <span>{currentImage.label}</span>
+                  <strong>{currentImage.title}</strong>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="buttons-block">
-            <div className="buttons-bg">
-              <ButtonWithExplosion color="orange">Выбрать макет</ButtonWithExplosion>
-              <ButtonWithExplosion color="blue">Как заказать?</ButtonWithExplosion>
+            <div className="slide-dots">
+              {imageTexts.map((item, index) => (
+                <button
+                  key={item.title}
+                  className={index === currentImageIndex ? "active" : ""}
+                  type="button"
+                  aria-label={`Показать ${item.title}`}
+                  onClick={() => {
+                    setFade(true);
+                    setTimeout(() => {
+                      setCurrentImageIndex(index);
+                      setFade(false);
+                    }, 260);
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>

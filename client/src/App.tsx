@@ -9,6 +9,7 @@ import AboutUs from './components/ab/about-us';
 import FitbackForm from './components/fitback_form/fitback-form';
 import WorkShop from './components/work_shop/work-shop';
 import Footer from './components/footer/footer';
+import { ThemeLangProvider } from './context/ThemeLangContext';
 
 import { useEffect } from "react";
 import { startFloatingParticles } from "./components/scripts/floatingParticles";
@@ -37,19 +38,28 @@ useEffect(() => {
 }, []);
 
   return (
-    <>
-       <Header />
-       <Container className='wrapper'>
-        <Banner/>
-        <Technologys/>
-        <WorkShop/>
-        <AboutUs/>
-        <FitbackForm/>
-       </Container>
-       <Footer/>
-    </>
+    <ThemeLangProvider>
+      <Header />
+      <Container className='wrapper'>
+        <section id="home" className="page-section">
+          <Banner/>
+        </section>
+        <section id="development" className="page-section">
+          <Technologys/>
+        </section>
+        <section id="catalog" className="page-section">
+          <WorkShop/>
+        </section>
+        <section id="about" className="page-section">
+          <AboutUs/>
+        </section>
+        <section id="start" className="page-section">
+          <FitbackForm/>
+        </section>
+      </Container>
+      <Footer/>
+    </ThemeLangProvider>
   );
 }
 
 export default App;
-

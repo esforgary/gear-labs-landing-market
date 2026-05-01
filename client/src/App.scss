@@ -1,14 +1,21 @@
 .wrapper {
-  background-color: var(--silver);
+  background-color: var(--page-bg);
   padding: 50px 0 !important;
-  
   height: 100%;
   padding: 0;
+  transition: background-color 0.3s ease;
 }
 
 body {
   margin: 0;
   padding: 0;
+  background: var(--page-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-section {
+  scroll-margin-top: 110px;
 }
 
 h1 {
@@ -16,4 +23,5 @@ h1 {
   font-weight: bold;
   margin-bottom: 32px;
   margin-left: 5px;
-  }
+  color: var(--text-primary);
+}

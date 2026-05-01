@@ -5,12 +5,32 @@
   --red: #ff0000;
   --yellow: #ffc400;
   --space-gray: #181818;
+  --page-bg: #f1f1f1;
+  --page-bg-soft: #f8fafc;
+  --surface: #ffffff;
+  --surface-soft: #f6f8fb;
+  --surface-muted: #eef3f8;
+  --surface-inverse: #181818;
+  --text-primary: #20262e;
+  --text-secondary: #4d5865;
+  --text-muted: #6f7883;
+  --text-inverse: #ffffff;
+  --border-soft: rgba(24, 24, 24, 0.08);
+  --border-strong: rgba(24, 24, 24, 0.14);
+  --shadow-soft: 0 18px 46px rgba(29, 35, 45, 0.08);
+  --shadow-strong: 0 30px 80px rgba(35, 45, 60, 0.16);
+  --hero-bg-start: #ffffff;
+  --hero-bg-end: #eef5ff;
+  --input-bg: #ffffff;
+  --input-text: #111827;
+  --input-border: rgba(255, 255, 255, 0.18);
+  --theme-preview: conic-gradient(#ff7300 0deg 90deg, #3e98ff 90deg 180deg, #f1f1f1 180deg 270deg, #ffffff 270deg 360deg);
 
   --avatar-1: #d467ff;
   --avatar-2: #419e6b;
   --avatar-3: #41819e;
   --avatar-5: #e2b268;
-  --avatar-5: #e66868;
+  --avatar-4: #e66868;
 }
 
 .scroll-animate {

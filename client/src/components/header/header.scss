@@ -1,29 +1,44 @@
 .header-wrapper {
-  padding: 10px 0;
   width: 100%;
-  background: transparent;
-  position: relative;
+  background: color-mix(in srgb, var(--page-bg) 84%, transparent);
+  border-bottom: 1px solid var(--border-soft);
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  box-shadow: 0 10px 20px white;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
 .header-inner {
-  padding: 0 35px;
+  padding: 12px clamp(18px, 4vw, 44px);
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
+  gap: 24px;
 }
 
-/* Левая колонка */
 .header-left {
   flex-shrink: 0;
 
   .logo {
+    color: var(--text-primary);
     font-family: Consolas, "Courier New", monospace;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    gap: 2px;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    .gear-labs {
+      display: inline-flex;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
     .gear {
       color: var(--orange);
     }
@@ -35,28 +50,23 @@
     .gear,
     .labs {
       text-shadow:
-        -1px  0   0 black,
-        1px  0   0 black,
-        0   -1px 0 black,
-        0    1px 0 black,
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px  1px 0 black,
-        1px  1px 0 black;
+        -1px 0 0 var(--surface),
+        1px 0 0 var(--surface),
+        0 -1px 0 var(--surface),
+        0 1px 0 var(--surface);
     }
 
     svg {
       animation: labColor 6s ease-in-out infinite alternate;
     }
-
-    @keyframes labColor {
-      0%   { color: var(--orange); }
-      100% { color: var(--blue); }
-    }
   }
 }
 
-/* Центр */
+@keyframes labColor {
+  0% { color: var(--orange); }
+  100% { color: var(--blue); }
+}
+
 .header-center {
   width: 100%;
   flex: 1;
@@ -64,126 +74,145 @@
   justify-content: center;
 }
 
-/* Меню */
 .header-menu {
   display: flex;
-  gap: 32px;
+  gap: clamp(10px, 2.8vw, 34px);
 
   .nav-link {
-    font-size: 18px;
-    font-weight: 500;
-    color: #000;  // начальный цвет, JS будет менять при hover
-    padding: 8px 20px;
-    transition: color 0.5s ease; // плавный переход цвета
+    border-radius: 999px;
+    color: var(--text-primary) !important;
     cursor: pointer;
+    font-size: clamp(15px, 1.25vw, 19px);
+    font-weight: 800;
+    letter-spacing: 0;
+    padding: 9px 16px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+
+    &:hover,
+    &:focus {
+      background: color-mix(in srgb, var(--blue) 14%, transparent);
+      color: var(--blue) !important;
+      transform: translateY(-1px);
+    }
   }
 }
 
-/* Правая колонка */
 .header-controls {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 12px;
+
+  .dropdown-menu {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    box-shadow: var(--shadow-strong);
+    min-width: 190px;
+    overflow: hidden;
+    padding: 8px;
+  }
+
+  .dropdown-item {
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 12px;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background: color-mix(in srgb, var(--blue) 13%, transparent);
+      color: var(--text-primary);
+    }
+
+    &.active {
+      background: color-mix(in srgb, var(--blue) 18%, transparent);
+      color: var(--blue);
+    }
+  }
 }
 
-/* Кнопки */
 .control-btn {
-  width: 48px;
-  height: 36px;
+  width: 50px;
+  height: 40px;
   padding: 0 !important;
-  background: rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 10px !important;
+  background: color-mix(in srgb, var(--surface) 74%, transparent) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 12px !important;
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.25s ease;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--text-primary) 8%, transparent);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 
   &::after {
     display: none !important;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.28) !important;
+    border-color: color-mix(in srgb, var(--blue) 44%, transparent) !important;
+    background: color-mix(in srgb, var(--surface) 90%, transparent) !important;
   }
 }
 
-/* Тема */
 .theme-circle {
-  width: 26px;
-  height: 26px;
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
-  background: conic-gradient(
-    var(--orange) 0deg 90deg,
-    var(--blue) 90deg 180deg,
-    var(--silver) 180deg 270deg,
-    #ffffff 270deg 360deg
-  );
-}
-
-.theme-dark {
-  background: conic-gradient(
-    var(--red) 0deg 90deg,
-    var(--yellow) 90deg 180deg,
-    var(--space-gray) 180deg 270deg,
-    #000000 270deg 360deg
-  );
+  display: block;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+    0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .theme-circle.small {
-  width: 18px;
-  height: 18px;
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Язык */
-.lang-flag {
-  width: 28px;
+  width: 20px;
   height: 20px;
-  border-radius: 4px;
-  object-fit: cover;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.theme-option,
 .lang-option {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Адаптив */
+.lang-flag {
+  width: 30px;
+  height: 21px;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
+}
+
 @media (max-width: 991px) {
   .header-inner {
-    flex-direction: column;
-    gap: 16px;
+    flex-wrap: wrap;
   }
 
   .header-center {
-    order: 2;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .header-controls {
     order: 3;
-    justify-content: center;
+    flex-basis: 100%;
   }
 
   .header-menu {
-    flex-direction: column;
-    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+}
 
-    .nav-link {
-      text-align: center;
-      padding: 12px 0;
-    }
+@media (max-width: 560px) {
+  .header-inner {
+    gap: 14px;
+  }
+
+  .header-menu .nav-link {
+    padding: 8px 10px;
   }
 }

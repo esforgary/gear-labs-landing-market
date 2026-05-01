@@ -40,6 +40,24 @@ const toClientComment = (row) => ({
   avatarColor: row.avatarColor || colorForName(row.user || "Anonymous"),
 });
 
+const getTranslations = () => {
+  const languages = db
+    .prepare("SELECT code, name, flag FROM languages WHERE enabled = 1 ORDER BY sortOrder ASC, code ASC")
+    .all();
+
+  const rows = db
+    .prepare("SELECT lang, translationKey, value FROM translations ORDER BY lang ASC, translationKey ASC")
+    .all();
+
+  const translations = rows.reduce((acc, row) => {
+    if (!acc[row.lang]) acc[row.lang] = {};
+    acc[row.lang][row.translationKey] = row.value;
+    return acc;
+  }, {});
+
+  return { languages, translations };
+};
+
 // =================== Комментарии ===================
 
 // Получить все комментарии
@@ -66,6 +84,11 @@ app.post("/api/comments", (req, res) => {
 
   const newComment = db.prepare("SELECT * FROM comments WHERE id = ?").get(info.lastInsertRowid);
   res.status(201).json(toClientComment(newComment));
+});
+
+// =================== Переводы интерфейса ===================
+app.get("/api/i18n", (req, res) => {
+  res.json(getTranslations());
 });
 
 // =================== Технологии (пример) ===================
