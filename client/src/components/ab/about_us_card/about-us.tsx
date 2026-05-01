@@ -55,74 +55,36 @@ const AboutUsCard: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Функция генерации частиц
-  const createParticles = (parent: HTMLElement) => {
-    const rect = parent.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    for (let i = 0; i < 15; i++) {
-      const circle = document.createElement("span");
-      circle.className = "explosion-circle";
-      circle.style.background = "var(--blue)";
-      const size = Math.random() * 3 + 3 + "px";
-      circle.style.width = size;
-      circle.style.height = size;
-
-      const offsetX = (Math.random() - 0.5) * rect.width;
-      const offsetY = (Math.random() - 0.5) * rect.height;
-
-      circle.style.left = centerX + offsetX + "px";
-      circle.style.top = centerY + offsetY + "px";
-
-      parent.appendChild(circle);
-
-      const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * 30 + 10;
-
-      const translateX = Math.cos(angle) * distance;
-      const translateY = Math.sin(angle) * distance;
-
-      circle.animate(
-        [
-          { transform: "translate(0,0)", opacity: 1 },
-          { transform: `translate(${translateX}px, ${translateY}px)`, opacity: 0 }
-        ],
-        {
-          duration: 600 + Math.random() * 300,
-          easing: "ease-out"
-        }
-      );
-
-      setTimeout(() => circle.remove(), 1000);
-    }
-  };
-
-  const handleClick = (idx: number, e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = (idx: number) => {
     setActiveIndex(idx);
-    createParticles(e.currentTarget);
   };
 
   return (
     <div className="about-us-container">
-      <div className="pagination-about-us scroll-animate">
-        {cards.map((_, idx) => (
-          <div
+      <div className="pagination-about-us scroll-animate" role="tablist" aria-label="Преимущества">
+        {cards.map((card, idx) => (
+          <button
+            type="button"
             key={idx}
             className={`pagination-item ${idx === activeIndex ? "active" : ""}`}
-            onClick={(e) => handleClick(idx, e)}
+            onClick={() => handleClick(idx)}
+            role="tab"
+            aria-selected={idx === activeIndex}
+            aria-label={card.title}
           >
             <div className="pagination-svg">{cards[idx].svg}</div>
-          </div>
+          </button>
         ))}
       </div>
 
       <div className="card-abut-us scroll-animate">
         <div className="top-circle">
-          <div className="inner-circle">{cards[activeIndex].svg}</div>
+          <div className="inner-circle" key={`icon-${activeIndex}`}>{cards[activeIndex].svg}</div>
         </div>
-        <h2>{cards[activeIndex].title}</h2>
-        <p>{cards[activeIndex].description}</p>
+        <div className="about-card-copy" key={activeIndex}>
+          <h2>{cards[activeIndex].title}</h2>
+          <p>{cards[activeIndex].description}</p>
+        </div>
       </div>
     </div>
   );

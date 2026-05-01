@@ -13,6 +13,7 @@
 
   .pagination-item {
     align-items: center;
+    appearance: none;
     background: color-mix(in srgb, var(--surface) 90%, transparent);
     border: 1px solid var(--border-soft);
     border-radius: 18px;
@@ -22,9 +23,13 @@
     display: flex;
     height: 58px;
     justify-content: center;
-    overflow: hidden;
     position: relative;
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      background 0.35s ease,
+      border-color 0.35s ease,
+      color 0.35s ease,
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
     width: 58px;
 
     &:hover {
@@ -32,19 +37,31 @@
       transform: translateY(-3px);
     }
 
+    &:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--blue) 32%, transparent);
+      outline-offset: 4px;
+    }
+
     &.active {
       background:
         radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.34), transparent 36%),
         linear-gradient(135deg, var(--orange), var(--blue));
+      border-color: color-mix(in srgb, var(--blue) 36%, transparent);
       box-shadow: 0 16px 34px color-mix(in srgb, var(--blue) 24%, transparent);
       color: var(--text-inverse);
+      transform: translateX(4px);
     }
 
     .pagination-svg {
       display: grid;
       height: 26px;
       place-items: center;
+      transition: transform 0.35s ease;
       width: 26px;
+    }
+
+    &.active .pagination-svg {
+      transform: scale(1.08);
     }
   }
 }
@@ -97,6 +114,7 @@
       display: flex;
       height: 92px;
       justify-content: center;
+      animation: aboutIconIn 0.42s cubic-bezier(0.22, 1, 0.36, 1);
       width: 92px;
 
       svg {
@@ -104,6 +122,10 @@
         width: 56px;
       }
     }
+  }
+
+  .about-card-copy {
+    animation: aboutCopyIn 0.48s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   h2 {
@@ -124,11 +146,28 @@
   }
 }
 
-.explosion-circle {
-  border-radius: 50%;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1000;
+@keyframes aboutCopyIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutIconIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88) rotate(-8deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 @media (max-width: 640px) {

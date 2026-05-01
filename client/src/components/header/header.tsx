@@ -1,23 +1,48 @@
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
-import type { MouseEvent } from "react";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./header.scss";
 
 const navItems = [
   { key: "nav.home", target: "home" },
-  { key: "nav.about", target: "about" },
   { key: "nav.development", target: "development" },
   { key: "nav.catalog", target: "catalog" },
+  { key: "nav.about", target: "about" },
   { key: "nav.start", target: "start" },
 ];
 
 export default function Header() {
   const { currentTheme, themes, setThemeId, lang, setLang, languages, t } = useThemeLang();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentFlag = languages.find((language) => language.code === lang)?.flag || "img/flags/ru.svg";
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > 1080) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const scrollToSection = (target: string) => (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
+    setIsMenuOpen(false);
     const element = document.getElementById(target);
 
     if (element) {
@@ -27,7 +52,7 @@ export default function Header() {
   };
 
   return (
-    <header className="header-wrapper">
+    <header className={`header-wrapper ${isMenuOpen ? "mobile-menu-open" : ""}`}>
       <div className="header-inner">
         <div className="header-left">
           <a className="logo" href="#home" onClick={scrollToSection("home")} aria-label="GearLabs">
@@ -65,7 +90,14 @@ export default function Header() {
           </a>
         </div>
 
-        <nav className="header-center" aria-label="Main navigation">
+        <button
+          className="mobile-menu-backdrop"
+          type="button"
+          aria-label="Закрыть меню"
+          onClick={() => setIsMenuOpen(false)}
+        />
+
+        <nav id="header-navigation" className="header-center" aria-label="Main navigation">
           <Nav className="header-menu">
             {navItems.map((item) => (
               <Nav.Link
@@ -120,6 +152,17 @@ export default function Header() {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+
+        <button
+          className="burger-toggle"
+          type="button"
+          aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+          aria-expanded={isMenuOpen}
+          aria-controls="header-navigation"
+          onClick={() => setIsMenuOpen((value) => !value)}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
     </header>
   );
