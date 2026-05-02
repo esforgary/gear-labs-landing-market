@@ -1,19 +1,24 @@
-import type { MouseEvent } from "react";
+import { useMemo, type CSSProperties, type MouseEvent } from "react";
 import { ArrowUpRight, Github, Mail, Rocket, Send } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./footer.scss";
 
 const navItems = [
   { key: "nav.home", target: "home" },
-  { key: "nav.about", target: "about" },
   { key: "nav.development", target: "development" },
   { key: "nav.catalog", target: "catalog" },
+  { key: "nav.about", target: "about" },
   { key: "nav.start", target: "start" },
 ];
+
+const serviceItems = ["Landing pages", "React UI", "Telegram bots", "3D visual"];
+const createAccent = () => (Math.random() > 0.5 ? "var(--orange)" : "var(--blue)");
 
 export default function Footer() {
   const { t } = useThemeLang();
   const year = new Date().getFullYear();
+  const navAccents = useMemo(() => navItems.map(createAccent), []);
+  const serviceAccents = useMemo(() => serviceItems.map(createAccent), []);
 
   const scrollToSection = (target: string) => (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -73,8 +78,14 @@ export default function Footer() {
 
         <nav className="footer-col" aria-label="Footer navigation">
           <span className="footer-col-title">{t("footer.navigation")}</span>
-          {navItems.map((item) => (
-            <a key={item.target} className="footer-link" href={`#${item.target}`} onClick={scrollToSection(item.target)}>
+          {navItems.map((item, index) => (
+            <a
+              key={item.target}
+              className="footer-link"
+              href={`#${item.target}`}
+              onClick={scrollToSection(item.target)}
+              style={{ "--footer-accent": navAccents[index] } as CSSProperties}
+            >
               {t(item.key)}
             </a>
           ))}
@@ -82,10 +93,15 @@ export default function Footer() {
 
         <div className="footer-col">
           <span className="footer-col-title">{t("footer.services")}</span>
-          <span className="footer-link">Landing pages</span>
-          <span className="footer-link">React UI</span>
-          <span className="footer-link">Telegram bots</span>
-          <span className="footer-link">3D visual</span>
+          {serviceItems.map((item, index) => (
+            <span
+              className="footer-link"
+              key={item}
+              style={{ "--footer-accent": serviceAccents[index] } as CSSProperties}
+            >
+              {item}
+            </span>
+          ))}
         </div>
 
         <div className="footer-cta">

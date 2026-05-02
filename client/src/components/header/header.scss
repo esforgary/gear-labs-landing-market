@@ -80,6 +80,7 @@
   gap: clamp(10px, 2.8vw, 34px);
 
   .nav-link {
+    --nav-accent: var(--blue);
     border-radius: 999px;
     color: var(--text-primary) !important;
     cursor: pointer;
@@ -90,9 +91,10 @@
     transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 
     &:hover,
-    &:focus {
-      background: color-mix(in srgb, var(--blue) 14%, transparent);
-      color: var(--blue) !important;
+    &:focus,
+    &.active {
+      background: color-mix(in srgb, var(--nav-accent) 16%, transparent);
+      color: var(--nav-accent) !important;
       transform: translateY(-1px);
     }
   }

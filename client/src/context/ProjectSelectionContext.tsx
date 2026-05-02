@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
 export interface SelectedProject {
@@ -17,24 +17,18 @@ interface ProjectSelectionContextValue {
 const storageKey = "gearlabs-selected-project";
 const ProjectSelectionContext = createContext<ProjectSelectionContextValue | null>(null);
 
-const readStoredProject = (): SelectedProject | null => {
-  try {
-    const stored = localStorage.getItem(storageKey);
-    return stored ? JSON.parse(stored) : null;
-  } catch {
-    return null;
-  }
-};
-
 export function ProjectSelectionProvider({ children }: { children: ReactNode }) {
-  const [selectedProject, setSelectedProject] = useState<SelectedProject | null>(readStoredProject);
+  const [selectedProject, setSelectedProject] = useState<SelectedProject | null>(null);
+
+  useEffect(() => {
+    localStorage.removeItem(storageKey);
+  }, []);
 
   const value = useMemo(
     () => ({
       selectedProject,
       selectProject: (project: SelectedProject) => {
         setSelectedProject(project);
-        localStorage.setItem(storageKey, JSON.stringify(project));
       },
     }),
     [selectedProject]

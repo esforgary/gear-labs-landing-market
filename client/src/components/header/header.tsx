@@ -1,7 +1,7 @@
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./header.scss";
 
@@ -13,12 +13,27 @@ const navItems = [
   { key: "nav.start", target: "start" },
 ];
 
+const createAccent = () => (Math.random() > 0.5 ? "var(--orange)" : "var(--blue)");
+
 export default function Header() {
   const { currentTheme, themes, setThemeId, lang, setLang, languages, t } = useThemeLang();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const navAccents = useMemo(() => navItems.map(createAccent), []);
   const currentFlag = languages.find((language) => language.code === lang)?.flag || "img/flags/ru.svg";
 
   useEffect(() => {
+    const handleScroll = () => {
+      const currentSection = navItems.reduce((current, item) => {
+        const element = document.getElementById(item.target);
+        if (!element) return current;
+
+        return element.getBoundingClientRect().top <= 150 ? item.target : current;
+      }, "home");
+
+      setActiveSection(currentSection);
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false);
@@ -33,16 +48,20 @@ export default function Header() {
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const scrollToSection = (target: string) => (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setIsMenuOpen(false);
+    setActiveSection(target);
     const element = document.getElementById(target);
 
     if (element) {
@@ -99,11 +118,13 @@ export default function Header() {
 
         <nav id="header-navigation" className="header-center" aria-label="Main navigation">
           <Nav className="header-menu">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <Nav.Link
                 key={item.target}
+                className={activeSection === item.target ? "active" : ""}
                 href={`#${item.target}`}
                 onClick={scrollToSection(item.target)}
+                style={{ "--nav-accent": navAccents[index] } as CSSProperties}
               >
                 {t(item.key)}
               </Nav.Link>

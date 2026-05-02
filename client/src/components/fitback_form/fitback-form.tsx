@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ClipboardCheck, ExternalLink, FileArchive, LayoutTemplate, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import { ClipboardCheck, FileArchive, LayoutTemplate, Mail, MessageSquareText, Paperclip, PenLine, ShoppingBag, Sparkles, UserRound } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import { useProjectSelection } from "../../context/ProjectSelectionContext";
@@ -16,7 +16,6 @@ interface FeatureItem {
   selected?: boolean;
   onClick?: () => void;
   href?: string;
-  external?: boolean;
 }
 
 const googleFormsPlaceholderUrl = "https://docs.google.com/forms/";
@@ -54,7 +53,6 @@ export default function FitbackForm() {
       text: t("fitback.feature.wishes.text"),
       tone: "blue",
       href: googleFormsPlaceholderUrl,
-      external: true,
     },
     {
       icon: <FileArchive />,
@@ -78,10 +76,7 @@ export default function FitbackForm() {
         )}
       </div>
       <div className="feature-text">
-        <h3>
-          {item.title}
-          {item.external && <ExternalLink size={20} />}
-        </h3>
+        <h3>{item.title}</h3>
         <p>{item.text}</p>
       </div>
     </>

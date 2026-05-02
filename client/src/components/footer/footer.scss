@@ -127,6 +127,7 @@
 }
 
 .footer-link {
+  --footer-accent: var(--blue);
   color: color-mix(in srgb, var(--text-inverse) 78%, transparent);
   cursor: pointer;
   font-size: 16px;
@@ -134,7 +135,7 @@
   transition: color 0.22s ease, transform 0.22s ease;
 
   &:hover {
-    color: var(--blue);
+    color: var(--footer-accent);
     transform: translateX(4px);
   }
 }
