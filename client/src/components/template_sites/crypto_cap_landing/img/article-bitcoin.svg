@@ -1,0 +1,7 @@
+<svg width="520" height="340" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="340" rx="24" fill="#221A10"/>
+  <circle cx="124" cy="172" r="82" fill="#F59E0B"/><path d="M139 116L134 137C151 141 161 152 159 166C158 176 151 183 141 186C153 192 158 202 155 214C151 234 134 244 108 242L103 262H90L95 241H84L79 262H66L71 241H54L58 225H71L87 158H74L78 142H96L101 121H114L109 142H120L125 116H139Z" fill="white"/>
+  <rect x="260" y="90" width="184" height="124" rx="18" fill="#372814"/><path d="M288 174H416" stroke="#F3BA2F" stroke-width="10" stroke-linecap="round"/><path d="M288 136H390" stroke="#FFF0B3" stroke-width="10" stroke-linecap="round"/>
+  <rect width="520" height="340" rx="24" fill="url(#btcShade)"/>
+  <defs><linearGradient id="btcShade" x1="0" y1="0" x2="520" y2="340"><stop stop-color="#000" stop-opacity=".04"/><stop offset="1" stop-color="#0A0115" stop-opacity=".52"/></linearGradient></defs>
+</svg>

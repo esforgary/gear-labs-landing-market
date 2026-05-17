@@ -1,0 +1,11 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="28" cy="28" r="28" fill="#111827"/>
+  <path d="M18 17H40L34 23H12L18 17Z" fill="url(#solA)"/>
+  <path d="M22 25H44L38 31H16L22 25Z" fill="url(#solB)"/>
+  <path d="M18 33H40L34 39H12L18 33Z" fill="url(#solC)"/>
+  <defs>
+    <linearGradient id="solA" x1="12" y1="20" x2="40" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient>
+    <linearGradient id="solB" x1="16" y1="28" x2="44" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#14F195"/><stop offset="1" stop-color="#00C2FF"/></linearGradient>
+    <linearGradient id="solC" x1="12" y1="36" x2="40" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient>
+  </defs>
+</svg>

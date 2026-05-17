@@ -14,6 +14,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 .page-section {
   scroll-margin-top: 110px;
 }

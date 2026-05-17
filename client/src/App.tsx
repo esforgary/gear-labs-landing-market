@@ -27,7 +27,7 @@ useEffect(() => {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight - 50) {
         el.classList.add('visible');
-        (el as HTMLElement).style.setProperty('--delay', `${index * 0.15}s`);
+        (el as HTMLElement).style.setProperty('--delay', `${Math.min(index * 0.03, 0.12)}s`);
       }
     });
   };

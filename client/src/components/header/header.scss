@@ -90,9 +90,17 @@
     padding: 9px 16px;
     transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--nav-accent) 30%, transparent);
+      outline-offset: 4px;
+    }
+
     &:hover,
-    &:focus,
-    &.active {
+    &.is-current {
       background: color-mix(in srgb, var(--nav-accent) 16%, transparent);
       color: var(--nav-accent) !important;
       transform: translateY(-1px);
@@ -277,7 +285,7 @@
     position: fixed;
     right: clamp(12px, 4vw, 28px);
     top: 78px;
-    transform: translateX(calc(100% + 36px)) scale(0.98);
+    transform: translateY(-8px) scale(0.98);
     transition:
       opacity 0.28s ease,
       transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),

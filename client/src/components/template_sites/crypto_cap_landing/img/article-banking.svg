@@ -1,0 +1,10 @@
+<svg width="520" height="340" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="340" rx="24" fill="#142333"/>
+  <rect x="54" y="82" width="412" height="110" rx="10" fill="#31506B"/>
+  <rect x="72" y="104" width="364" height="50" rx="4" fill="#5A89AA"/>
+  <text x="90" y="139" fill="#EAF7FF" font-family="Arial, sans-serif" font-size="30" font-weight="700">Personal Banking</text>
+  <rect x="118" y="230" width="300" height="20" rx="10" fill="#D9EEF8"/>
+  <rect x="154" y="268" width="230" height="18" rx="9" fill="#78B7D6"/>
+  <rect width="520" height="340" rx="24" fill="url(#bankShade)"/>
+  <defs><linearGradient id="bankShade" x1="0" y1="0" x2="520" y2="340"><stop stop-color="#000" stop-opacity=".08"/><stop offset="1" stop-color="#0A0115" stop-opacity=".56"/></linearGradient></defs>
+</svg>

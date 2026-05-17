@@ -1,0 +1,40 @@
+<svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dashCard" x1="80" y1="22" x2="682" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#122143"/>
+      <stop offset="1" stop-color="#020817"/>
+    </linearGradient>
+    <linearGradient id="dashBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#67C4FF"/>
+      <stop offset="1" stop-color="#1A5DDB"/>
+    </linearGradient>
+    <filter id="dashGlow" x="0" y="0" width="760" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#2785FF" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#dashGlow)">
+    <rect x="58" y="44" width="644" height="382" rx="28" fill="url(#dashCard)" stroke="#3276BA" stroke-opacity="0.56" stroke-width="2"/>
+    <rect x="82" y="75" width="596" height="46" rx="14" fill="#071026" stroke="#224D86" stroke-opacity="0.6"/>
+    <circle cx="109" cy="98" r="8" fill="#59B9FF"/>
+    <circle cx="134" cy="98" r="8" fill="#1D74E8"/>
+    <circle cx="159" cy="98" r="8" fill="#314D7D"/>
+    <rect x="510" y="89" width="120" height="16" rx="8" fill="#1B315A"/>
+    <rect x="92" y="148" width="184" height="230" rx="22" fill="#09142B" stroke="#254E86" stroke-width="2"/>
+    <rect x="306" y="148" width="162" height="102" rx="22" fill="#09142B" stroke="#254E86" stroke-width="2"/>
+    <rect x="492" y="148" width="162" height="102" rx="22" fill="#09142B" stroke="#254E86" stroke-width="2"/>
+    <rect x="306" y="276" width="348" height="102" rx="22" fill="#09142B" stroke="#254E86" stroke-width="2"/>
+    <path d="M122 323c40-98 70-96 102-16 10 26 23 30 39 8" stroke="url(#dashBlue)" stroke-width="14" stroke-linecap="round"/>
+    <rect x="328" y="174" width="84" height="16" rx="8" fill="#5EBEFF"/>
+    <rect x="328" y="202" width="112" height="10" rx="5" fill="#243D68"/>
+    <rect x="516" y="174" width="84" height="16" rx="8" fill="#5EBEFF"/>
+    <rect x="516" y="202" width="98" height="10" rx="5" fill="#243D68"/>
+    <rect x="330" y="304" width="286" height="12" rx="6" fill="#243D68"/>
+    <rect x="330" y="332" width="236" height="12" rx="6" fill="#243D68"/>
+    <rect x="330" y="360" width="176" height="12" rx="6" fill="#243D68"/>
+    <circle cx="638" cy="357" r="18" fill="url(#dashBlue)"/>
+    <rect x="164" y="408" width="432" height="66" rx="22" fill="#061126" stroke="#28558E" stroke-width="2"/>
+    <rect x="196" y="434" width="124" height="14" rx="7" fill="#5EBEFF"/>
+    <rect x="346" y="434" width="94" height="14" rx="7" fill="#2C5591"/>
+    <rect x="464" y="434" width="96" height="14" rx="7" fill="#2C5591"/>
+  </g>
+</svg>

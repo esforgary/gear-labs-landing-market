@@ -1,0 +1,1262 @@
+.cursus-page {
+  --cursus-cream: #fff1c9;
+  --cursus-yellow: #f9b800;
+  --cursus-dark: #262626;
+  --cursus-white: #ffffff;
+  --cursus-muted: rgba(38, 38, 38, 0.72);
+  --cursus-radius: 52px;
+  --cursus-max: 1650px;
+
+  background: var(--cursus-cream);
+  color: var(--cursus-dark);
+  font-family: "Segoe UI", Inter, Arial, sans-serif;
+  min-height: 100%;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input {
+    color: inherit;
+    font: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+}
+
+.cursus-section-inner,
+.cursus-header,
+.cursus-footer {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--cursus-max);
+  width: calc(100% - clamp(32px, 10vw, 270px));
+}
+
+.cursus-hero {
+  background: var(--cursus-cream);
+  min-height: 1020px;
+  padding: 60px 0 220px;
+  position: relative;
+
+  &::after {
+    background: var(--cursus-yellow);
+    bottom: -1px;
+    clip-path: polygon(0 70%, 100% 24%, 100% 100%, 0 100%);
+    content: "";
+    height: 260px;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.cursus-header {
+  align-items: center;
+  background: var(--cursus-white);
+  border-radius: 999px;
+  display: flex;
+  height: 96px;
+  justify-content: center;
+  padding: 0 30px;
+  position: relative;
+  z-index: 3;
+}
+
+.cursus-logo {
+  align-items: center;
+  color: var(--cursus-dark);
+  display: inline-flex;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.cursus-language {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  > button {
+    align-items: center;
+    background: var(--cursus-white);
+    border: 1px solid rgba(38, 38, 38, 0.12);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(38, 38, 38, 0.08);
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    height: 50px;
+    padding: 0 14px;
+  }
+}
+
+.cursus-flag {
+  background:
+    linear-gradient(90deg, transparent 38%, #d80027 38% 62%, transparent 62%),
+    linear-gradient(0deg, transparent 36%, #d80027 36% 64%, transparent 64%),
+    linear-gradient(90deg, transparent 32%, #ffffff 32% 68%, transparent 68%),
+    linear-gradient(0deg, transparent 28%, #ffffff 28% 72%, transparent 72%),
+    linear-gradient(27deg, transparent 43%, #ffffff 43% 55%, transparent 55%),
+    linear-gradient(-27deg, transparent 43%, #ffffff 43% 55%, transparent 55%),
+    linear-gradient(27deg, transparent 47%, #d80027 47% 52%, transparent 52%),
+    linear-gradient(-27deg, transparent 47%, #d80027 47% 52%, transparent 52%),
+    #0052b4;
+  border-radius: 5px;
+  box-shadow: 0 2px 7px rgba(38, 38, 38, 0.16);
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 24px;
+  overflow: hidden;
+  width: 36px;
+}
+
+.cursus-lang-arrow {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--cursus-dark);
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.cursus-language-menu {
+  background: var(--cursus-white);
+  border: 1px solid rgba(38, 38, 38, 0.12);
+  border-radius: 22px;
+  box-shadow: 0 18px 46px rgba(38, 38, 38, 0.14);
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 12px);
+  width: 168px;
+
+  button {
+    background: transparent;
+    border: 0;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 10px 12px;
+    text-align: left;
+
+    &:hover {
+      background: var(--cursus-cream);
+    }
+  }
+}
+
+.cursus-hero-grid {
+  align-items: center;
+  display: grid;
+  gap: clamp(48px, 7vw, 120px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.85fr);
+  margin: 115px auto 0;
+  max-width: 1410px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.cursus-hero-copy {
+  display: grid;
+  gap: 58px;
+
+  small {
+    color: var(--cursus-yellow);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    color: var(--cursus-dark);
+    font-size: clamp(58px, 6.3vw, 120px);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 0.94;
+    max-width: 780px;
+
+    span {
+      display: block;
+      text-decoration: underline;
+      text-decoration-color: var(--cursus-yellow);
+      text-decoration-thickness: 10px;
+      text-underline-offset: 12px;
+    }
+  }
+}
+
+.cursus-pill-cloud,
+.cursus-pill-stack {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 690px;
+}
+
+.cursus-pill {
+  align-items: center;
+  background: var(--cursus-white);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: 700;
+  gap: 7px;
+  min-height: 58px;
+  padding: 14px 40px 14px 20px;
+  white-space: nowrap;
+  max-width: 100%;
+
+  .cursus-check {
+    align-items: center;
+    background: var(--cursus-yellow);
+    border-radius: 50%;
+    color: var(--cursus-dark);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 18px;
+    font-weight: 900;
+    height: 30px;
+    justify-content: center;
+    line-height: 1;
+    width: 30px;
+  }
+}
+
+.cursus-btn {
+  align-items: center;
+  background: var(--cursus-yellow);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 24px;
+  font-weight: 800;
+  gap: 40px;
+  justify-content: space-between;
+  min-height: 78px;
+  padding: 22px 50px 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 350px;
+
+  .cursus-btn-arrow {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
+
+    svg {
+      display: block;
+      height: 34px;
+      overflow: visible;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.6;
+      width: 34px;
+
+      circle,
+      path {
+        fill: none;
+      }
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 18px 40px rgba(249, 184, 0, 0.28);
+    transform: translateY(-3px);
+  }
+
+  &.dark {
+    background: var(--cursus-dark);
+    color: var(--cursus-white);
+  }
+}
+
+.cursus-hero-illustration {
+  aspect-ratio: 1;
+  max-width: 714px;
+  position: relative;
+  width: 100%;
+
+  &::before {
+    background: #ffe18b;
+    border: 3px solid var(--cursus-dark);
+    border-radius: 42% 58% 44% 56%;
+    content: "";
+    inset: 13% 10% 20% 13%;
+    position: absolute;
+    transform: rotate(-8deg);
+  }
+}
+
+.hero-laptop,
+.hero-paper,
+.hero-person,
+.hero-chat {
+  position: absolute;
+}
+
+.hero-laptop {
+  background: var(--cursus-white);
+  border: 3px solid var(--cursus-dark);
+  border-radius: 20px;
+  bottom: 18%;
+  box-shadow: 22px 22px 0 rgba(38, 38, 38, 0.08);
+  height: 170px;
+  left: 25%;
+  width: 260px;
+
+  span:first-child {
+    background: var(--cursus-dark);
+    border-radius: 18px 18px 4px 4px;
+    display: block;
+    height: 110px;
+    margin: 18px;
+  }
+
+  span:last-child {
+    background: var(--cursus-yellow);
+    border-radius: 999px;
+    bottom: -22px;
+    height: 28px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 310px;
+  }
+}
+
+.hero-paper {
+  background: var(--cursus-white);
+  border: 3px solid var(--cursus-dark);
+  border-radius: 18px;
+  height: 150px;
+  width: 120px;
+
+  &.one {
+    right: 15%;
+    top: 24%;
+  }
+
+  &.two {
+    left: 10%;
+    top: 35%;
+  }
+}
+
+.hero-person {
+  background: var(--cursus-dark);
+  border-radius: 999px 999px 44px 44px;
+  height: 260px;
+  left: 45%;
+  top: 32%;
+  width: 150px;
+
+  i {
+    background: var(--cursus-white);
+    border: 3px solid var(--cursus-dark);
+    border-radius: 50%;
+    display: block;
+    height: 88px;
+    left: 31px;
+    position: absolute;
+    top: -48px;
+    width: 88px;
+  }
+}
+
+.hero-chat {
+  align-items: center;
+  background: var(--cursus-white);
+  border: 3px solid var(--cursus-dark);
+  border-radius: 20px;
+  display: flex;
+  font-size: 26px;
+  font-weight: 900;
+  height: 88px;
+  justify-content: center;
+  width: 120px;
+
+  &.left {
+    left: 12%;
+    top: 22%;
+  }
+
+  &.right {
+    right: 5%;
+    top: 42%;
+  }
+}
+
+.cursus-intro {
+  background: var(--cursus-yellow);
+  overflow: hidden;
+  padding: 34px 0 170px;
+  position: relative;
+
+  &::after {
+    background: var(--cursus-dark);
+    bottom: -1px;
+    clip-path: polygon(0 56%, 100% 18%, 100% 100%, 0 100%);
+    content: "";
+    height: 210px;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.cursus-intro .two-col {
+  align-items: start;
+  grid-template-columns: minmax(0, 0.74fr) minmax(460px, 1fr);
+}
+
+.two-col {
+  align-items: center;
+  display: grid;
+  gap: clamp(54px, 9vw, 170px);
+  grid-template-columns: minmax(0, 0.82fr) minmax(340px, 0.88fr);
+  position: relative;
+  z-index: 2;
+
+  &.reverse {
+    grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.82fr);
+  }
+}
+
+.cursus-copy-block {
+  display: grid;
+  gap: 40px;
+  max-width: 620px;
+
+  h2 {
+    font-size: clamp(42px, 4.6vw, 80px);
+    font-weight: 800;
+    line-height: 1.02;
+  }
+
+  h3 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  p {
+    color: var(--cursus-muted);
+    font-size: 30px;
+    line-height: 1.34;
+  }
+
+  &.light {
+    color: var(--cursus-white);
+
+    p {
+      color: var(--cursus-white);
+      font-size: 30px;
+      line-height: 1.34;
+    }
+  }
+}
+
+.cursus-illustration {
+  aspect-ratio: 1;
+  display: block;
+  height: auto;
+  justify-self: center;
+  max-width: 780px;
+  object-fit: contain;
+  width: min(100%, 780px);
+}
+
+.cursus-intro .cursus-illustration {
+  justify-self: end;
+  transform: translateX(8px);
+  transform-origin: center;
+}
+
+.cursus-process {
+  --feature-card-w: clamp(204px, 21.5cqw, 312px);
+  --feature-card-gap: clamp(24px, 3.25cqw, 50px);
+  --feature-card-shift: clamp(42px, 6.2cqw, 94px);
+
+  background: var(--cursus-dark);
+  container-type: inline-size;
+  padding: clamp(58px, 5vw, 72px) 0 calc(clamp(70px, 5.8vw, 88px) + var(--feature-card-shift));
+  position: relative;
+}
+
+.cursus-process .cursus-section-inner {
+  max-width: 1410px;
+  width: min(calc(100% - clamp(40px, 9vw, 164px)), 1410px);
+}
+
+.process-grid {
+  align-items: center;
+  display: grid;
+  gap: clamp(42px, 6cqw, 120px);
+  grid-template-columns: minmax(360px, 560px) minmax(calc(var(--feature-card-w) * 2 + var(--feature-card-gap)), max-content);
+  justify-content: center;
+}
+
+.cursus-process .cursus-copy-block {
+  gap: clamp(24px, 2.5vw, 36px);
+  max-width: 560px;
+}
+
+.cursus-process .cursus-copy-block.light {
+  p:first-child {
+    color: var(--cursus-yellow);
+    font-size: clamp(15px, 1.35cqw, 20px);
+    font-weight: 400;
+    line-height: 1.35;
+    max-width: 600px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  h2 {
+    font-size: clamp(34px, 3.4cqw, 48px);
+    line-height: 1.32;
+    max-width: 560px;
+  }
+
+  .cursus-btn {
+    background: var(--cursus-white);
+    color: var(--cursus-dark);
+    margin-top: 24px;
+    min-height: clamp(58px, 5.2cqw, 74px);
+    padding: 18px clamp(30px, 3.4cqw, 48px) 20px;
+    width: min(100%, 340px);
+  }
+}
+
+.cursus-feature-grid {
+  display: grid;
+  gap: var(--feature-card-gap);
+  grid-template-columns: repeat(2, var(--feature-card-w));
+  justify-items: center;
+  justify-content: center;
+}
+
+.cursus-feature-card {
+  background: var(--cursus-white);
+  border-radius: clamp(32px, 3vw, 44px);
+  display: grid;
+  gap: clamp(14px, 1.35vw, 20px);
+  height: calc(var(--feature-card-w) * 1.13);
+  min-height: 0;
+  padding: calc(var(--feature-card-w) * 0.46) calc(var(--feature-card-w) * 0.143) calc(var(--feature-card-w) * 0.143);
+  position: relative;
+  transition: transform 0.25s ease;
+  width: var(--feature-card-w);
+
+  .cursus-card-number {
+    font-size: clamp(42px, 4.45cqw, 64px);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 0.78;
+    margin-bottom: 8px;
+
+    i {
+      background: var(--card-dot, var(--cursus-yellow));
+      border-radius: 50%;
+      display: inline-block;
+      height: 0.16em;
+      margin-left: 0.12em;
+      width: 0.16em;
+    }
+  }
+
+  strong {
+    font-size: clamp(17px, 1.48cqw, 22px);
+    font-weight: 800;
+    line-height: 1.12;
+  }
+
+  p {
+    display: grid;
+    font-size: clamp(13px, 1.05cqw, 16px);
+    gap: 3px;
+    line-height: 1.18;
+
+    b {
+      font-size: clamp(14px, 1.16cqw, 18px);
+      font-weight: 500;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  &.card-2,
+  &.card-3 {
+    background: var(--cursus-yellow);
+    --card-dot: var(--cursus-white);
+  }
+
+  &.card-2 {
+    transform: translateY(var(--feature-card-shift));
+
+    &:hover {
+      transform: translateY(calc(var(--feature-card-shift) - 8px));
+    }
+  }
+
+  &.card-4 {
+    transform: translateY(var(--feature-card-shift));
+
+    &:hover {
+      transform: translateY(calc(var(--feature-card-shift) - 8px));
+    }
+  }
+}
+
+.cursus-card-icon {
+  display: block;
+  height: clamp(30px, 2.85cqw, 44px);
+  left: calc(var(--feature-card-w) * 0.143);
+  object-fit: contain;
+  position: absolute;
+  top: calc(var(--feature-card-w) * 0.155);
+  width: clamp(30px, 2.85cqw, 44px);
+}
+
+.cursus-feature-card.card-1 .cursus-card-icon {
+  height: clamp(36px, 3.45cqw, 52px);
+  top: calc(var(--feature-card-w) * 0.137);
+  width: clamp(36px, 3.45cqw, 52px);
+}
+
+@container (max-width: 1040px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .cursus-process .cursus-copy-block {
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .cursus-process .cursus-copy-block.light h2 {
+    max-width: 680px;
+  }
+
+  .cursus-feature-card.card-2,
+  .cursus-feature-card.card-4 {
+    transform: none;
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+.cursus-testimonial-band {
+  background:
+    linear-gradient(170deg, var(--cursus-dark) 0 38%, transparent 38.15%),
+    linear-gradient(170deg, transparent 0 68%, var(--cursus-yellow) 68.15% 100%),
+    var(--cursus-cream);
+  padding: 78px 0 92px;
+  position: relative;
+}
+
+.cursus-testimonial {
+  align-items: center;
+  background: var(--cursus-white);
+  border-radius: 100px;
+  display: grid;
+  gap: 72px;
+  grid-template-columns: 472px minmax(0, 1fr);
+  height: 672px;
+  margin: 0 auto;
+  max-width: var(--cursus-max);
+  min-height: 672px;
+  overflow: hidden;
+  padding: 90px 96px;
+  position: relative;
+  width: calc(100% - clamp(32px, 10vw, 270px));
+  z-index: 4;
+}
+
+.testimonial-photo {
+  aspect-ratio: 1;
+  border-radius: 999px;
+  height: auto;
+  object-fit: cover;
+  width: 472px;
+}
+
+.testimonial-copy {
+  animation: cursusFade 0.36s ease;
+  align-content: center;
+  display: grid;
+  gap: 28px;
+  grid-template-rows: minmax(112px, auto) minmax(202px, auto) auto auto;
+  max-width: 850px;
+  min-height: 482px;
+
+  h2 {
+    font-size: clamp(34px, 3.4vw, 50px);
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  p {
+    font-size: 30px;
+    line-height: 1.34;
+    max-width: 720px;
+  }
+
+  strong {
+    font-size: 24px;
+    font-weight: 800;
+  }
+}
+
+.testimonial-stars {
+  color: var(--cursus-yellow);
+  display: inline-flex;
+  font-size: 28px;
+  font-weight: 900;
+  gap: 4px;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+.testimonial-controls {
+  bottom: 46px;
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  right: 64px;
+
+  button {
+    background: var(--cursus-dark);
+    border: 0;
+    border-radius: 999px;
+    color: var(--cursus-white);
+    font-size: 13px;
+    font-weight: 900;
+    min-height: 38px;
+    padding: 0 16px;
+  }
+}
+
+.cursus-checks {
+  background: var(--cursus-yellow);
+  overflow: hidden;
+  padding: 64px 0 184px;
+  position: relative;
+
+  &::before {
+    content: none;
+  }
+
+  &::after {
+    background: var(--cursus-dark);
+    bottom: -1px;
+    clip-path: polygon(0 64%, 100% 24%, 100% 100%, 0 100%);
+    content: "";
+    height: 190px;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.cursus-checks .cursus-section-inner {
+  width: calc(100% - clamp(40px, 8vw, 220px));
+}
+
+.cursus-checks .two-col.reverse {
+  grid-template-columns: minmax(0, 0.82fr) minmax(460px, 1fr);
+}
+
+.cursus-checks .cursus-illustration {
+  justify-self: end;
+  transform: translateX(8px);
+  transform-origin: center;
+}
+
+.cursus-checks .cursus-copy-block,
+.cursus-checks .cursus-pill-stack {
+  max-width: 720px;
+}
+
+.cursus-faq {
+  background: var(--cursus-dark);
+  color: var(--cursus-white);
+  padding: 94px 0 170px;
+}
+
+.cursus-faq-head {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto 90px;
+  max-width: 900px;
+  text-align: center;
+
+  h2 {
+    font-size: clamp(42px, 4.3vw, 60px);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 30px;
+    line-height: 1.34;
+  }
+}
+
+.cursus-faq-list {
+  display: grid;
+  gap: 24px;
+}
+
+.cursus-faq-item {
+  background: var(--cursus-white);
+  border-radius: 40px;
+  color: var(--cursus-dark);
+  overflow: hidden;
+  transition: background 0.25s ease;
+
+  > button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    min-height: 140px;
+    padding: 40px 60px 44px 90px;
+    text-align: left;
+    width: 100%;
+
+    span {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .faq-icon {
+      align-items: center;
+      background: var(--cursus-yellow);
+      border-radius: 50%;
+      color: var(--cursus-dark);
+      display: inline-flex;
+      flex: 0 0 auto;
+      font-size: 42px;
+      font-weight: 900;
+      height: 56px;
+      justify-content: center;
+      line-height: 0.82;
+      width: 56px;
+    }
+  }
+
+  &.open {
+    > button {
+      padding-bottom: 24px;
+    }
+
+    .faq-answer {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s ease, opacity 0.25s ease;
+
+  p {
+    color: var(--cursus-muted);
+    font-size: 24px;
+    line-height: 1.45;
+    margin: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 90px 42px;
+  }
+}
+
+.cursus-footer {
+  background: var(--cursus-cream);
+  margin: -1px 0 0;
+  max-width: none;
+  padding: 116px 0 70px;
+  position: relative;
+  width: 100%;
+
+  &::before {
+    background: var(--cursus-cream);
+    clip-path: polygon(0 86%, 100% 38%, 100% 100%, 0 100%);
+    content: "";
+    height: 128px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -126px;
+  }
+}
+
+.cursus-footer-cta {
+  align-items: center;
+  border-bottom: 1px solid rgba(38, 38, 38, 0.2);
+  display: flex;
+  gap: clamp(48px, 13vw, 470px);
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--cursus-max);
+  padding-bottom: 90px;
+  position: relative;
+  width: calc(100% - clamp(32px, 10vw, 270px));
+  z-index: 1;
+
+  h2 {
+    font-size: clamp(34px, 3.4vw, 50px);
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 720px;
+  }
+}
+
+.cursus-footer-bottom {
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--cursus-max);
+  padding-top: 40px;
+  position: relative;
+  width: calc(100% - clamp(32px, 10vw, 270px));
+  z-index: 1;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+@keyframes cursusFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1180px) {
+  .cursus-section-inner,
+  .cursus-header,
+  .cursus-testimonial {
+    width: calc(100% - 40px);
+  }
+
+  .cursus-footer {
+    max-width: none;
+    width: 100%;
+  }
+
+  .cursus-footer-cta,
+  .cursus-footer-bottom {
+    width: calc(100% - 40px);
+  }
+
+  .cursus-hero-grid,
+  .two-col,
+  .two-col.reverse,
+  .process-grid,
+  .cursus-intro .two-col,
+  .cursus-checks .two-col.reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .cursus-checks .cursus-section-inner {
+    width: calc(100% - 40px);
+  }
+
+  .cursus-hero-illustration,
+  .cursus-illustration {
+    justify-self: center;
+    max-width: 560px;
+  }
+
+  .cursus-intro .cursus-illustration,
+  .cursus-checks .cursus-illustration {
+    justify-self: center;
+    transform: none;
+  }
+
+  .cursus-testimonial {
+    border-radius: 54px;
+    grid-template-columns: 260px minmax(0, 1fr);
+    height: 520px;
+    min-height: 520px;
+    padding: 56px;
+  }
+
+  .cursus-testimonial-band {
+    padding: 58px 0 70px;
+  }
+
+  .cursus-feature-card.card-2,
+  .cursus-feature-card.card-4 {
+    transform: none;
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+  }
+
+  .testimonial-photo {
+    width: 260px;
+  }
+
+  .testimonial-copy {
+    grid-template-rows: minmax(90px, auto) minmax(160px, auto) auto auto;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 720px) {
+  .cursus-hero {
+    min-height: 0;
+    padding: 50px 0 120px;
+  }
+
+  .cursus-header {
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  .cursus-logo {
+    font-size: 26px;
+  }
+
+  .cursus-language {
+    right: 16px;
+
+    > button {
+      gap: 8px;
+      height: 44px;
+      padding: 0 11px;
+    }
+  }
+
+  .cursus-hero-grid {
+    gap: 42px;
+    margin-top: 42px;
+    padding: 0 20px;
+  }
+
+  .cursus-hero-copy {
+    gap: 30px;
+
+    small {
+      font-size: 18px;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.02;
+    }
+  }
+
+  .cursus-pill-cloud,
+  .cursus-pill-stack {
+    display: grid;
+  }
+
+  .cursus-pill {
+    font-size: 15px;
+    min-height: 49px;
+    padding: 10px 22px 10px 14px;
+    white-space: normal;
+
+    .cursus-check {
+      height: 26px;
+      width: 26px;
+    }
+  }
+
+  .cursus-btn {
+    font-size: 18px;
+    min-height: 60px;
+    padding: 16px 28px;
+    width: min(100%, 335px);
+
+    .cursus-btn-arrow {
+      font-size: 18px;
+      height: 26px;
+      width: 26px;
+    }
+  }
+
+  .cursus-intro,
+  .cursus-checks {
+    padding: 78px 0 120px;
+  }
+
+  .cursus-process {
+    padding: 68px 0 96px;
+  }
+
+  .cursus-copy-block {
+    gap: 28px;
+
+    h2 {
+      font-size: 40px;
+    }
+
+    h3,
+    p,
+    &.light p {
+      font-size: 22px;
+    }
+  }
+
+  .cursus-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cursus-feature-card,
+  .cursus-feature-card.card-2,
+  .cursus-feature-card.card-4 {
+    height: auto;
+    min-height: 260px;
+    padding: 92px 34px 34px;
+    transform: none;
+    width: min(100%, 336px);
+  }
+
+  .cursus-card-icon {
+    height: 42px;
+    left: 34px;
+    top: 30px;
+    width: 42px;
+  }
+
+  .cursus-feature-card.card-1 .cursus-card-icon {
+    height: 48px;
+    top: 26px;
+    width: 48px;
+  }
+
+  .cursus-testimonial {
+    border-radius: 32px;
+    gap: 28px;
+    grid-template-columns: 1fr;
+    height: 670px;
+    margin: 0 auto;
+    min-height: 670px;
+    padding: 30px;
+  }
+
+  .cursus-testimonial-band {
+    padding: 44px 0 54px;
+  }
+
+  .testimonial-photo {
+    width: 180px;
+  }
+
+  .testimonial-copy {
+    grid-template-rows: minmax(68px, auto) minmax(150px, auto) auto auto;
+    min-height: 300px;
+
+    h2 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .testimonial-controls {
+    margin-top: 10px;
+    position: static;
+  }
+
+  .cursus-faq {
+    padding: 64px 0 110px;
+  }
+
+  .cursus-faq-head {
+    margin-bottom: 36px;
+
+    h2 {
+      font-size: 34px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .cursus-faq-item > button {
+    gap: 20px;
+    min-height: 96px;
+    padding: 26px 24px;
+
+    span {
+      font-size: 20px;
+    }
+
+    .faq-icon {
+      font-size: 30px;
+      height: 42px;
+      width: 42px;
+    }
+  }
+
+  .faq-answer p {
+    font-size: 17px;
+    padding: 0 24px 28px;
+  }
+
+  .cursus-footer {
+    padding: 76px 0 48px;
+  }
+
+  .cursus-footer-cta,
+  .cursus-footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 26px;
+  }
+}

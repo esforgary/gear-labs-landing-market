@@ -1,0 +1,10 @@
+<svg width="520" height="340" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="340" rx="24" fill="#210A3C"/>
+  <circle cx="170" cy="174" r="120" stroke="#65408F" stroke-width="22" opacity=".42"/>
+  <circle cx="372" cy="90" r="76" stroke="#7048A2" stroke-width="16" opacity=".36"/>
+  <path d="M130 90L232 254M230 90L130 254" stroke="#7F5AC5" stroke-width="9" opacity=".44"/>
+  <path d="M312 98L484 298" stroke="#27D3C3" stroke-width="8" opacity=".42"/>
+  <path d="M356 84L516 270" stroke="#F43F8C" stroke-width="8" opacity=".36"/>
+  <rect x="0" y="0" width="520" height="340" rx="24" fill="url(#nftShade)"/>
+  <defs><linearGradient id="nftShade" x1="0" y1="0" x2="520" y2="340"><stop stop-color="#1A0630" stop-opacity=".08"/><stop offset="1" stop-color="#0A0115" stop-opacity=".72"/></linearGradient></defs>
+</svg>

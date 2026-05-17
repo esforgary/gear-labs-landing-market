@@ -1,9 +1,11 @@
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Menu, X } from "lucide-react";
-import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
+import { useEffect, useState, type CSSProperties, type MouseEvent } from "react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./header.scss";
+
+const navAccentColors = ["var(--blue)", "var(--orange)"] as const;
 
 const navItems = [
   { key: "nav.home", target: "home" },
@@ -13,13 +15,11 @@ const navItems = [
   { key: "nav.start", target: "start" },
 ];
 
-const createAccent = () => (Math.random() > 0.5 ? "var(--orange)" : "var(--blue)");
-
 export default function Header() {
   const { currentTheme, themes, setThemeId, lang, setLang, languages, t } = useThemeLang();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const navAccents = useMemo(() => navItems.map(createAccent), []);
+  const [navAccents, setNavAccents] = useState<Record<string, string>>({});
   const currentFlag = languages.find((language) => language.code === lang)?.flag || "img/flags/ru.svg";
 
   useEffect(() => {
@@ -70,6 +70,11 @@ export default function Header() {
     }
   };
 
+  const randomizeNavAccent = (target: string) => {
+    const nextAccent = navAccentColors[Math.floor(Math.random() * navAccentColors.length)];
+    setNavAccents((current) => ({ ...current, [target]: nextAccent }));
+  };
+
   return (
     <header className={`header-wrapper ${isMenuOpen ? "mobile-menu-open" : ""}`}>
       <div className="header-inner">
@@ -118,13 +123,15 @@ export default function Header() {
 
         <nav id="header-navigation" className="header-center" aria-label="Main navigation">
           <Nav className="header-menu">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <Nav.Link
                 key={item.target}
-                className={activeSection === item.target ? "active" : ""}
+                active={false}
+                className={activeSection === item.target ? "is-current" : ""}
                 href={`#${item.target}`}
                 onClick={scrollToSection(item.target)}
-                style={{ "--nav-accent": navAccents[index] } as CSSProperties}
+                onMouseEnter={() => randomizeNavAccent(item.target)}
+                style={{ "--nav-accent": navAccents[item.target] ?? "var(--blue)" } as CSSProperties}
               >
                 {t(item.key)}
               </Nav.Link>

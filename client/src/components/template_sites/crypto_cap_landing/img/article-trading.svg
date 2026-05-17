@@ -1,0 +1,9 @@
+<svg width="520" height="340" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="340" rx="24" fill="#081733"/>
+  <rect x="88" y="64" width="292" height="214" rx="24" fill="#0E224D" stroke="#2558B8" stroke-width="6"/>
+  <path d="M126 220C160 220 158 150 192 150C226 150 222 198 258 198C294 198 294 108 332 108" stroke="#53C7AD" stroke-width="8" stroke-linecap="round"/>
+  <path d="M126 114H220M126 142H178M126 256H316" stroke="#6C8CFF" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+  <circle cx="392" cy="248" r="58" fill="#091020" stroke="#53C7AD" stroke-width="6"/>
+  <rect width="520" height="340" rx="24" fill="url(#tradeShade)"/>
+  <defs><linearGradient id="tradeShade" x1="0" y1="0" x2="520" y2="340"><stop stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#0A0115" stop-opacity=".55"/></linearGradient></defs>
+</svg>
