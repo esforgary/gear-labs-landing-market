@@ -30,6 +30,12 @@ CREATE TABLE IF NOT EXISTS translations (
   PRIMARY KEY (lang, namespace, translationKey),
   FOREIGN KEY (lang) REFERENCES languages(code) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS builder_state (
+  id TEXT PRIMARY KEY,
+  payload TEXT NOT NULL,
+  updatedAt TEXT NOT NULL
+);
 `);
 
 const columns = db.prepare("PRAGMA table_info(comments)").all();

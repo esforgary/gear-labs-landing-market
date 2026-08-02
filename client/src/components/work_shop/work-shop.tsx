@@ -1,24 +1,27 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import type { ComponentType, ReactNode } from "react";
+﻿import { useCallback, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { Suspense, lazy, type LazyExoticComponent } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
-import { ArrowUpRight, BadgeDollarSign, Eye, Layers3, LayoutTemplate, X } from "lucide-react";
+import {
+  ArrowUpRight,
+  BadgeDollarSign,
+  Eye,
+  Layers3,
+  LayoutTemplate,
+  X,
+} from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import { useProjectSelection } from "../../context/ProjectSelectionContext";
-import WallpaperLanding from "../template_sites/wallpaper_landing/wallpaper-landing.jsx";
-import TechStore from "../template_sites/tech_store/tech-store.jsx";
-import EducationPlatform from "../template_sites/education_platform/education-platform.jsx";
-import CursusLanding from "../template_sites/cursus_landing/cursus-landing.jsx";
-import PortfolioLanding from "../template_sites/portfolio_landing/portfolio-landing.jsx";
-import CryptoCapLanding from "../template_sites/crypto_cap_landing/crypto-cap-landing.jsx";
-import PetFirstLanding from "../template_sites/pet_first_landing/pet-first-landing.jsx";
-import AiSaudeLanding from "../template_sites/ai_saude_landing/ai-saude-landing.jsx";
-import SneakerLanding from "../template_sites/sneaker_landing/sneaker-landing.jsx";
-import PizzaMenuLanding from "../template_sites/pizza_menu/pizza-menu.jsx";
+import { VpnAppCover } from "./apps/mobile-apps/gearshield-vpn/cover";
+import { DribbboxAppCover } from "./apps/mobile-apps/dribbbox-cloud/cover";
+import { NectarGroceryCover } from "./apps/mobile-apps/nectar-grocery/cover";
+import { FinFlowWalletCover } from "./apps/mobile-apps/finflow-wallet/cover";
+import { CityRideTaxiCover } from "./apps/mobile-apps/cityride-taxi/cover";
 import "./work-shop.scss";
 
 type WorkshopCategory = "sites" | "apps" | "bots";
+type WorkshopDemoComponent = ComponentType | LazyExoticComponent<ComponentType>;
 interface WorkshopItem {
   id: number;
   category: WorkshopCategory;
@@ -29,14 +32,79 @@ interface WorkshopItem {
   price: string;
   time: string;
   cover?: ReactNode;
-  DemoComponent?: ComponentType;
+  DemoComponent?: WorkshopDemoComponent;
   previewClassName?: string;
+  previewMode?: "site" | "app";
 }
 
+interface WorkshopCatalogItem {
+  id: number;
+  category: WorkshopCategory;
+  title: string;
+  text: string;
+  img: string;
+  type: string;
+  price: string;
+  time: string;
+  coverKey?: string;
+  previewKey?: string;
+  previewClassName?: string;
+  previewMode?: "site" | "app";
+  textKey?: string;
+  typeKey?: string;
+  translations?: Record<string, Partial<Pick<WorkshopCatalogItem, "title" | "text" | "type" | "time">>>;
+}
+
+interface WorkshopCatalogResponse {
+  items?: WorkshopCatalogItem[];
+}
+
+const WallpaperLanding = lazy(() => import("../template_sites/wallpaper_landing/wallpaper-landing.jsx"));
+const TechStore = lazy(() => import("../template_sites/tech_store/tech-store.jsx"));
+const EducationPlatform = lazy(() => import("../template_sites/education_platform/education-platform.jsx"));
+const CursusLanding = lazy(() => import("../template_sites/cursus_landing/cursus-landing.jsx"));
+const PortfolioLanding = lazy(() => import("../template_sites/portfolio_landing/portfolio-landing.jsx"));
+const CryptoCapLanding = lazy(() => import("../template_sites/crypto_cap_landing/crypto-cap-landing.jsx"));
+const PetFirstLanding = lazy(() => import("../template_sites/pet_first_landing/pet-first-landing.jsx"));
+const AiSaudeLanding = lazy(() => import("../template_sites/ai_saude_landing/ai-saude-landing.jsx"));
+const SneakerLanding = lazy(() => import("../template_sites/sneaker_landing/sneaker-landing.jsx"));
+const PizzaMenuLanding = lazy(() => import("../template_sites/pizza_menu/pizza-menu.jsx"));
+const SkywayTicketsLanding = lazy(() => import("./sites/skyway-tickets/skyway-tickets.jsx"));
+const FlowcraftEditorLanding = lazy(() => import("./sites/flowcraft-editor/flowcraft-editor.jsx"));
+
+const VpnAppPreview = lazy(() =>
+  import("./apps/mobile-apps/gearshield-vpn/gearshield-vpn").then((module) => ({
+    default: module.VpnAppPreview,
+  })),
+);
+
+const DribbboxAppPreview = lazy(() =>
+  import("./apps/mobile-apps/dribbbox-cloud/dribbbox-cloud").then((module) => ({
+    default: module.DribbboxAppPreview,
+  })),
+);
+
+const NectarGroceryPreview = lazy(() => import("./apps/mobile-apps/nectar-grocery/nectar-grocery.jsx"));
+
+const FinFlowWalletPreview = lazy(() =>
+  import("./apps/mobile-apps/finflow-wallet/finflow-wallet").then((module) => ({
+    default: module.FinFlowWalletPreview,
+  })),
+);
+
+const CityRideTaxiPreview = lazy(() =>
+  import("./apps/mobile-apps/cityride-taxi/cityride-taxi").then((module) => ({
+    default: module.CityRideTaxiPreview,
+  })),
+);
+
+const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
+const serverAsset = (path: string) => `${apiBaseUrl}${path}`;
+
 const previewImages = [
-  "./img/banner/gearlabs-web-3d-v2.jpg",
-  "./img/banner/gearlabs-app-3d-v2.jpg",
-  "./img/banner/gearlabs-bot-3d-v2.jpg",
+  serverAsset("/static/workshop/sites/nordwall-studio/img/cover.jpg"),
+  serverAsset("/static/workshop/apps/gearshield-vpn/img/cover.jpg"),
+  serverAsset("/static/workshop/bots/automation-bot/img/cover.jpg"),
 ];
 
 const techCoverImage = "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=900&q=80";
@@ -72,6 +140,79 @@ const formatWorkshopSummary = (lang: string, count: number) => {
   if (lang === "cz" || lang === "sk") return `${count} moznosti`;
 
   return `${count} options`;
+};
+
+const formatWorkshopDays = (lang: string, count: number) => {
+  if (lang === "ru") {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    const word =
+      mod10 === 1 && mod100 !== 11
+        ? "день"
+        : mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)
+          ? "дня"
+          : "дней";
+
+    return `${count} ${word}`;
+  }
+
+  if (lang === "en") return `${count} ${count === 1 ? "day" : "days"}`;
+  if (lang === "de") return `${count} Tage`;
+  if (lang === "fr") return `${count} jours`;
+  if (lang === "it") return `${count} giorni`;
+  if (lang === "pl" || lang === "cz" || lang === "sk") return `${count} dni`;
+
+  return `${count} days`;
+};
+
+const workshopTextKeyByPreview: Record<string, string> = {
+  wallpaper: "workshop.product.nordwall.text",
+  "tech-store": "workshop.product.devicehub.text",
+  education: "workshop.product.mec.text",
+  cursus: "workshop.product.cursus.text",
+  portfolio: "workshop.product.portfolio.text",
+  crypto: "workshop.product.cryptocap.text",
+  "pet-first": "workshop.product.petfirst.text",
+  "ai-saude": "workshop.product.aisaude.text",
+  sneaker: "workshop.product.sneakamp.text",
+  pizza: "workshop.product.pizza.text",
+  flight: "workshop.product.skyway.text",
+  flowcraft: "workshop.product.flowcraft.text",
+  vpn: "workshop.product.vpn.text",
+  dribbbox: "workshop.product.dribbbox.text",
+  nectar: "workshop.product.nectar.text",
+  finflow: "workshop.product.finflow.text",
+  cityride: "workshop.product.cityride.text",
+};
+
+const workshopTypeKeyByPreview: Partial<Record<string, string>> = {
+  flight: "workshop.product.skyway.type",
+  flowcraft: "workshop.product.flowcraft.type",
+  vpn: "workshop.product.vpn.type",
+  dribbbox: "workshop.product.dribbbox.type",
+  nectar: "workshop.product.nectar.type",
+  finflow: "workshop.product.finflow.type",
+  cityride: "workshop.product.cityride.type",
+};
+
+const workshopDaysByPreview: Record<string, number> = {
+  wallpaper: 5,
+  "tech-store": 10,
+  education: 12,
+  cursus: 14,
+  portfolio: 7,
+  crypto: 10,
+  "pet-first": 12,
+  "ai-saude": 14,
+  sneaker: 14,
+  pizza: 12,
+  flight: 11,
+  flowcraft: 16,
+  vpn: 9,
+  dribbbox: 10,
+  nectar: 12,
+  finflow: 11,
+  cityride: 10,
 };
 
 const WallpaperLandingCover = () => (
@@ -315,6 +456,63 @@ const PizzaMenuCover = () => (
   </div>
 );
 
+const SkywayTicketsCover = () => (
+  <div className="skyway-product-cover" aria-hidden="true">
+    <div className="skyway-cover-clouds">
+      <i />
+      <i />
+      <i />
+    </div>
+    <div className="skyway-cover-plane">
+      <span />
+      <b />
+    </div>
+    <div className="skyway-cover-search">
+      <strong>SkyWay</strong>
+      <span />
+      <span />
+      <button type="button">Search</button>
+    </div>
+  </div>
+);
+
+const FlowcraftEditorCover = () => (
+  <div className="flowcraft-product-cover" aria-hidden="true">
+    <div className="flowcraft-cover-top">
+      <span />
+      <span />
+      <span />
+    </div>
+    <div className="flowcraft-cover-canvas">
+      <i className="flowcraft-cover-node flowcraft-cover-node--one" />
+      <i className="flowcraft-cover-node flowcraft-cover-node--two" />
+      <i className="flowcraft-cover-node flowcraft-cover-node--three" />
+      <em />
+      <b />
+    </div>
+  </div>
+);
+
+const previewComponentByKey: Record<string, WorkshopDemoComponent> = {
+  wallpaper: WallpaperLanding,
+  "tech-store": TechStore,
+  education: EducationPlatform,
+  cursus: CursusLanding,
+  portfolio: PortfolioLanding,
+  crypto: CryptoCapLanding,
+  "pet-first": PetFirstLanding,
+  "ai-saude": AiSaudeLanding,
+  sneaker: SneakerLanding,
+  pizza: PizzaMenuLanding,
+  flight: SkywayTicketsLanding,
+  flowcraft: FlowcraftEditorLanding,
+  vpn: VpnAppPreview,
+  dribbbox: DribbboxAppPreview,
+  nectar: NectarGroceryPreview,
+  finflow: FinFlowWalletPreview,
+  cityride: CityRideTaxiPreview,
+};
+
 function WorkShop() {
   const { lang, t } = useThemeLang();
   const { selectProject } = useProjectSelection();
@@ -322,6 +520,7 @@ function WorkShop() {
   const [activeCategory, setActiveCategory] = useState<WorkshopCategory>("sites");
   const [activePreview, setActivePreview] = useState<WorkshopItem | null>(null);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const [serverItems, setServerItems] = useState<WorkshopCatalogItem[] | null>(null);
 
   const categories = useMemo(
     () => [
@@ -332,7 +531,7 @@ function WorkShop() {
     [t]
   );
 
-  const items: WorkshopItem[] = Array.from({ length: 30 }, (_, i) => {
+  const generatedItems: WorkshopItem[] = Array.from({ length: 30 }, (_, i) => {
     const category = categories[i % categories.length];
     const baseItem: WorkshopItem = {
       id: i,
@@ -483,15 +682,199 @@ function WorkShop() {
     return baseItem;
   });
 
+  const fallbackItems: WorkshopItem[] = [
+    ...generatedItems.filter((item) => item.category === "sites" && item.DemoComponent),
+    {
+      id: 31,
+      category: "sites",
+      title: "SkyWay Tickets",
+      text: t("workshop.product.skyway.text"),
+      img: serverAsset("/static/workshop/sites/skyway-tickets/img/cover.svg"),
+      type: t("workshop.product.skyway.type"),
+      price: "950 $",
+      time: formatWorkshopDays(lang, 11),
+      cover: <SkywayTicketsCover />,
+      DemoComponent: SkywayTicketsLanding,
+      previewClassName: "template-preview-frame--skyway",
+    },
+    {
+      id: 34,
+      category: "sites",
+      title: "FlowCraft Editor",
+      text: t("workshop.product.flowcraft.text"),
+      img: serverAsset("/static/workshop/sites/flowcraft-editor/img/cover.svg"),
+      type: t("workshop.product.flowcraft.type"),
+      price: "1100 $",
+      time: formatWorkshopDays(lang, 16),
+      cover: <FlowcraftEditorCover />,
+      DemoComponent: FlowcraftEditorLanding,
+      previewClassName: "template-preview-frame--flowcraft",
+    },
+    {
+      id: 100,
+      category: "apps",
+      title: "GearShield VPN",
+      text: t("workshop.product.vpn.text"),
+      img: previewImages[1],
+      type: t("workshop.product.vpn.type"),
+      price: "900 $",
+      time: formatWorkshopDays(lang, 9),
+      cover: <VpnAppCover />,
+      DemoComponent: VpnAppPreview,
+      previewMode: "app",
+    },
+    {
+      id: 101,
+      category: "apps",
+      title: "Dribbbox Cloud",
+      text: t("workshop.product.dribbbox.text"),
+      img: previewImages[1],
+      type: t("workshop.product.dribbbox.type"),
+      price: "850 $",
+      time: formatWorkshopDays(lang, 10),
+      cover: <DribbboxAppCover />,
+      DemoComponent: DribbboxAppPreview,
+      previewMode: "app",
+    },
+    {
+      id: 102,
+      category: "apps",
+      title: "Nectar Grocery",
+      text: t("workshop.product.nectar.text"),
+      img: previewImages[1],
+      type: t("workshop.product.nectar.type"),
+      price: "950 $",
+      time: formatWorkshopDays(lang, 12),
+      cover: <NectarGroceryCover />,
+      DemoComponent: NectarGroceryPreview,
+      previewMode: "app",
+    },
+    {
+      id: 103,
+      category: "apps",
+      title: "FinFlow Bank",
+      text: t("workshop.product.finflow.text"),
+      img: previewImages[1],
+      type: t("workshop.product.finflow.type"),
+      price: "980 $",
+      time: formatWorkshopDays(lang, 11),
+      cover: <FinFlowWalletCover />,
+      DemoComponent: FinFlowWalletPreview,
+      previewMode: "app",
+    },
+    {
+      id: 104,
+      category: "apps",
+      title: "CityRide Go",
+      text: t("workshop.product.cityride.text"),
+      img: previewImages[1],
+      type: t("workshop.product.cityride.type"),
+      price: "920 $",
+      time: formatWorkshopDays(lang, 10),
+      cover: <CityRideTaxiCover />,
+      DemoComponent: CityRideTaxiPreview,
+      previewMode: "app",
+    },
+  ];
+
+  const coverByKey = useMemo<Record<string, ReactNode>>(
+    () => ({
+      wallpaper: <WallpaperLandingCover />,
+      "tech-store": <TechStoreCover />,
+      education: <EducationPlatformCover />,
+      cursus: <CursusLandingCover />,
+      portfolio: <PortfolioLandingCover />,
+      crypto: <CryptoCapLandingCover />,
+      "pet-first": <PetFirstLandingCover />,
+      "ai-saude": <AiSaudeLandingCover />,
+      sneaker: <SneakerLandingCover />,
+      pizza: <PizzaMenuCover />,
+      flight: <SkywayTicketsCover />,
+      flowcraft: <FlowcraftEditorCover />,
+      vpn: <VpnAppCover />,
+      dribbbox: <DribbboxAppCover />,
+      nectar: <NectarGroceryCover />,
+      finflow: <FinFlowWalletCover />,
+      cityride: <CityRideTaxiCover />,
+    }),
+    []
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetch("/api/workshop/items")
+      .then((response) => {
+        if (!response.ok) throw new Error(`Workshop API failed: ${response.status}`);
+        return response.json() as Promise<WorkshopCatalogResponse>;
+      })
+      .then((payload) => {
+        if (!isMounted || !Array.isArray(payload.items)) return;
+        setServerItems(payload.items);
+      })
+      .catch(() => {
+        if (isMounted) setServerItems(null);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const items: WorkshopItem[] = useMemo(() => {
+    if (!serverItems) return fallbackItems;
+
+    const mappedServerItems = serverItems.map((item) => {
+      const localized = item.translations?.[lang] ?? item.translations?.ru ?? {};
+      const textKey = item.textKey ?? (item.previewKey ? workshopTextKeyByPreview[item.previewKey] : undefined);
+      const typeKey = item.typeKey ?? (item.previewKey ? workshopTypeKeyByPreview[item.previewKey] : undefined);
+      const days = item.previewKey ? workshopDaysByPreview[item.previewKey] : undefined;
+
+      return {
+        id: item.id,
+        category: item.category,
+        title: item.previewKey === "finflow" ? "FinFlow Bank" : localized.title ?? item.title,
+        text: textKey ? t(textKey) : localized.text ?? item.text,
+        img: item.img,
+        type: typeKey ? t(typeKey) : localized.type ?? item.type,
+        price: item.price,
+        time: days ? formatWorkshopDays(lang, days) : localized.time ?? item.time,
+        cover: item.coverKey ? coverByKey[item.coverKey] : undefined,
+        DemoComponent: item.previewKey ? previewComponentByKey[item.previewKey] : undefined,
+        previewClassName: item.previewClassName,
+        previewMode: item.previewMode,
+      };
+    });
+
+    return mappedServerItems;
+  }, [coverByKey, fallbackItems, lang, serverItems, t]);
+
   // Пагинация
   const perPage = 6;
   const filteredItems = items.filter((item) => item.category === activeCategory);
-  const totalPages = Math.ceil(filteredItems.length / perPage);
-  const pageItems = filteredItems.slice((page - 1) * perPage, page * perPage);
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / perPage));
+  const safePage = Math.min(page, totalPages);
+  const pageItems = filteredItems.slice((safePage - 1) * perPage, safePage * perPage);
 
   useEffect(() => {
     setPage(1);
   }, [activeCategory]);
+
+  useEffect(() => {
+    setPage((currentPage) => Math.min(Math.max(currentPage, 1), totalPages));
+  }, [totalPages]);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const cards = document.querySelectorAll<HTMLElement>(".workshop-grid .scroll-animate");
+      cards.forEach((card, index) => {
+        card.classList.add("visible");
+        card.style.setProperty("--delay", `${Math.min(index * 0.03, 0.12)}s`);
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeCategory, safePage, pageItems.length]);
 
   const openPreview = useCallback((item: WorkshopItem) => {
     setActivePreview(item);
@@ -502,6 +885,15 @@ function WorkShop() {
 
   const closePreview = useCallback(() => {
     setIsPreviewVisible(false);
+    window.setTimeout(() => {
+      setActivePreview(null);
+    }, 360);
+  }, []);
+
+  const preventBackdropWheel = useCallback((event: { target: EventTarget; currentTarget: EventTarget; preventDefault: () => void }) => {
+    if (event.target === event.currentTarget) {
+      event.preventDefault();
+    }
   }, []);
 
   useEffect(() => {
@@ -510,14 +902,24 @@ function WorkShop() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closePreview();
     };
+    const isPreviewContent = (target: EventTarget | null) =>
+      target instanceof Element && Boolean(target.closest(".template-preview-shell, .template-app-preview-shell"));
+    const preventBackgroundScroll = (event: WheelEvent | TouchEvent) => {
+      if (!isPreviewContent(event.target)) {
+        event.preventDefault();
+      }
+    };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("is-preview-open");
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("wheel", preventBackgroundScroll, { passive: false });
+    window.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("is-preview-open");
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("wheel", preventBackgroundScroll);
+      window.removeEventListener("touchmove", preventBackgroundScroll);
     };
   }, [activePreview, closePreview]);
 
@@ -573,7 +975,7 @@ function WorkShop() {
 
       <div className="workshop-grid">
         {pageItems.map((item) => (
-          <div className="workshop-card-wrapper scroll-animate" key={item.id}>
+          <div className="workshop-card-wrapper scroll-animate" key={`${item.category}-${item.id}`}>
             <Card className="workshop-card">
               <div className="workshop-preview">
                 {item.cover ?? <Card.Img variant="top" src={item.img} loading="lazy" decoding="async" />}
@@ -616,7 +1018,7 @@ function WorkShop() {
         {Array.from({ length: totalPages }, (_, i) => (
           <button
             key={i}
-            className={`page-btn ${page === i + 1 ? "active" : ""}`}
+            className={`page-btn ${safePage === i + 1 ? "active" : ""}`}
             onClick={() => setPage(i + 1)}
           >
             {i + 1}
@@ -626,8 +1028,9 @@ function WorkShop() {
 
       {activePreview && ActivePreview && createPortal(
         <div
-          className={`template-preview-overlay ${isPreviewVisible ? "is-open" : "is-closing"}`}
+          className={`template-preview-overlay ${activePreview.previewMode === "app" ? "template-preview-overlay--app" : ""} ${isPreviewVisible ? "is-open" : "is-closing"}`}
           onClick={closePreview}
+          onWheel={preventBackdropWheel}
           onTransitionEnd={(event) => {
             if (event.target === event.currentTarget && !isPreviewVisible) {
               setActivePreview(null);
@@ -637,6 +1040,16 @@ function WorkShop() {
           aria-modal="true"
           aria-label={`Обзор ${activePreview.title}`}
         >
+          {activePreview.previewMode === "app" ? (
+            <div className="template-app-preview-shell" onClick={(event) => event.stopPropagation()}>
+              <button className="template-app-preview-close" type="button" onClick={closePreview} aria-label="Закрыть">
+                <X size={30} />
+              </button>
+              <Suspense fallback={<div className="template-preview-loading">Загрузка...</div>}>
+                <ActivePreview />
+              </Suspense>
+            </div>
+          ) : (
           <div className="template-preview-shell" onClick={(event) => event.stopPropagation()}>
             <div className="template-preview-bar">
               <div>
@@ -648,9 +1061,12 @@ function WorkShop() {
               </button>
             </div>
             <div className={`template-preview-frame ${activePreview.previewClassName ?? ""}`}>
-              <ActivePreview />
+              <Suspense fallback={<div className="template-preview-loading">Загрузка...</div>}>
+                <ActivePreview />
+              </Suspense>
             </div>
           </div>
+          )}
         </div>,
         document.body,
       )}
@@ -659,3 +1075,5 @@ function WorkShop() {
 }
 
 export default WorkShop;
+
+

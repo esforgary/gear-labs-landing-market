@@ -1,52 +1,91 @@
-.btn-blue, .btn-orange {
-  position: relative;
-  border-radius: 8px !important;
-  overflow: visible; 
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 1; 
-}
-
-/* синяя кнопка */
-.btn-blue {
-  background: var(--blue);
-  border: none;
-  color: white;
-  transition: 0.2s;
-
-  &:hover {
-    box-shadow: 0 0 12px var(--blue);
-    background: var(--blue);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    background: var(--blue) !important;
-    transform: scale(0.96);
-  }
-}
-
-/* оранжевая кнопка */
+.btn-blue,
 .btn-orange {
-  background: var(--orange);
-  border: none;
-  color: var(--space-gray) !important;
-  transition: 0.2s;
+  align-items: center;
+  border: 0;
+  border-radius: 8px !important;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  gap: 8px;
+  isolation: isolate;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  transition:
+    box-shadow 0.24s ease,
+    filter 0.24s ease,
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
+
+  &::before {
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.34) 45%, transparent 70%);
+    content: "";
+    height: 140%;
+    left: -80%;
+    position: absolute;
+    top: -20%;
+    transform: skewX(-18deg);
+    transition: left 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 48%;
+    z-index: -1;
+  }
 
   &:hover {
-    box-shadow: 0 0 12px var(--orange);
+    filter: saturate(1.04);
     transform: translateY(-2px);
+
+    &::before {
+      left: 120%;
+    }
   }
 
   &:active {
-    transform: scale(0.96);
+    transform: translateY(0) scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, currentColor 26%, transparent);
+    outline-offset: 4px;
   }
 }
 
-/* частицы */
-.explosion-circle {
-  position: absolute; // вместо fixed
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1; // частицы под кнопкой, НЕ перекрывают текст
+.btn-blue {
+  --button-bg: linear-gradient(135deg, var(--blue), color-mix(in srgb, var(--blue) 76%, white));
+  --bs-btn-bg: var(--blue);
+  --bs-btn-color: white;
+  --bs-btn-hover-bg: var(--blue);
+  --bs-btn-hover-color: white;
+  --bs-btn-active-bg: color-mix(in srgb, var(--blue) 88%, black);
+  --bs-btn-active-color: white;
+  background: var(--button-bg) !important;
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--blue) 24%, transparent);
+  color: white !important;
+
+  &:hover {
+    background: var(--button-bg) !important;
+    box-shadow: 0 22px 40px color-mix(in srgb, var(--blue) 30%, transparent);
+    color: white !important;
+  }
+}
+
+.btn-orange {
+  --button-bg: linear-gradient(135deg, var(--orange), color-mix(in srgb, var(--orange) 78%, white));
+  --bs-btn-bg: var(--orange);
+  --bs-btn-color: var(--space-gray);
+  --bs-btn-hover-bg: var(--orange);
+  --bs-btn-hover-color: var(--space-gray);
+  --bs-btn-active-bg: color-mix(in srgb, var(--orange) 88%, black);
+  --bs-btn-active-color: var(--space-gray);
+  background: var(--button-bg) !important;
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--orange) 24%, transparent);
+  color: var(--space-gray) !important;
+
+  &:hover {
+    background: var(--button-bg) !important;
+    box-shadow: 0 22px 40px color-mix(in srgb, var(--orange) 30%, transparent);
+    color: var(--space-gray) !important;
+  }
 }

@@ -9,6 +9,10 @@
   box-shadow: 0 10px 28px color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
+body.is-preview-open .header-wrapper {
+  z-index: 4000;
+}
+
 .header-inner {
   padding: 12px clamp(18px, 4vw, 44px);
   display: flex;
@@ -27,10 +31,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 14px;
     gap: 2px;
+    padding: 4px 6px;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 
     &:hover {
       color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    &:focus,
+    &:focus-visible {
+      box-shadow: none;
+      outline: 0;
     }
 
     .gear-labs {
@@ -60,6 +78,7 @@
     svg {
       animation: labColor 6s ease-in-out infinite alternate;
     }
+
   }
 }
 
@@ -114,6 +133,10 @@
   align-items: center;
   gap: 12px;
 
+  .dropdown {
+    position: relative;
+  }
+
   .dropdown-menu {
     background: var(--surface);
     border: 1px solid var(--border-strong);
@@ -123,6 +146,20 @@
     overflow: hidden;
     padding: 8px;
     z-index: 1006;
+
+    &.show {
+      animation: dropdownPanelIn 180ms ease;
+      inset: auto 0 auto auto !important;
+      left: auto !important;
+      right: 0 !important;
+      top: calc(100% + 8px) !important;
+      transform: none !important;
+
+      .dropdown-item {
+        animation: dropdownItemIn 180ms ease both;
+        animation-delay: calc(var(--item-index, 0) * 34ms);
+      }
+    }
   }
 
   .dropdown-item {
@@ -210,8 +247,10 @@
   height: 27px;
   border-radius: 50%;
   display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+    inset 0 0 0 2px color-mix(in srgb, var(--surface) 76%, transparent),
     0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
@@ -233,6 +272,26 @@
   border-radius: 5px;
   object-fit: cover;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes dropdownPanelIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dropdownItemIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1080px) {

@@ -69,14 +69,19 @@
   min-height: 48px;
   padding: 6px 18px 6px 8px;
 
-  span {
+  .pizza-brand-mark {
     align-items: center;
-    background: #ffffff;
+    background:
+      radial-gradient(circle at 38% 36%, #d63a23 0 9%, transparent 10%),
+      radial-gradient(circle at 64% 54%, #d63a23 0 8%, transparent 9%),
+      radial-gradient(circle at 48% 68%, #2f9b5f 0 6%, transparent 7%),
+      #f8c95b;
+    border: 4px solid #ffffff;
     border-radius: 50%;
-    color: var(--pizza-red);
     display: inline-flex;
     height: 34px;
     justify-content: center;
+    box-shadow: inset 0 -6px 0 rgba(144, 57, 20, 0.12);
     width: 34px;
   }
 }
@@ -156,6 +161,12 @@
     line-height: 0.92;
     margin: 20px 0 26px;
     max-width: 760px;
+    text-shadow:
+      -1px -1px 0 #ffd36a,
+      1px -1px 0 #ffd36a,
+      -1px 1px 0 #ffd36a,
+      1px 1px 0 #ffd36a,
+      0 20px 42px rgba(0, 0, 0, 0.24);
   }
 
   p {
@@ -166,6 +177,36 @@
     margin: 0;
     max-width: 620px;
   }
+}
+
+.pizza-title-brand {
+  align-items: center;
+  color: #ffd36a;
+  display: inline-flex;
+  gap: 0.06em;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.08em;
+  text-shadow:
+    -1px -1px 0 #3a120a,
+    1px -1px 0 #3a120a,
+    -1px 1px 0 #3a120a,
+    1px 1px 0 #3a120a;
+}
+
+.pizza-title-mark {
+  background:
+    radial-gradient(circle at 36% 35%, #d63a23 0 10%, transparent 11%),
+    radial-gradient(circle at 62% 55%, #d63a23 0 9%, transparent 10%),
+    radial-gradient(circle at 48% 70%, #2f9b5f 0 7%, transparent 8%),
+    #f8c95b;
+  border: 0.08em solid #ffffff;
+  border-radius: 50%;
+  box-shadow: inset 0 -0.12em 0 rgba(144, 57, 20, 0.13);
+  display: inline-block;
+  height: 0.68em;
+  margin-right: -0.02em;
+  transform: translateY(0.06em) rotate(-8deg);
+  width: 0.68em;
 }
 
 .pizza-hero-actions {
@@ -387,6 +428,63 @@
   }
 }
 
+.pizza-art-topping {
+  --fall-x: 50%;
+  --fall-y: 50%;
+  animation: pizza-topping-fall 520ms cubic-bezier(0.18, 0.9, 0.28, 1.16) both;
+  animation-delay: calc(var(--topping-index) * 70ms);
+  background: #d63a23;
+  border-radius: 50%;
+  box-shadow: 0 3px 0 rgba(72, 22, 8, 0.14);
+  height: 22px;
+  left: var(--fall-x);
+  position: absolute;
+  top: var(--fall-y);
+  transform: translate(-50%, -50%);
+  width: 22px;
+  z-index: 3;
+}
+
+.pizza-art-topping:nth-of-type(6n + 1) { --fall-x: 36%; --fall-y: 36%; }
+.pizza-art-topping:nth-of-type(6n + 2) { --fall-x: 62%; --fall-y: 38%; }
+.pizza-art-topping:nth-of-type(6n + 3) { --fall-x: 48%; --fall-y: 62%; }
+.pizza-art-topping:nth-of-type(6n + 4) { --fall-x: 68%; --fall-y: 64%; }
+.pizza-art-topping:nth-of-type(6n + 5) { --fall-x: 31%; --fall-y: 59%; }
+.pizza-art-topping:nth-of-type(6n) { --fall-x: 56%; --fall-y: 76%; }
+
+.pizza-art-topping--cheese {
+  background: #fff1bb;
+  border-radius: 999px;
+  height: 12px;
+  width: 38px;
+}
+
+.pizza-art-topping--mozzarella {
+  background: #fff8d6;
+}
+
+.pizza-art-topping--jalapeno {
+  background: #2f9b5f;
+  border-radius: 999px;
+  height: 15px;
+  width: 31px;
+}
+
+.pizza-art-topping--mushroom {
+  background: #d9b384;
+  border-radius: 14px 14px 9px 9px;
+  height: 18px;
+  width: 26px;
+}
+
+.pizza-art-topping--bacon {
+  background: linear-gradient(90deg, #b83423 0 42%, #f28c4a 43% 64%, #b83423 65% 100%);
+  border-radius: 999px;
+  height: 12px;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  width: 38px;
+}
+
 .pizza-card-body {
   align-content: start;
   display: grid;
@@ -549,6 +647,7 @@
     display: grid;
     font-weight: 900;
     gap: 8px;
+    min-width: 0;
   }
 
   input,
@@ -558,9 +657,12 @@
     border: 1px solid rgba(36, 20, 13, 0.1);
     border-radius: 18px;
     color: var(--pizza-ink);
+    box-sizing: border-box;
     min-height: 54px;
+    min-width: 0;
     outline: 0;
     padding: 0 16px;
+    width: 100%;
 
     &:focus {
       border-color: var(--pizza-orange);
@@ -588,6 +690,10 @@
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  > label {
+    min-width: 0;
+  }
 }
 
 .pizza-payment {
@@ -1080,6 +1186,23 @@
   }
   50% {
     transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+@keyframes pizza-topping-fall {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -220%) scale(0.72) rotate(-18deg);
+  }
+
+  72% {
+    opacity: 1;
+    transform: translate(-50%, -42%) scale(1.08) rotate(5deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 }
 

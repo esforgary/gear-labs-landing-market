@@ -95,6 +95,17 @@ const cardsData = [
   },
 ]
 
+const cardKeys = [
+  'react',
+  'node',
+  'python',
+  'database',
+  'uiux',
+  'modeling',
+  'banners',
+  'logo',
+]
+
 export const Technologys = () => {
   const { t } = useThemeLang()
   const [activeIndex, setActiveIndex] = useState(0)
@@ -143,6 +154,7 @@ export const Technologys = () => {
       </div>
       <div className="technologys__grid scroll-animate">
         {cardsData.map((card, i) => {
+          const cardKey = cardKeys[i] ?? `card-${i}`
           const iconColor = card.iconColor
           const cardStyle = {
             '--accent': iconColor,
@@ -151,7 +163,7 @@ export const Technologys = () => {
 
           return (
             <div
-              key={i}
+              key={cardKey}
               className={`tech-card ${activeIndex === i ? 'active' : ''}`}
               onClick={() => changeActive(i)}
               style={cardStyle}
@@ -163,13 +175,17 @@ export const Technologys = () => {
                 >
   {card.icon}
 </div>
-<h3>{card.title}</h3>
+<h3>{t(`tech.card.${cardKey}.title`)}</h3>
                 <p className="tech-card__description">
-                  {card.description.map((part, index) => (
-                    <span key={index} className={part.highlight ? 'tech-card__highlight' : undefined}>
-                      {part.text}
-                    </span>
-                  ))}
+                  {card.description.map((part, index) => {
+                    const partKey = `tech.card.${cardKey}.text.${index}`
+
+                    return (
+                      <span key={partKey} className={part.highlight ? 'tech-card__highlight' : undefined}>
+                        {t(partKey)}
+                      </span>
+                    )
+                  })}
                 </p>
               </div>
             </div>

@@ -59,16 +59,23 @@
 
 /* синяя кнопка */
 .btn-blue {
-  background: var(--blue);
-  border: none;
+  --bs-btn-bg: var(--blue);
+  --bs-btn-color: white;
+  --bs-btn-hover-bg: var(--blue);
+  --bs-btn-hover-color: white;
+  --bs-btn-active-bg: color-mix(in srgb, var(--blue) 88%, black);
+  --bs-btn-active-color: white;
+  background: var(--blue) !important;
+  border: none !important;
   font-weight: bold;
-  color: white;
+  color: white !important;
   transition: 0.2s;
 
   &:hover {
+    background: var(--blue) !important;
+    border-color: transparent !important;
     box-shadow: 0 0 12px var(--blue) !important;
     color: white !important;
-    box-shadow: 0 0 12px var(--blue); 
     transform: translateY(-2px);
   }
 
@@ -76,19 +83,25 @@
     transform: scale(0.96);
   }
 }
-
 /* оранжевая кнопка — НОРМАЛЬНО РАБОТАЕТ */
 .btn-orange {
-  background: var(--orange);
-  border: none;
+  --bs-btn-bg: var(--orange);
+  --bs-btn-color: var(--space-gray);
+  --bs-btn-hover-bg: var(--orange);
+  --bs-btn-hover-color: var(--space-gray);
+  --bs-btn-active-bg: color-mix(in srgb, var(--orange) 88%, black);
+  --bs-btn-active-color: var(--space-gray);
+  background: var(--orange) !important;
+  border: none !important;
   font-weight: bold;
-  color: var(--space-gray);
+  color: var(--space-gray) !important;
   transition: 0.2s;
 
   /* исправлено: НЕ МЕНЯЕТ ЦВЕТ на синий */
   &:hover {
     background: var(--orange) !important;
-  color: var(--space-gray) !important;
+    border-color: transparent !important;
+    color: var(--space-gray) !important;
     box-shadow: 0 0 12px var(--orange); /* аналогично подсветка, как оранжевая вокруг синей */
     transform: translateY(-2px);
   }
@@ -96,13 +109,4 @@
   &:active {
     transform: scale(0.96);
   }
-}
-
-.floating-particle {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  will-change: transform, opacity;
 }

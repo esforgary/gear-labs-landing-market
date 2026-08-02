@@ -13,16 +13,19 @@ const navItems = [
   { key: "nav.catalog", target: "catalog" },
   { key: "nav.about", target: "about" },
   { key: "nav.start", target: "start" },
+  { key: "nav.constructor", target: "builder-promo" },
 ];
 
 export default function Header() {
   const { currentTheme, themes, setThemeId, lang, setLang, languages, t } = useThemeLang();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBuilderRoute, setIsBuilderRoute] = useState(() => window.location.hash === "#constructor");
   const [activeSection, setActiveSection] = useState("home");
   const [navAccents, setNavAccents] = useState<Record<string, string>>({});
   const currentFlag = languages.find((language) => language.code === lang)?.flag || "img/flags/ru.svg";
 
   useEffect(() => {
+    const syncRoute = () => setIsBuilderRoute(window.location.hash === "#constructor");
     const handleScroll = () => {
       const currentSection = navItems.reduce((current, item) => {
         const element = document.getElementById(item.target);
@@ -49,12 +52,15 @@ export default function Header() {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("hashchange", syncRoute);
     handleScroll();
+    syncRoute();
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("hashchange", syncRoute);
     };
   }, []);
 
@@ -67,19 +73,35 @@ export default function Header() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
       window.history.replaceState(null, "", `#${target}`);
+      return;
     }
+
+    window.location.hash = target;
   };
 
   const randomizeNavAccent = (target: string) => {
-    const nextAccent = navAccentColors[Math.floor(Math.random() * navAccentColors.length)];
-    setNavAccents((current) => ({ ...current, [target]: nextAccent }));
+    setNavAccents((current) => {
+      const nextAccent = current[target] === navAccentColors[0] ? navAccentColors[1] : navAccentColors[0];
+      return { ...current, [target]: nextAccent };
+    });
+  };
+
+  const toggleLogoRoute = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    setIsMenuOpen(false);
+    window.location.hash = isBuilderRoute ? "home" : "constructor";
   };
 
   return (
     <header className={`header-wrapper ${isMenuOpen ? "mobile-menu-open" : ""}`}>
       <div className="header-inner">
         <div className="header-left">
-          <a className="logo" href="#home" onClick={scrollToSection("home")} aria-label="GearLabs">
+          <a
+            className={`logo ${isBuilderRoute ? "logo--to-main" : "logo--to-builder"}`}
+            href={isBuilderRoute ? "#home" : "#constructor"}
+            onClick={toggleLogoRoute}
+            aria-label={isBuilderRoute ? "GearLabs main page" : "GearLabs site builder"}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 23 24"
@@ -144,12 +166,13 @@ export default function Header() {
             <Dropdown.Toggle className="control-btn theme-toggle" aria-label={t(currentTheme.nameKey)}>
               <span className="theme-circle" style={{ background: currentTheme.preview }} />
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {themes.map((theme) => (
+            <Dropdown.Menu className="header-dropdown-menu">
+              {themes.map((theme, index) => (
                 <Dropdown.Item
                   key={theme.id}
                   active={theme.id === currentTheme.id}
                   onClick={() => setThemeId(theme.id)}
+                  style={{ "--item-index": index } as CSSProperties}
                 >
                   <div className="theme-option">
                     <span className="theme-circle small" style={{ background: theme.preview }} />
@@ -164,12 +187,13 @@ export default function Header() {
             <Dropdown.Toggle className="control-btn lang-toggle" aria-label={lang}>
               <img src={currentFlag} alt={lang} className="lang-flag" />
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {languages.map((language) => (
+            <Dropdown.Menu className="header-dropdown-menu">
+              {languages.map((language, index) => (
                 <Dropdown.Item
                   key={language.code}
                   active={language.code === lang}
                   onClick={() => setLang(language.code)}
+                  style={{ "--item-index": index } as CSSProperties}
                 >
                   <div className="lang-option">
                     <img src={language.flag} className="lang-flag" alt={language.code} />

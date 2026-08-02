@@ -138,6 +138,15 @@ const ADDONS = [
   { name: "грибы", price: 65 },
   { name: "бекон", price: 130 },
 ];
+
+const TOPPING_CLASS_BY_NAME = {
+  "сырный борт": "cheese",
+  "доп. моцарелла": "mozzarella",
+  "пепперони": "pepperoni",
+  "халапеньо": "jalapeno",
+  "грибы": "mushroom",
+  "бекон": "bacon",
+};
 const LOCATIONS = [
   { city: "Москва", address: "Тверская 18", x: 44, y: 37 },
   { city: "Москва", address: "Парк Горького", x: 58, y: 62 },
@@ -163,7 +172,7 @@ function scrollToPizzaSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function PizzaArt({ accent }) {
+function PizzaArt({ accent, addons = [] }) {
   return (
     <span className="pizza-art" style={{ "--pizza-accent": accent }} aria-hidden="true">
       <i />
@@ -171,6 +180,13 @@ function PizzaArt({ accent }) {
       <i />
       <i />
       <i />
+      {addons.slice(0, 10).map((addon, index) => (
+        <span
+          key={`${addon.name}-${index}`}
+          className={`pizza-art-topping pizza-art-topping--${TOPPING_CLASS_BY_NAME[addon.name] ?? "pepperoni"}`}
+          style={{ "--topping-index": index }}
+        />
+      ))}
     </span>
   );
 }
@@ -319,7 +335,7 @@ function PizzaMenuLanding() {
       <section className="pizza-hero" id="pizza-home">
         <nav className="pizza-nav" aria-label="Pizza navigation">
           <button type="button" className="pizza-brand" onClick={() => scrollToPizzaSection("pizza-home")}>
-            <span>O</span>
+            <span className="pizza-brand-mark" />
             Ovenly Pizza
           </button>
           <div className="pizza-nav-links">
@@ -336,10 +352,14 @@ function PizzaMenuLanding() {
         <div className="pizza-hero-grid">
           <div className="pizza-hero-copy">
             <span className="pizza-eyebrow">Горячая печь каждый день</span>
-            <h1>Пицца, которую хочется заказать еще до первого кусочка.</h1>
+            <h1>
+              <span className="pizza-title-brand"><span className="pizza-title-mark" />venly Pizza</span>
+              <br />
+              Пицца, которая доезжает горячей и исчезает первой.
+            </h1>
             <p>
-              Собирайте размер, добавки и доставку в одном понятном меню. Корзина всегда рядом,
-              а оформление заказа занимает меньше минуты.
+              Выберите основу, насыпьте любимые добавки, поймайте ближайшую печь и оформите заказ
+              без звонков. Мы покажем состав, цену и маршрут доставки сразу на странице.
             </p>
             <div className="pizza-hero-actions">
               <button type="button" onClick={() => scrollToPizzaSection("pizza-menu")}>
@@ -364,7 +384,7 @@ function PizzaMenuLanding() {
         <div className="pizza-section-heading">
           <span>Меню</span>
           <h2>Выберите пиццу</h2>
-          <p>Сетка 3x3, быстрые фильтры и подробная карточка с размерами и добавками.</p>
+          <p>Листайте горячие позиции, выбирайте вкус под настроение и открывайте карточку, чтобы собрать размер, корочку и добавки прямо на пицце.</p>
         </div>
 
         <div className="pizza-filter-row" aria-label="Pizza categories">
@@ -534,7 +554,7 @@ function PizzaMenuLanding() {
           {cartItems.length ? (
             cartItems.map((item) => (
               <article className="pizza-cart-item" key={item.id}>
-                <PizzaArt accent={item.imageAccent} />
+                <PizzaArt accent={item.imageAccent} addons={item.addons} />
                 <div>
                   <strong>{item.name}</strong>
                   <span>
@@ -573,7 +593,7 @@ function PizzaMenuLanding() {
               <X size={22} />
             </button>
             <div className="pizza-modal-art">
-              <PizzaArt accent={selectedPizza.accent} />
+              <PizzaArt accent={selectedPizza.accent} addons={selectedAddons} />
             </div>
             <div className="pizza-modal-content">
               <span className="pizza-eyebrow">{selectedPizza.category}</span>

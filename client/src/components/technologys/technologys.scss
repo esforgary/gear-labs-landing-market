@@ -4,6 +4,12 @@
   margin: 54px 0;
 
   h1 {
+    color: var(--text-primary);
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0;
     margin-bottom: 28px;
   }
 }

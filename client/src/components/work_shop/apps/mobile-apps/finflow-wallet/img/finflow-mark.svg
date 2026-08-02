@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="FinFlow">
+  <defs>
+    <linearGradient id="finflowMark" x1="18" y1="14" x2="105" y2="108" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#27e0b7"/>
+      <stop offset=".52" stop-color="#3f7cff"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="96" height="96" rx="30" fill="#081324"/>
+  <path d="M31 45c0-8.3 6.7-15 15-15h43v19H47.5a5.5 5.5 0 0 0 0 11H78c8.3 0 15 6.7 15 15s-6.7 15-15 15H31V71h45.5a5.5 5.5 0 0 0 0-11H46c-8.3 0-15-6.7-15-15Z" fill="url(#finflowMark)"/>
+  <circle cx="89" cy="40" r="9" fill="#fff"/>
+  <circle cx="89" cy="40" r="4" fill="#27e0b7"/>
+</svg>

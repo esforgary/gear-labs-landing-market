@@ -28,10 +28,10 @@
   align-items: center;
   display: grid;
   gap: clamp(28px, 4vw, 60px);
-  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(430px, 0.82fr) minmax(0, 1.18fr);
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 1180px) {
   .about-content {
     grid-template-columns: 1fr;
   }

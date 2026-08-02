@@ -4,10 +4,13 @@ import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
 
+const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
+const serverAsset = (path: string) => `${apiBaseUrl}${path}`;
+
 const imageSources = [
-  "./img/banner/gearlabs-web-3d-v2.jpg",
-  "./img/banner/gearlabs-app-3d-v2.jpg",
-  "./img/banner/gearlabs-bot-3d-v2.jpg",
+  serverAsset("/static/home/hero/web.jpg"),
+  serverAsset("/static/home/hero/app.jpg"),
+  serverAsset("/static/home/hero/bot.jpg"),
 ];
 
 const createPointTones = () => {

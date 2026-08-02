@@ -9,6 +9,7 @@ const navItems = [
   { key: "nav.catalog", target: "catalog" },
   { key: "nav.about", target: "about" },
   { key: "nav.start", target: "start" },
+  { key: "nav.constructor", target: "builder-promo" },
 ];
 
 const serviceItems = ["Landing pages", "React UI", "Telegram bots", "3D visual"];

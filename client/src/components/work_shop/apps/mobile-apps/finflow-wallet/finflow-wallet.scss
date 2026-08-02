@@ -1,0 +1,2256 @@
+.finflow-product-cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(54, 214, 151, 0.32), transparent 26%),
+    radial-gradient(circle at 80% 72%, rgba(255, 128, 0, 0.3), transparent 32%),
+    linear-gradient(135deg, #070b13 0%, #101f2e 48%, #11151e 100%);
+}
+
+.finflow-cover-bank-card {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: 150px;
+  height: 96px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 22px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, #151922, #0a0d13);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.3);
+}
+
+.finflow-cover-bank-card span {
+  display: block;
+  width: 34px;
+  height: 24px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f7d875, #f68b1f);
+}
+
+.finflow-cover-bank-card strong,
+.finflow-cover-bank-card small {
+  display: block;
+}
+
+.finflow-cover-bank-card strong {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.finflow-cover-bank-card small {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 800;
+}
+
+.finflow-cover-products {
+  position: absolute;
+  right: 24px;
+  top: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 58px);
+  gap: 12px;
+}
+
+.finflow-cover-products span {
+  height: 56px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.finflow-cover-products .is-cashback {
+  background: linear-gradient(135deg, #2f8cff, #34d399);
+}
+
+.finflow-cover-products .is-deposit {
+  background: linear-gradient(135deg, #ffd166, #ff7a00);
+}
+
+.finflow-cover-products .is-credit {
+  background: linear-gradient(135deg, #ff4d67, #7c3aed);
+}
+
+.finflow-cover-products .is-saving {
+  background: linear-gradient(135deg, #25d366, #b9fbc0);
+}
+
+.finflow-cover-balance {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #07111d;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 1000;
+}
+
+.app-phone-frame.app-phone-frame--finflow {
+  width: var(--app-preview-phone-width, clamp(302px, 23vw, 350px));
+  max-height: calc(100vh - 128px);
+  aspect-ratio: 390 / 810;
+  background: #05070c;
+  border-color: rgba(160, 166, 176, 0.96);
+  border-radius: 50px;
+  padding: 12px;
+  box-shadow:
+    0 35px 95px rgba(0, 0, 0, 0.48);
+}
+
+.finflow-phone-app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 36px;
+  color: #f8fbff;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(55, 214, 151, 0.28), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(255, 122, 0, 0.2), transparent 24%),
+    linear-gradient(180deg, #111827 0%, #070b12 100%);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.finflow-screen {
+  height: calc(100% - 72px);
+  overflow: hidden;
+  min-height: 0;
+  padding: 18px 16px 82px;
+  animation: finflow-screen-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  scrollbar-width: none;
+}
+
+.finflow-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.finflow-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.finflow-topbar > div {
+  min-width: 0;
+}
+
+.finflow-topbar span {
+  display: block;
+  color: rgba(248, 251, 255, 0.58);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finflow-topbar strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.finflow-icon-btn {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.finflow-icon-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(54, 214, 151, 0.42);
+  background: rgba(54, 214, 151, 0.16);
+}
+
+.finflow-home-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.finflow-home-tabs button {
+  display: grid;
+  min-width: 0;
+  height: 46px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  color: rgba(248, 251, 255, 0.54);
+  background: transparent;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: color 0.22s ease, background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.finflow-home-tabs button svg {
+  flex: 0 0 auto;
+}
+
+.finflow-home-tabs button span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.finflow-home-tabs button.is-active {
+  color: #07111d;
+  background: #36d697;
+  box-shadow: 0 12px 28px rgba(54, 214, 151, 0.22);
+}
+
+.finflow-home-tabs button:hover {
+  transform: translateY(-1px);
+}
+
+.finflow-home-tabs button:focus,
+.finflow-home-tabs button:focus-visible {
+  outline: 0;
+}
+
+.finflow-tab-panel {
+  animation: finflow-tab-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.finflow-balance-card {
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 22%, rgba(54, 214, 151, 0.3), transparent 30%),
+    radial-gradient(circle at 95% 18%, rgba(255, 122, 0, 0.22), transparent 30%),
+    rgba(255, 255, 255, 0.07);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+.finflow-balance-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.finflow-balance-card__head span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finflow-balance-card__head button {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+}
+
+.finflow-balance-card > strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 27px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.finflow-card-shell {
+  position: relative;
+  perspective: 900px;
+}
+
+.finflow-bank-card {
+  position: relative;
+  width: 100%;
+  height: 136px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.finflow-bank-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.finflow-card-side {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 21px;
+  backface-visibility: hidden;
+  color: #fff;
+  text-align: left;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.18), transparent 20%),
+    linear-gradient(135deg, #171b25 0%, #07090e 54%, #222833 100%);
+  box-shadow: inset 0 0 38px rgba(255, 255, 255, 0.06);
+}
+
+.finflow-card-side--back {
+  transform: rotateY(180deg);
+}
+
+.finflow-card-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.finflow-card-brand img {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.finflow-card-number {
+  font-size: 19px;
+  font-weight: 1000;
+  letter-spacing: 0.06em;
+}
+
+.finflow-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.finflow-magnetic {
+  display: block;
+  width: calc(100% + 36px);
+  height: 42px;
+  margin: 0 -18px;
+  background: #010308;
+}
+
+.finflow-cvv {
+  align-self: flex-end;
+  padding: 10px 16px;
+  border-radius: 12px;
+  color: #101521;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+.finflow-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 12px 0 0;
+}
+
+.finflow-quick-actions button {
+  display: grid;
+  min-height: 62px;
+  place-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  color: #f8fbff;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+
+.finflow-quick-actions button:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.finflow-panel {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.finflow-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.finflow-section-title strong {
+  font-size: 15px;
+}
+
+.finflow-section-title span,
+.finflow-section-title svg {
+  color: #36d697;
+}
+
+.finflow-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.finflow-product-tile {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.finflow-product-tile:hover {
+  transform: translateY(-3px);
+  border-color: rgba(54, 214, 151, 0.42);
+  background: rgba(54, 214, 151, 0.12);
+}
+
+.finflow-product-icon {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  margin-bottom: 9px;
+  border-radius: 13px;
+  color: #09111c;
+}
+
+.finflow-product-icon--1 {
+  background: linear-gradient(135deg, #facc15, #ff7a00);
+}
+
+.finflow-product-icon--2 {
+  background: linear-gradient(135deg, #3b82f6, #36d697);
+}
+
+.finflow-product-icon--3 {
+  background: linear-gradient(135deg, #f43f5e, #a855f7);
+}
+
+.finflow-product-icon--4 {
+  background: linear-gradient(135deg, #36d697, #d9f99d);
+}
+
+.finflow-product-tile strong,
+.finflow-product-tile small,
+.finflow-product-tile b {
+  display: block;
+}
+
+.finflow-product-tile strong {
+  font-size: 13px;
+}
+
+.finflow-product-tile small {
+  min-height: 34px;
+  margin: 5px 0 8px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.finflow-product-tile b {
+  color: #36d697;
+  font-size: 14px;
+}
+
+.finflow-exchange-panel {
+  display: grid;
+  gap: 10px;
+  overflow: visible;
+}
+
+.finflow-exchange-lead {
+  margin: -4px 0 2px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.finflow-exchange-card {
+  position: relative;
+  z-index: 20;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 13px;
+  padding: 14px;
+  overflow: visible;
+  border: 1px solid rgba(54, 214, 151, 0.28);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(54, 214, 151, 0.14), transparent 42%),
+    linear-gradient(145deg, #152433, #0a111d);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 38px rgba(0, 0, 0, 0.22);
+}
+
+.finflow-currency-box {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(23, 35, 50, 0.98), rgba(15, 23, 36, 0.98));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.finflow-currency-head {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+.finflow-currency-logo {
+  --currency-color: #36d697;
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  color: #07111d;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.9), transparent 26%),
+    linear-gradient(135deg, var(--currency-color), rgba(255, 255, 255, 0.16));
+  font-size: 10px;
+  font-weight: 1000;
+  letter-spacing: -0.03em;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--currency-color) 35%, transparent);
+}
+
+.finflow-currency-head small,
+.finflow-exchange-rate-card small {
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.finflow-currency-control {
+  display: grid;
+  grid-template-columns: minmax(78px, 0.78fr) minmax(0, 1.45fr);
+  gap: 11px;
+  align-items: stretch;
+}
+
+.finflow-currency-control > input,
+.finflow-currency-control > strong {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  border: 0;
+  border-radius: 15px;
+  color: #fff;
+  background: #0b1422;
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.finflow-currency-control > input {
+  padding: 0 11px;
+}
+
+.finflow-currency-control > input:focus {
+  outline: 0;
+  box-shadow: 0 0 0 2px rgba(54, 214, 151, 0.22);
+}
+
+.finflow-currency-control > strong {
+  display: flex;
+  align-items: center;
+  padding: 0 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-currency-picker {
+  position: static;
+  z-index: 3;
+  min-width: 0;
+}
+
+.finflow-currency-picker.is-open {
+  z-index: 120;
+}
+
+.finflow-currency-select {
+  display: flex;
+  width: 100%;
+  height: 46px;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 15px;
+  color: #fff;
+  background: #0b1422;
+  cursor: pointer;
+  transition: background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.finflow-currency-select:hover,
+.finflow-currency-picker.is-open .finflow-currency-select {
+  background: #17392f;
+  box-shadow:
+    0 0 0 1px rgba(54, 214, 151, 0.34),
+    0 12px 24px rgba(54, 214, 151, 0.12);
+}
+
+.finflow-currency-select svg {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.62);
+  transition: transform 0.22s ease;
+}
+
+.finflow-currency-picker.is-open .finflow-currency-select svg {
+  transform: rotate(180deg);
+}
+
+.finflow-currency-select__text {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+  text-align: left;
+}
+
+.finflow-currency-select__text strong {
+  display: block;
+  height: auto;
+  padding: 0;
+  color: #fff;
+  background: transparent;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.finflow-currency-select__text small {
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-currency-menu {
+  position: absolute;
+  z-index: 140;
+  top: calc(100% + 12px);
+  right: auto;
+  left: 50%;
+  display: grid;
+  width: 248px;
+  max-width: calc(100vw - 92px);
+  max-height: 218px;
+  gap: 7px;
+  padding: 10px;
+  overflow: auto;
+  border: 1px solid rgba(54, 214, 151, 0.34);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, #122033 0%, #07111d 100%);
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.68),
+    0 0 0 1px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  scrollbar-width: none;
+  transform: translate(-50%, -5px) scale(0.98);
+  transform-origin: top center;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.finflow-currency-picker--to .finflow-currency-menu {
+  top: auto;
+  bottom: calc(100% + 12px);
+  transform: translate(-50%, 5px) scale(0.98);
+  transform-origin: bottom center;
+}
+
+.finflow-currency-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.finflow-currency-picker.is-open .finflow-currency-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.finflow-currency-menu button {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  color: #fff;
+  background: #111c2c;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.18s ease, background 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+}
+
+.finflow-currency-menu button:hover,
+.finflow-currency-menu button.is-active {
+  border-color: rgba(54, 214, 151, 0.42);
+  background: #173b32;
+}
+
+.finflow-currency-menu button:active {
+  transform: scale(0.985);
+}
+
+.finflow-currency-menu button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.finflow-currency-menu button > span:not(.finflow-currency-logo) {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.finflow-currency-menu button strong,
+.finflow-currency-menu button small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-currency-menu button strong {
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.05;
+}
+
+.finflow-currency-menu button small {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.finflow-exchange-swap {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  justify-self: center;
+  place-items: center;
+  border: 0;
+  border-radius: 16px;
+  color: #07111d;
+  background: #36d697;
+  cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.finflow-exchange-swap:hover {
+  transform: rotate(90deg) scale(1.04);
+  filter: brightness(1.06);
+}
+
+.finflow-exchange-rate-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid rgba(54, 214, 151, 0.24);
+  border-radius: 15px;
+  background: rgba(54, 214, 151, 0.12);
+}
+
+.finflow-exchange-rate-card span,
+.finflow-exchange-rate-card strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-exchange-rate-card span {
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.finflow-exchange-rate-card strong,
+.finflow-exchange-rate-card small {
+  color: #36d697;
+  font-size: 12px;
+}
+
+.finflow-currency-quick {
+  display: flex;
+  gap: 7px;
+  overflow: auto;
+  padding: 1px 1px 3px;
+  scrollbar-width: none;
+}
+
+.finflow-currency-quick::-webkit-scrollbar {
+  display: none;
+}
+
+.finflow-currency-quick button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 5px 9px 5px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 10px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, opacity 0.22s ease;
+}
+
+.finflow-currency-quick button:hover,
+.finflow-currency-quick button.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(54, 214, 151, 0.42);
+  background: rgba(54, 214, 151, 0.13);
+}
+
+.finflow-currency-quick button:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.finflow-exchange-action {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 16px;
+  color: #07111d;
+  background: #36d697;
+  font-size: 12px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.finflow-exchange-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+.finflow-activity-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.finflow-activity-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.finflow-activity-summary span {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  min-height: 74px;
+  padding: 13px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(54, 214, 151, 0.2), transparent 38%),
+    rgba(255, 255, 255, 0.07);
+}
+
+.finflow-activity-summary small {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.finflow-activity-summary strong {
+  color: #fff;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.finflow-activity-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 2px 0 6px;
+  padding: 5px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.finflow-activity-filters button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 13px;
+  color: rgba(255, 255, 255, 0.58);
+  background: transparent;
+  font-size: 9px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.finflow-activity-filters button.is-active,
+.finflow-activity-filters button:hover {
+  color: #07111d;
+  background: #36d697;
+  transform: translateY(-1px);
+}
+
+.finflow-operations--timeline {
+  position: relative;
+  margin-top: 2px;
+}
+
+.finflow-operations--timeline::before {
+  content: "";
+  position: absolute;
+  left: 31px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(54, 214, 151, 0.5), transparent);
+  pointer-events: none;
+}
+
+.finflow-operations,
+.finflow-detail-list,
+.finflow-settings-list {
+  display: grid;
+  gap: 12px;
+}
+
+.finflow-operation,
+.finflow-detail-item,
+.finflow-settings-list button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  min-height: 64px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+
+.finflow-operation:hover,
+.finflow-detail-item:hover,
+.finflow-settings-list button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.finflow-operation__icon,
+.finflow-settings-list button > span {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 14px;
+  color: #07111d;
+}
+
+.finflow-operation__icon--in,
+.finflow-settings-list button > span {
+  background: #36d697;
+}
+
+.finflow-operation__icon--out {
+  background: #ffb020;
+}
+
+.finflow-operation span:nth-child(2),
+.finflow-detail-item div,
+.finflow-settings-list button div {
+  min-width: 0;
+  flex: 1;
+}
+
+.finflow-operation strong,
+.finflow-detail-item strong,
+.finflow-settings-list strong {
+  display: block;
+  font-size: 13px;
+}
+
+.finflow-operation small,
+.finflow-detail-item small,
+.finflow-settings-list small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.finflow-operation b,
+.finflow-detail-item b {
+  flex: 0 0 auto;
+  color: #ff8a00;
+  font-size: 13px;
+}
+
+.finflow-operation b.is-positive {
+  color: #36d697;
+}
+
+.finflow-screen--details .finflow-topbar,
+.finflow-screen--settings .finflow-topbar {
+  justify-content: flex-start;
+}
+
+.finflow-screen--details,
+.finflow-screen--settings {
+  overflow-y: auto;
+}
+
+.finflow-detail-card {
+  display: grid;
+  gap: 10px;
+  animation: finflow-tab-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.finflow-detail-card__head,
+.finflow-deposit-summary,
+.finflow-limit-card,
+.finflow-savings-head {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 23px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(54, 214, 151, 0.22), transparent 34%),
+    rgba(255, 255, 255, 0.08);
+}
+
+.finflow-detail-card__head::after,
+.finflow-deposit-summary::after,
+.finflow-limit-card::after,
+.finflow-savings-head::after {
+  content: "";
+  position: absolute;
+  right: -28px;
+  top: -34px;
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  background: rgba(255, 138, 0, 0.18);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.finflow-detail-card__head span,
+.finflow-deposit-summary small,
+.finflow-limit-card span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: #ff8a00;
+  font-size: 12px;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finflow-detail-card__head strong,
+.finflow-deposit-summary strong,
+.finflow-limit-card strong,
+.finflow-savings-head strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.finflow-detail-card__head p,
+.finflow-deposit-summary span,
+.finflow-savings-head p {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.finflow-choice-list {
+  display: grid;
+  gap: 8px;
+}
+
+.finflow-choice-list button {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 17px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.finflow-choice-list button:hover,
+.finflow-choice-list button.is-active {
+  transform: translateY(-2px);
+  border-color: rgba(54, 214, 151, 0.42);
+  background: rgba(54, 214, 151, 0.14);
+}
+
+.finflow-choice-list span {
+  color: #ff8a00;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.finflow-choice-list div {
+  min-width: 0;
+}
+
+.finflow-choice-list strong,
+.finflow-choice-list small {
+  display: block;
+  min-width: 0;
+}
+
+.finflow-choice-list strong {
+  font-size: 13px;
+}
+
+.finflow-choice-list small {
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 10px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-choice-list b {
+  color: #36d697;
+  font-size: 13px;
+}
+
+.finflow-primary-action {
+  min-height: 44px;
+  border: 0;
+  border-radius: 16px;
+  color: #07111d;
+  background: #36d697;
+  font-size: 12px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.finflow-primary-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+.finflow-cashback-workspace,
+.finflow-deposit-workspace,
+.finflow-credit-workspace,
+.finflow-savings-workspace {
+  gap: 10px;
+}
+
+.finflow-cashback-hero,
+.finflow-deposit-dashboard,
+.finflow-credit-dashboard,
+.finflow-savings-control {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(54, 214, 151, 0.22), transparent 34%),
+    radial-gradient(circle at 18% 10%, rgba(255, 138, 0, 0.18), transparent 32%),
+    rgba(255, 255, 255, 0.08);
+}
+
+.finflow-cashback-hero {
+  display: grid;
+  min-height: 138px;
+  align-content: end;
+  gap: 7px;
+  padding: 16px;
+}
+
+.finflow-cashback-hero > span,
+.finflow-deposit-dashboard > span,
+.finflow-credit-dashboard span,
+.finflow-savings-control span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #36d697;
+  font-size: 10px;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finflow-cashback-hero strong,
+.finflow-deposit-dashboard strong,
+.finflow-credit-dashboard strong,
+.finflow-savings-control strong {
+  display: block;
+  color: #fff;
+  font-size: 27px;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.finflow-cashback-hero p,
+.finflow-deposit-dashboard p,
+.finflow-credit-dashboard small,
+.finflow-savings-control p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.finflow-cashback-hero b {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: #07111d;
+  background: #36d697;
+  font-size: 10px;
+  font-weight: 1000;
+}
+
+.finflow-cashback-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.finflow-cashback-grid button {
+  display: grid;
+  min-width: 0;
+  min-height: 122px;
+  align-content: start;
+  gap: 5px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 19px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.finflow-cashback-grid button:hover,
+.finflow-cashback-grid button.is-active {
+  transform: translateY(-2px);
+  border-color: rgba(54, 214, 151, 0.45);
+  background: rgba(54, 214, 151, 0.14);
+}
+
+.finflow-cashback-grid span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 12px;
+  color: #07111d;
+  background: #ffb020;
+}
+
+.finflow-cashback-grid strong,
+.finflow-cashback-grid small,
+.finflow-cashback-grid b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.finflow-cashback-grid strong {
+  font-size: 11px;
+  line-height: 1.08;
+}
+
+.finflow-cashback-grid small {
+  display: -webkit-box;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 8px;
+  line-height: 1.22;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.finflow-cashback-grid b {
+  margin-top: auto;
+  color: #36d697;
+  font-size: 13px;
+}
+
+.finflow-cashback-merchants {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.finflow-cashback-merchants > small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.finflow-cashback-merchants span {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 14px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.finflow-cashback-merchants i {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 9px;
+  color: #07111d;
+  background: #36d697;
+  font-style: normal;
+}
+
+.finflow-cashback-merchants b {
+  color: #ff8a00;
+}
+
+.finflow-deposit-dashboard {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+}
+
+.finflow-deposit-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.finflow-deposit-numbers em {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 9px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  font-style: normal;
+}
+
+.finflow-deposit-numbers small {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.finflow-deposit-numbers b {
+  color: #36d697;
+  font-size: 11px;
+}
+
+.finflow-deposit-chart {
+  display: block;
+  height: 46px;
+  border-radius: 15px;
+  background:
+    linear-gradient(90deg, rgba(255, 138, 0, 0.85) var(--deposit-progress, 70%), rgba(255, 255, 255, 0.1) 0),
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(255, 255, 255, 0.08) 18px 19px);
+  box-shadow: inset 0 -18px 0 rgba(255, 255, 255, 0.04);
+}
+
+.finflow-deposit-plan-list,
+.finflow-credit-list,
+.finflow-saving-goals {
+  display: grid;
+  gap: 8px;
+}
+
+.finflow-deposit-plan-list button,
+.finflow-credit-list button,
+.finflow-saving-goals button {
+  display: grid;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.finflow-deposit-plan-list button {
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 9px;
+}
+
+.finflow-deposit-plan-list button:hover,
+.finflow-deposit-plan-list button.is-active,
+.finflow-credit-list button:hover,
+.finflow-saving-goals button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(54, 214, 151, 0.44);
+  background: rgba(54, 214, 151, 0.13);
+}
+
+.finflow-deposit-plan-list svg {
+  color: #36d697;
+}
+
+.finflow-deposit-plan-list span,
+.finflow-credit-list div,
+.finflow-saving-goals span {
+  min-width: 0;
+}
+
+.finflow-deposit-plan-list strong,
+.finflow-credit-list strong,
+.finflow-saving-goals strong {
+  display: block;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-deposit-plan-list small,
+.finflow-credit-list small,
+.finflow-saving-goals small {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-deposit-plan-list b,
+.finflow-credit-list b,
+.finflow-saving-goals b {
+  color: #ff8a00;
+  font-size: 12px;
+}
+
+.finflow-credit-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 84px;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+}
+
+.finflow-credit-dashboard > i {
+  position: relative;
+  display: grid;
+  width: 82px;
+  height: 82px;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(#36d697 var(--credit-progress), rgba(255, 255, 255, 0.13) 0);
+  font-style: normal;
+}
+
+.finflow-credit-dashboard > i::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border-radius: inherit;
+  background: #172333;
+}
+
+.finflow-credit-dashboard > i b {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: 15px;
+}
+
+.finflow-credit-slider {
+  display: grid;
+  gap: 9px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.finflow-credit-slider span,
+.finflow-credit-metrics span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.finflow-credit-slider small,
+.finflow-credit-metrics small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.finflow-credit-slider b,
+.finflow-credit-metrics b {
+  color: #36d697;
+  font-size: 13px;
+}
+
+.finflow-credit-slider input {
+  width: 100%;
+  accent-color: #36d697;
+  cursor: pointer;
+}
+
+.finflow-credit-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.finflow-credit-metrics span {
+  padding: 11px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.finflow-credit-metrics svg {
+  color: #ff8a00;
+}
+
+.finflow-credit-list button {
+  grid-template-columns: 27px minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.finflow-credit-list button > span {
+  color: #ff8a00;
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.finflow-savings-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 15px;
+}
+
+.finflow-savings-control button {
+  display: inline-grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  width: 58px;
+  border: 0;
+  border-radius: 20px;
+  color: #07111d;
+  background: #36d697;
+  font-size: 8px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.finflow-savings-control button:not(.is-active) {
+  filter: grayscale(0.8) brightness(0.8);
+}
+
+.finflow-savings-control button:hover {
+  transform: rotate(-5deg) scale(1.03);
+}
+
+.finflow-saving-goals button {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px 10px;
+}
+
+.finflow-saving-goals i {
+  grid-column: 1 / -1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.finflow-saving-goals i::before {
+  content: "";
+  display: block;
+  width: var(--jar-progress, 50%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #36d697, #ff8a00);
+}
+
+.finflow-saving-goals em {
+  grid-column: 1 / -1;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.finflow-segment-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 5px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.finflow-segment-row button {
+  min-width: 0;
+  min-height: 36px;
+  border: 0;
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.56);
+  background: transparent;
+  font-size: 10px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+}
+
+.finflow-segment-row button.is-active,
+.finflow-segment-row button:hover {
+  color: #07111d;
+  background: #36d697;
+  transform: translateY(-1px);
+}
+
+.finflow-growth-card {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 19px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.finflow-growth-card span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.finflow-growth-card small {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.finflow-growth-card b {
+  color: #36d697;
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.finflow-growth-card i,
+.finflow-limit-card i {
+  display: block;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.finflow-growth-card i::before,
+.finflow-limit-card i b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #36d697, #ff8a00);
+}
+
+.finflow-growth-card i::before {
+  content: "";
+  width: var(--deposit-progress, 70%);
+}
+
+.finflow-limit-card {
+  display: grid;
+  gap: 10px;
+}
+
+.finflow-limit-card input {
+  width: 100%;
+  accent-color: #36d697;
+  cursor: pointer;
+}
+
+.finflow-limit-card i b {
+  background: linear-gradient(90deg, #ff8a00, #36d697);
+}
+
+.finflow-savings-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.finflow-savings-head > div {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.finflow-savings-head button {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 0;
+  border-radius: 17px;
+  color: #07111d;
+  background: #36d697;
+  cursor: pointer;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.finflow-savings-head button:not(.is-active) {
+  filter: grayscale(0.75) brightness(0.75);
+}
+
+.finflow-savings-head button:hover {
+  transform: rotate(-6deg) scale(1.04);
+}
+
+.finflow-jars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.finflow-jars-grid button {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.finflow-jars-grid button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(54, 214, 151, 0.42);
+  background: rgba(54, 214, 151, 0.12);
+}
+
+.finflow-jars-grid span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, #101827 48%, transparent 50%),
+    conic-gradient(#36d697 var(--jar-progress), rgba(255, 255, 255, 0.12) 0);
+}
+
+.finflow-jars-grid span b {
+  color: #fff;
+  font-size: 11px;
+}
+
+.finflow-jars-grid strong,
+.finflow-jars-grid small,
+.finflow-jars-grid em {
+  display: block;
+}
+
+.finflow-jars-grid strong {
+  font-size: 13px;
+}
+
+.finflow-jars-grid small {
+  min-height: 32px;
+  margin: 5px 0 8px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 9px;
+  font-style: normal;
+  line-height: 1.3;
+}
+
+.finflow-jars-grid em {
+  color: #36d697;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 1000;
+}
+
+.finflow-detail-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 158px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+    #101827;
+}
+
+.finflow-detail-hero__glow {
+  position: absolute;
+  right: -30px;
+  top: -42px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  filter: blur(18px);
+  opacity: 0.62;
+}
+
+.finflow-detail-hero--cashback .finflow-detail-hero__glow {
+  background: #ffb020;
+}
+
+.finflow-detail-hero--deposits .finflow-detail-hero__glow {
+  background: #36d697;
+}
+
+.finflow-detail-hero--credit .finflow-detail-hero__glow {
+  background: #f43f5e;
+}
+
+.finflow-detail-hero--savings .finflow-detail-hero__glow {
+  background: #3b82f6;
+}
+
+.finflow-detail-hero strong,
+.finflow-detail-hero p,
+.finflow-detail-hero button {
+  position: relative;
+  z-index: 1;
+}
+
+.finflow-detail-hero strong {
+  display: block;
+  max-width: 220px;
+  font-size: 28px;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.finflow-detail-hero p {
+  max-width: 250px;
+  margin: 10px 0 15px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.finflow-detail-hero button,
+.finflow-security-card + .finflow-settings-list button,
+.finflow-detail-list + button {
+  border: 0;
+}
+
+.finflow-detail-hero button {
+  padding: 12px 15px;
+  border-radius: 15px;
+  color: #08111d;
+  background: #36d697;
+  font-size: 12px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.finflow-detail-list {
+  margin-top: 10px;
+}
+
+.finflow-detail-item span {
+  flex: 0 0 auto;
+  color: #ff8a00;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.finflow-security-card {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(54, 214, 151, 0.32), transparent 34%),
+    radial-gradient(circle at 86% 28%, rgba(255, 138, 0, 0.18), transparent 34%),
+    rgba(255, 255, 255, 0.07);
+}
+
+.finflow-security-card div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #36d697;
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finflow-security-card strong {
+  font-size: 27px;
+  line-height: 1;
+}
+
+.finflow-security-card small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.finflow-settings-list button {
+  position: relative;
+  padding-right: 56px;
+}
+
+.finflow-settings-list button i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-50%);
+  transition: background 0.22s ease;
+}
+
+.finflow-settings-list button i::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.74);
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+
+.finflow-settings-list button.is-active i {
+  background: rgba(54, 214, 151, 0.36);
+}
+
+.finflow-settings-list button.is-active i::after {
+  background: #36d697;
+  transform: translateX(14px);
+}
+
+.finflow-bottom-nav {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  background: rgba(5, 8, 13, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+}
+
+.finflow-bottom-nav button {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  gap: 3px;
+  padding: 8px 2px;
+  border: 0;
+  border-radius: 17px;
+  color: rgba(255, 255, 255, 0.46);
+  background: transparent;
+  font-size: 8px;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.finflow-bottom-nav button span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finflow-bottom-nav button.is-active {
+  color: #07111d;
+  background: #36d697;
+}
+
+.finflow-bottom-nav button:hover {
+  transform: translateY(-1px);
+}
+
+.finflow-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 94px;
+  z-index: 8;
+  transform: translateX(-50%);
+  max-width: calc(100% - 48px);
+  padding: 12px 16px;
+  border-radius: 999px;
+  color: #08111d;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 1000;
+  white-space: nowrap;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+  animation: finflow-toast-in 0.24s ease both;
+}
+
+.finflow-preview-copy span {
+  border-color: rgba(54, 214, 151, 0.34);
+  color: #36d697;
+}
+
+.finflow-preview-copy h3 {
+  max-width: 600px;
+  margin: 0 0 22px;
+  color: #ffffff;
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 950;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+
+.finflow-preview-copy p {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.finflow-preview-copy div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.finflow-preview-copy small {
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #f8fbff;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+@keyframes finflow-screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes finflow-tab-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes finflow-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .mobile-app-preview--finflow {
+    gap: 34px;
+  }
+
+  .finflow-preview-copy div {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 560px) {
+  .finflow-phone-app {
+    border-radius: 28px;
+  }
+
+  .finflow-screen {
+    padding: 24px 18px 90px;
+  }
+
+  .finflow-topbar strong {
+    font-size: 21px;
+  }
+
+  .finflow-balance-card > strong {
+    font-size: 31px;
+  }
+
+  .finflow-bank-card {
+    height: 146px;
+  }
+
+  .finflow-detail-hero strong {
+    font-size: 29px;
+  }
+
+  .finflow-preview-copy small {
+    font-size: 13px;
+  }
+}

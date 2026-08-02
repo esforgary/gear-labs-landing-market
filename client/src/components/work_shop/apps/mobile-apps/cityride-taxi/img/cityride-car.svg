@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" role="img" aria-label="CityRide car">
+  <defs>
+    <linearGradient id="paint" x1="18" y1="14" x2="142" y2="86" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#21d4a2"/>
+      <stop offset="0.52" stop-color="#4da3ff"/>
+      <stop offset="1" stop-color="#ff7a00"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#paint)" d="M31 43c6-18 17-27 35-27h31c17 0 29 9 35 27l10 4c7 3 11 10 11 18v8c0 7-5 12-12 12H19c-7 0-12-5-12-12v-8c0-8 4-15 11-18l13-4Z"/>
+  <path fill="#08111f" d="M48 42c4-9 10-14 20-14h25c10 0 17 5 21 14l3 7H45l3-7Z" opacity=".78"/>
+  <path fill="#ffffff" d="M31 57h22c4 0 7 3 7 7v1c0 4-3 7-7 7H31c-4 0-7-3-7-7v-1c0-4 3-7 7-7Zm76 0h22c4 0 7 3 7 7v1c0 4-3 7-7 7h-22c-4 0-7-3-7-7v-1c0-4 3-7 7-7Z" opacity=".88"/>
+  <circle cx="44" cy="83" r="12" fill="#08111f"/>
+  <circle cx="116" cy="83" r="12" fill="#08111f"/>
+</svg>
