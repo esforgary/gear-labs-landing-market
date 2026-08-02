@@ -5,7 +5,12 @@ import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
 
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
-const serverAsset = (path: string) => `${apiBaseUrl}${path}`;
+const clientBaseUrl = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+const staticBaseUrl = apiBaseUrl || clientBaseUrl;
+const serverAsset = (path: string) => {
+  if (/^(https?:|data:|blob:)/.test(path)) return path;
+  return `${staticBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+};
 
 const imageSources = [
   serverAsset("/static/home/hero/web.jpg"),

@@ -99,7 +99,12 @@ const CityRideTaxiPreview = lazy(() =>
 );
 
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
-const serverAsset = (path: string) => `${apiBaseUrl}${path}`;
+const clientBaseUrl = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+const staticBaseUrl = apiBaseUrl || clientBaseUrl;
+const serverAsset = (path: string) => {
+  if (/^(https?:|data:|blob:)/.test(path)) return path;
+  return `${staticBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+};
 
 const previewImages = [
   serverAsset("/static/workshop/sites/nordwall-studio/img/cover.jpg"),
@@ -835,7 +840,7 @@ function WorkShop() {
         category: item.category,
         title: item.previewKey === "finflow" ? "FinFlow Bank" : localized.title ?? item.title,
         text: textKey ? t(textKey) : localized.text ?? item.text,
-        img: item.img,
+        img: serverAsset(item.img),
         type: typeKey ? t(typeKey) : localized.type ?? item.type,
         price: item.price,
         time: days ? formatWorkshopDays(lang, days) : localized.time ?? item.time,
