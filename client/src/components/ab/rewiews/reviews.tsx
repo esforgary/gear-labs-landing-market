@@ -95,7 +95,9 @@ const Reviews: React.FC = () => {
   const [mainName, setMainName] = useState("");
   const [mainText, setMainText] = useState("");
   const [mainRating, setMainRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
   const [modalReview, setModalReview] = useState<ReviewItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const allReviewsRef = useRef<ReviewItem[]>([]);
 
   const formatDate = (d: Date) => {
@@ -126,16 +128,23 @@ const Reviews: React.FC = () => {
   }, []);
 
   const renderStars = (rating: number, clickable?: (idx: number) => void) => (
-    <div className="stars">
+    <div
+      className={`stars ${clickable ? "interactive" : ""}`}
+      onMouseLeave={clickable ? () => setHoveredRating(0) : undefined}
+    >
       {Array.from({ length: 5 }).map((_, idx) => (
         <svg
           key={idx}
-          className={`star ${idx < rating ? "yellow" : "gray"}`}
+          className={`star ${idx < (clickable && hoveredRating ? hoveredRating : rating) ? "yellow" : "gray"} ${clickable && hoveredRating && idx < hoveredRating ? "preview" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
           viewBox="0 0 24 24"
-          onClick={clickable ? () => clickable(idx + 1) : undefined}
+          onMouseEnter={clickable ? () => setHoveredRating(idx + 1) : undefined}
+          onClick={clickable ? () => {
+            clickable(idx + 1);
+            setHoveredRating(0);
+          } : undefined}
         >
           <path
             fill="currentColor"
@@ -253,8 +262,11 @@ const Reviews: React.FC = () => {
     }
   };
 
-  const openModal = (r: ReviewItem) => setModalReview(r);
-  const closeModal = () => setModalReview(null);
+  const openModal = (r: ReviewItem) => {
+    setModalReview(r);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
 
   const getAnimationClass = (index: number) => {
     if (animatingIndex === index) return "fade-out";
@@ -351,7 +363,16 @@ const Reviews: React.FC = () => {
         </div>
       </div>
 
-      <div className={`modal-overlay ${modalReview ? "show" : ""}`} onClick={closeModal}>
+      <div
+        className={`modal-overlay ${isModalOpen ? "show" : ""}`}
+        aria-hidden={!isModalOpen}
+        onClick={closeModal}
+        onTransitionEnd={(event) => {
+          if (event.target === event.currentTarget && event.propertyName === "opacity" && !isModalOpen) {
+            setModalReview(null);
+          }
+        }}
+      >
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           {modalReview && (
             <div className="review-card">

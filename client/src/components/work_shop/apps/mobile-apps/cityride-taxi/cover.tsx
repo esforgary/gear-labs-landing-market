@@ -8,7 +8,7 @@ export const CityRideTaxiCover = () => (
       <span className="cityride-cover-pin cityride-cover-pin--from" />
       <span className="cityride-cover-pin cityride-cover-pin--to" />
       <i className="cityride-cover-route" />
-      <img src={cityrideCar} alt="" />
+      <img className="cityride-cover-car" src={cityrideCar} alt="" />
     </div>
     <div className="cityride-cover-info">
       <strong>CityRide</strong>

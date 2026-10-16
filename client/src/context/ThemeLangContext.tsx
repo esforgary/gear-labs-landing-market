@@ -2041,6 +2041,11 @@ const mergeTranslations = (base: TranslationMap, remote: TranslationMap): Transl
       ...(result[lang] ?? {}),
       ...values,
     };
+
+    // Keep the current order label even when an older API still serves the previous copy.
+    if (base[lang]?.["fitback.form.badge"]) {
+      result[lang]["fitback.form.badge"] = base[lang]["fitback.form.badge"];
+    }
   });
 
   return result;

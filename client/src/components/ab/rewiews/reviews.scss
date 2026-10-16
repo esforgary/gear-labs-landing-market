@@ -101,9 +101,19 @@
     }
 
     .stars {
+      animation: reviewStarsAppear 0.35s ease both;
       display: flex;
       flex-shrink: 0;
       gap: 2px;
+
+      .star {
+        opacity: 1;
+        transition: color 0.25s ease, opacity 0.25s ease;
+      }
+
+      &.interactive .star {
+        cursor: pointer;
+      }
 
       .gray {
         color: color-mix(in srgb, var(--text-muted) 36%, transparent);
@@ -111,6 +121,10 @@
 
       .yellow {
         color: var(--yellow);
+      }
+
+      .preview {
+        opacity: 0.5;
       }
     }
   }
@@ -190,6 +204,11 @@
   &.fade-out {
     animation: fadeOut 0.33s forwards;
   }
+}
+
+@keyframes reviewStarsAppear {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {

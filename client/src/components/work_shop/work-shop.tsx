@@ -1,6 +1,6 @@
 ﻿import { useCallback, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { getImportedProjectCopy, getWorkshopPreviewLabels } from "./imported-project-copy";
 import { Suspense, lazy, type LazyExoticComponent } from "react";
 import ButtonWithExplosion from "../Button/button"
@@ -582,6 +582,9 @@ function WorkShop() {
   const [activeCategory, setActiveCategory] = useState<WorkshopCategory>(catalogPosition.category);
   const [activePreview, setActivePreview] = useState<WorkshopItem | null>(null);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const previewCloseTimer = useRef<number | null>(null);
+  const previewOpenFrame = useRef<number | null>(null);
+  const backgroundScrollbarRef = useRef<HTMLDivElement | null>(null);
   const [serverItems, setServerItems] = useState<WorkshopCatalogItem[] | null>(null);
 
   const categories = useMemo(
@@ -961,17 +964,30 @@ function WorkShop() {
   }, [activeCategory, safePage, pageItems.length]);
 
   const openPreview = useCallback((item: WorkshopItem) => {
+    if (previewCloseTimer.current !== null) window.clearTimeout(previewCloseTimer.current);
+    if (previewOpenFrame.current !== null) window.cancelAnimationFrame(previewOpenFrame.current);
     setActivePreview(item);
-    window.requestAnimationFrame(() => {
-      setIsPreviewVisible(true);
+    previewOpenFrame.current = window.requestAnimationFrame(() => {
+      previewOpenFrame.current = window.requestAnimationFrame(() => {
+        setIsPreviewVisible(true);
+        previewOpenFrame.current = null;
+      });
     });
   }, []);
 
   const closePreview = useCallback(() => {
+    if (previewOpenFrame.current !== null) window.cancelAnimationFrame(previewOpenFrame.current);
+    if (previewCloseTimer.current !== null) window.clearTimeout(previewCloseTimer.current);
     setIsPreviewVisible(false);
-    window.setTimeout(() => {
+    previewCloseTimer.current = window.setTimeout(() => {
       setActivePreview(null);
+      previewCloseTimer.current = null;
     }, 360);
+  }, []);
+
+  useEffect(() => () => {
+    if (previewCloseTimer.current !== null) window.clearTimeout(previewCloseTimer.current);
+    if (previewOpenFrame.current !== null) window.cancelAnimationFrame(previewOpenFrame.current);
   }, []);
 
   const preventBackdropWheel = useCallback((event: { target: EventTarget; currentTarget: EventTarget; preventDefault: () => void }) => {
@@ -999,8 +1015,7 @@ function WorkShop() {
     root.style.scrollBehavior = "auto";
     body.style.paddingRight = `${bodyPadding + scrollbarWidth}px`;
 
-    // Native scrollbars can auto-hide and disappear under the backdrop blur.
-    // Paint the frozen track and thumb explicitly, with their own light blur.
+    // Fade a frozen scrollbar out and back in while native scrolling is locked.
     const backgroundScrollbar = document.createElement("div");
     backgroundScrollbar.className = "preview-background-scrollbar";
     backgroundScrollbar.setAttribute("aria-hidden", "true");
@@ -1017,7 +1032,8 @@ function WorkShop() {
     };
     updateScrollbar();
     backgroundScrollbar.append(thumb);
-    body.append(backgroundScrollbar);
+    if (scrollbarWidth > 0) body.append(backgroundScrollbar);
+    backgroundScrollbarRef.current = backgroundScrollbar;
     window.addEventListener("resize", updateScrollbar);
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -1038,6 +1054,7 @@ function WorkShop() {
 
     return () => {
       backgroundScrollbar.remove();
+      backgroundScrollbarRef.current = null;
       window.removeEventListener("resize", updateScrollbar);
       document.body.classList.remove("is-preview-open");
       body.style.paddingRight = previousBodyPadding;
@@ -1049,6 +1066,10 @@ function WorkShop() {
       window.removeEventListener("touchmove", preventBackgroundScroll);
     };
   }, [activePreview, closePreview]);
+
+  useLayoutEffect(() => {
+    backgroundScrollbarRef.current?.classList.toggle("is-hidden", isPreviewVisible);
+  }, [activePreview, isPreviewVisible]);
 
   const handleSelectProject = (item: (typeof items)[number]) => {
     selectProject({
@@ -1157,11 +1178,6 @@ function WorkShop() {
           className={`template-preview-overlay ${activePreview.previewMode === "app" ? "template-preview-overlay--app" : ""} ${isPreviewVisible ? "is-open" : "is-closing"}`}
           onClick={closePreview}
           onWheel={preventBackdropWheel}
-          onTransitionEnd={(event) => {
-            if (event.target === event.currentTarget && !isPreviewVisible) {
-              setActivePreview(null);
-            }
-          }}
           role="dialog"
           aria-modal="true"
           aria-label={`${previewLabels.preview} ${activePreview.title}`}

@@ -18,7 +18,7 @@ interface FeatureItem {
   href?: string;
 }
 
-const googleFormsPlaceholderUrl = "https://docs.google.com/forms/";
+const projectWishesFormUrl = "https://docs.google.com/forms/d/10z8OMnhWK8_wq1ADezjmC5_4h1E1BKRWNL4GLaiLN6I/viewform";
 
 export default function FitbackForm() {
   const { t } = useThemeLang();
@@ -55,7 +55,7 @@ export default function FitbackForm() {
       title: t("fitback.feature.wishes.title"),
       text: t("fitback.feature.wishes.text"),
       tone: "blue",
-      href: googleFormsPlaceholderUrl,
+      href: projectWishesFormUrl,
     },
     {
       icon: <FileArchive />,

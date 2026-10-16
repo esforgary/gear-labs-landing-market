@@ -5,6 +5,7 @@ const db = require("./db");
 const workshopItems = require("./data/workshop-items");
 const builderCatalog = require("./data/builder-blocks");
 const { answerQuestion, getFaqSuggestions } = require("./data/chatbot-faq");
+const orderFormLabels = require("./data/order-form-labels");
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -59,6 +60,12 @@ const getTranslations = () => {
     acc[row.lang][row.translationKey] = row.value;
     return acc;
   }, {});
+
+  // Existing databases may still contain the old "final form" label.
+  Object.entries(orderFormLabels).forEach(([lang, label]) => {
+    if (!translations[lang]) translations[lang] = {};
+    translations[lang]["fitback.form.badge"] = label;
+  });
 
   return { languages, translations };
 };

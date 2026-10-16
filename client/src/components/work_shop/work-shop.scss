@@ -163,7 +163,7 @@
     box-shadow: var(--catalog-shadow);
     transform: translateY(-7px);
 
-    .workshop-preview img {
+    .workshop-preview img:not(.cityride-cover-car) {
       transform: scale(1.04);
     }
   }
@@ -1683,9 +1683,14 @@
   position: fixed;
   inset: 0 0 0 auto;
   background: rgba(110, 116, 128, 0.24);
-  filter: blur(0.65px);
+  opacity: 1;
+  transition: opacity 300ms ease;
   pointer-events: none;
   z-index: 3001;
+
+  &.is-hidden {
+    opacity: 0;
+  }
 
   &__thumb {
     position: absolute;
