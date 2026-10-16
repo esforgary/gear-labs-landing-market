@@ -14,6 +14,7 @@ import FaqChatBot from './components/chat_bot/FaqChatBot';
 import { ThemeLangProvider } from './context/ThemeLangContext';
 import { ProjectSelectionProvider } from './context/ProjectSelectionContext';
 import { startFloatingParticles } from './components/scripts/floatingParticles';
+import { startPageScrollRestoration } from './page-scroll-restoration';
 
 import { Suspense, lazy, useEffect, useRef, useState, type CSSProperties } from "react";
 
@@ -33,6 +34,7 @@ function App() {
   const tooltipTargetRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => startFloatingParticles(), []);
+  useEffect(() => startPageScrollRestoration(), []);
 
   useEffect(() => {
     const syncRoute = () => setIsBuilderPage(window.location.hash === "#constructor");
@@ -42,20 +44,6 @@ function App() {
 
     return () => window.removeEventListener("hashchange", syncRoute);
   }, []);
-
-  useEffect(() => {
-    if (isBuilderPage) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
-    const target = window.location.hash.replace("#", "");
-    if (!target) return;
-
-    requestAnimationFrame(() => {
-      document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }, [isBuilderPage]);
 
   useEffect(() => {
     document.body.classList.toggle("is-builder-route", isBuilderPage);

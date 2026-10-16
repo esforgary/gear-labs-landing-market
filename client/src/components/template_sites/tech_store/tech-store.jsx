@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -129,6 +129,36 @@ export default function TechStore() {
   const [selectedPhoto, setSelectedPhoto] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState("");
   const currentBanner = banners[banner];
+  const bannerSlotRef = useRef(null);
+  const bannerCopyRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const slot = bannerSlotRef.current;
+    const copy = bannerCopyRef.current;
+    const title = copy.querySelector("h1");
+    let active = true;
+    const fits = () => copy.offsetHeight <= slot.clientHeight && copy.scrollWidth <= slot.clientWidth;
+    const fitTitle = () => {
+      if (!active) return;
+      title.style.fontSize = "";
+      const maximum = Number.parseFloat(getComputedStyle(title).fontSize);
+      if (fits()) return;
+      let low = 16;
+      let high = maximum;
+      for (let step = 0; step < 8; step += 1) {
+        const size = (low + high) / 2;
+        title.style.fontSize = `${size}px`;
+        if (fits()) low = size;
+        else high = size;
+      }
+      title.style.fontSize = `${low}px`;
+    };
+    const observer = new ResizeObserver(fitTitle);
+    observer.observe(slot);
+    fitTitle();
+    document.fonts.ready.then(fitTitle);
+    return () => { active = false; observer.disconnect(); };
+  }, [banner]);
 
   const cartSummary = useMemo(() => {
     return products.reduce(
@@ -166,6 +196,19 @@ export default function TechStore() {
     setBanner((value) => (value - 1 + banners.length) % banners.length);
   };
 
+  const renderBannerCopy = (slide, index, ref) => (
+    <div className="tech-banner-copy" key={`copy-${index}`} ref={ref}>
+      <span>{slide.label}</span>
+      <h1>{slide.title}</h1>
+      <p>{slide.text}</p>
+      <div className="tech-hero-controls">
+        <button type="button" onClick={prevBanner} aria-label="Предыдущий баннер"><ChevronLeft size={20} /></button>
+        <strong>{String(index + 1).padStart(2, "0")} / 03</strong>
+        <button type="button" onClick={nextBanner} aria-label="Следующий баннер"><ChevronRight size={20} /></button>
+      </div>
+    </div>
+  );
+
   return (
     <main className="tech-store-site">
       <header className="tech-store-header">
@@ -192,18 +235,12 @@ export default function TechStore() {
       </header>
 
       <section className={`tech-hero tech-hero--${bannerDirection}`} id="tech-home">
-        <div className="tech-banner-copy" key={`copy-${banner}`}>
-          <span>{currentBanner.label}</span>
-          <h1>{currentBanner.title}</h1>
-          <p>{currentBanner.text}</p>
-          <div className="tech-hero-controls">
-            <button type="button" onClick={prevBanner} aria-label="Предыдущий баннер">
-              <ChevronLeft size={20} />
-            </button>
-            <strong>{String(banner + 1).padStart(2, "0")} / 03</strong>
-            <button type="button" onClick={nextBanner} aria-label="Следующий баннер">
-              <ChevronRight size={20} />
-            </button>
+        <div className="tech-banner-slot" ref={bannerSlotRef}>
+          <div className="tech-banner-reference" aria-hidden="true" inert>
+            {renderBannerCopy(banners[2], 2)}
+          </div>
+          <div className="tech-banner-active">
+            {renderBannerCopy(currentBanner, banner, bannerCopyRef)}
           </div>
         </div>
         <button

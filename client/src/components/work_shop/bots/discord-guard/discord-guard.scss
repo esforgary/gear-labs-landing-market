@@ -1,0 +1,56 @@
+.discord-guard-phone {
+  background: #313338; border-radius: 36px; color: #dbdee1; display: flex; flex-direction: column; font: 12px/1.45 Arial, sans-serif; height: 100%; isolation: isolate; min-height: 0; overflow: hidden; position: relative;
+  *, *::before, *::after { box-sizing: border-box; }
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; } button:disabled { cursor: default; opacity: .45; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid #a6adff; outline-offset: 2px; }
+  .app-phone-status { background: #232428; color: #f2f3f5; }
+  button svg { flex: none; }
+  p, h3, h4 { font-family: Arial, sans-serif; }
+  p { color: inherit; font-size: 12px; font-weight: 400; line-height: 1.5; }
+}
+.discord-guard-header { align-items: center; background: #232428; display: flex; flex: none; gap: 10px; padding: 9px 13px 13px;
+  h3 { align-items: center; color: #f2f3f5; display: flex; font-size: 15px; font-weight: 700; gap: 7px; margin: 0 0 3px; }
+  small { align-items: center; color: #9297a0; display: flex; font-size: 9px; gap: 4px; } small i { background: #23a55a; border-radius: 50%; height: 5px; width: 5px; }
+}
+.discord-guard-server { align-items: center; background: #5865f2; border-radius: 13px; color: #fff; display: flex; flex: 0 0 37px; height: 37px; justify-content: center; }
+.discord-guard-channel { align-items: center; border-bottom: 1px solid #222328; display: flex; flex: none; gap: 5px; min-height: 40px; padding: 8px 12px;
+  > svg { color: #969ba4; } strong { font-size: 12px; } > span { background: #5865f225; border-radius: 4px; color: #aeb4ff; font-size: 7px; font-weight: 700; letter-spacing: .4px; margin-left: auto; padding: 4px 5px; }
+}
+.discord-guard-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 14px 11px; scrollbar-color: #1e1f22 transparent; scrollbar-width: thin; }
+.discord-guard-welcome { background: linear-gradient(135deg, #5865f225, #313338); border: 1px solid #ffffff0b; border-radius: 10px; padding: 12px;
+  > svg { color: #a2aaff; display: block; margin-bottom: 8px; } strong { color: #f2f3f5; font-size: 17px; } p { color: #b5bac1; font-size: 10px; margin: 5px 0 0; }
+}
+.discord-guard-day { align-items: center; color: #8d929c; display: flex; font-size: 8px; gap: 8px; letter-spacing: .6px; margin: 17px 0;
+  &::before, &::after { background: #ffffff0b; content: ""; flex: 1; height: 1px; }
+}
+.discord-guard-messages { display: grid; gap: 16px; }
+.discord-guard-avatar { align-items: center; border-radius: 50%; color: #fff; display: flex; flex: 0 0 29px; font-size: 13px; font-weight: 700; height: 29px; justify-content: center; width: 29px; }
+.discord-guard-message { align-items: flex-start; display: flex; gap: 8px;
+  > div { flex: 1; min-width: 0; } header { align-items: center; display: flex; flex-wrap: wrap; gap: 4px; } b { filter: brightness(1.3); font-size: 11px; } time { color: #9297a0; font-size: 8px; } header span { background: #5865f2; border-radius: 2px; color: #fff; font-size: 6px; padding: 1px 3px; }
+  p { font-size: 11px; margin: 3px 0; overflow-wrap: anywhere; white-space: pre-wrap; } &.is-deleted p { color: #949ba4; font-size: 10px; font-style: italic; }
+}
+.discord-guard-message-actions { display: flex; flex-wrap: wrap; gap: 10px; button { align-items: center; background: transparent; border: 0; color: #a2a8bb; display: flex; font-size: 8px; gap: 3px; padding: 3px 0; } button:hover { color: #c6caff; } }
+.discord-guard-section-title { margin-bottom: 15px; > svg { color: #a2aaff; } h4 { color: #f2f3f5; font-size: 17px; font-weight: 700; margin: 7px 0; } p { color: #a7adb7; font-size: 10px; margin: 0; } }
+.discord-guard-filter { align-items: center; color: #b5bac1; display: flex; font-size: 10px; gap: 10px; margin-bottom: 10px; select { background: #232428; border: 1px solid #ffffff10; border-radius: 5px; color: #dbdee1; flex: 1; min-width: 0; padding: 6px; } }
+.discord-guard-card { background: #2b2d31; border: 1px solid #ffffff0a; border-radius: 9px; margin-bottom: 10px; padding: 11px; header { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; justify-content: space-between; } b { font-size: 11px; } small { color: #949ba4; display: block; font-size: 9px; margin-top: 6px; } p { font-size: 11px; margin: 8px 0; overflow-wrap: anywhere; } }
+.discord-guard-card blockquote, .discord-guard-sheet blockquote { border-left: 3px solid #5865f2; color: #b5bac1; font-size: 11px; margin: 10px 0; overflow-wrap: anywhere; padding: 5px 0 5px 9px; white-space: pre-wrap; }
+.discord-guard-badge { background: #f0b2321c; border-radius: 4px; color: #f0b232; font-size: 8px; padding: 3px 5px; &.is-resolved { background: #23a55a1c; color: #6bd89a; } &.is-dismissed { background: #ffffff0d; color: #a7adb7; } }
+.discord-guard-card-actions { display: flex; flex-wrap: wrap; gap: 5px; button { align-items: center; background: #404249; border: 0; border-radius: 5px; color: #dbdee1; display: flex; font-size: 9px; gap: 3px; padding: 7px; } button:first-child { background: #5865f2; color: #fff; } }
+.discord-guard-empty { background: #2b2d31; border-radius: 8px; color: #a7adb7 !important; font-size: 11px !important; padding: 15px; }
+.discord-guard-member-card { align-items: center; background: #2b2d31; border-radius: 8px; display: flex; gap: 7px; margin-bottom: 8px; padding: 10px 8px; > div { display: grid; flex: 1; gap: 2px; min-width: 0; } strong { font-size: 11px; } span:not(.discord-guard-avatar), small { color: #a7adb7; font-size: 9px; } > button { background: #404249; border: 0; border-radius: 5px; color: #d5d9e4; font-size: 9px; padding: 6px; } }
+.discord-guard-event { align-items: flex-start; border-left: 2px solid #5865f2; display: flex; gap: 8px; margin: 10px 0; padding: 8px; > svg { color: #9da5ff; flex: none; margin-top: 3px; } p { font-size: 11px; margin: 0; overflow-wrap: anywhere; } time { color: #9297a0; font-size: 8px; } }
+.discord-guard-bot-tag { background: #5865f2; border-radius: 3px; color: #fff; font-size: 8px; padding: 2px 4px; }
+.discord-guard-composer { align-items: center; background: #383a40; border-radius: 9px; display: flex; flex: none; gap: 5px; margin: 6px 10px 9px; padding: 5px; input { background: transparent; border: 0; color: #dbdee1; flex: 1; font-size: 11px; min-width: 0; padding: 7px; } input::placeholder { color: #949ba4; } button { align-items: center; background: #5865f2; border: 0; border-radius: 7px; color: #fff; display: flex; height: 31px; justify-content: center; width: 31px; } }
+.discord-guard-nav { background: #232428; display: flex; flex: none; padding: 7px 5px 11px; button { align-items: center; background: transparent; border: 0; color: #949ba4; display: flex; flex: 1; flex-direction: column; font-size: 8px; gap: 4px; padding: 3px; position: relative; } button[aria-pressed="true"] { color: #bcc2ff; } i { background: #f0b232; border: 2px solid #232428; border-radius: 50%; height: 8px; position: absolute; right: 19px; top: 0; width: 8px; } }
+.discord-guard-notice, .discord-guard-restriction, .discord-guard-error { background: #5865f225; color: #c5caff; flex: none; font-size: 10px !important; line-height: 1.4; margin: 0; max-height: 70px; overflow: auto; padding: 8px 11px; }
+.discord-guard-restriction, .discord-guard-error { background: #f0b23215; color: #f6ca77 !important; }
+.discord-guard-sheet-backdrop { align-items: flex-end; background: #111214bc; display: flex; inset: 31px 0 0; position: absolute; z-index: 5; }
+.discord-guard-sheet { background: #2b2d31; border-radius: 16px 16px 0 0; box-shadow: 0 -10px 35px #0005; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 15px 13px 23px; width: 100%; > header { align-items: center; display: flex; gap: 8px; justify-content: space-between; margin-bottom: 13px; } > header > button { align-items: center; background: #383a40; border: 0; border-radius: 7px; color: #dbdee1; display: flex; padding: 5px; } form { display: grid; gap: 10px; } label { color: #dbdee1; display: grid; font-size: 11px; gap: 6px; } select, textarea { background: #1e1f22; border: 1px solid #ffffff0c; border-radius: 6px; color: #dbdee1; max-width: 100%; padding: 9px; width: 100%; } textarea { resize: vertical; } small { color: #9297a0; font-size: 9px; } .discord-guard-sheet-status { color: #a7adb7; font-size: 10px; margin: 0; } }
+.discord-guard-phone .discord-guard-primary { background: #5865f2; border: 0; border-radius: 7px; color: #fff; font-size: 11px; font-weight: 700; padding: 11px; }
+.discord-guard-presentation { min-width: 0; }
+.discord-guard-controls { margin-top: 27px; max-width: 540px; button { cursor: pointer; font-family: inherit; } button:focus-visible { outline: 2px solid #b6bdff; outline-offset: 3px; } > p { color: #ffffff8c; font-size: 12px; font-weight: 400; line-height: 1.6; margin: 15px 0 10px; } .discord-guard-storage-error { color: #ffcf8c; } }
+.discord-guard-role-switch { background: #ffffff0c; border: 1px solid #ffffff24; border-radius: 12px; display: flex; gap: 4px; padding: 4px; button { background: transparent; border: 0; border-radius: 8px; color: #ffffffa6; flex: 1; font-size: 13px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; padding: 12px 9px; } button[aria-pressed="true"] { background: #5865f2; color: #fff; } }
+.discord-guard-reset, .discord-guard-reset-confirm button { background: transparent; border: 1px solid #ffffff30; border-radius: 8px; color: #ffffffa8; font-size: 11px; padding: 8px 11px; }
+.discord-guard-reset-confirm { align-items: center; color: #ffffffad; display: flex; flex-wrap: wrap; font-size: 12px; gap: 8px; line-height: 1.5; span { width: 100%; } }
+@media (max-width: 720px) { .discord-guard-presentation { order: -1; } .discord-guard-controls { margin-top: 20px; } }

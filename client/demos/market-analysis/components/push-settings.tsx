@@ -1,0 +1,1 @@
+export default function PushSettings(){return <p style={{color:'var(--muted-foreground)',fontSize:12,lineHeight:1.6}}>Встроенная демонстрация: системные push-уведомления отключены. Журнал событий работает в этом браузере.</p>}

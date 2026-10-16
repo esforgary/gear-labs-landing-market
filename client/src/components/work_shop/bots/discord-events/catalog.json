@@ -1,0 +1,71 @@
+{
+  "id": 204,
+  "category": "bots",
+  "title": "Discord Events",
+  "text": "Встречи сообщества в Discord: запись участников, лимит мест, голосования за время и управление расписанием.",
+  "img": "",
+  "type": "Discord-бот",
+  "price": "600 $",
+  "time": "8 дней",
+  "coverKey": "discord-events",
+  "previewKey": "discord-events",
+  "previewMode": "app",
+  "translations": {
+    "ru": {
+      "title": "Discord Events",
+      "text": "Встречи сообщества в Discord: запись участников, лимит мест, голосования за время и управление расписанием.",
+      "type": "Discord-бот",
+      "price": "600 $",
+      "time": "8 дней"
+    },
+    "en": {
+      "title": "Discord Events",
+      "text": "Community events in Discord: RSVPs, capacity limits, time polls and schedule management.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 days"
+    },
+    "de": {
+      "title": "Discord Events",
+      "text": "Gemeinschaftstreffen in Discord: Zusagen, Platzlimits, Terminabstimmungen und Zeitplanverwaltung.",
+      "type": "Discord-Bot",
+      "price": "600 $",
+      "time": "8 Tage"
+    },
+    "fr": {
+      "title": "Discord Events",
+      "text": "Rencontres communautaires dans Discord : inscriptions, places limitées, sondages horaires et gestion du calendrier.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 jours"
+    },
+    "it": {
+      "title": "Discord Events",
+      "text": "Eventi della community su Discord: iscrizioni, limite posti, sondaggi sugli orari e gestione del calendario.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 giorni"
+    },
+    "pl": {
+      "title": "Discord Events",
+      "text": "Spotkania społeczności na Discordzie: zapisy, limit miejsc, ankiety terminów i zarządzanie kalendarzem.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 dni"
+    },
+    "cz": {
+      "title": "Discord Events",
+      "text": "Komunitní setkání na Discordu: přihlášky, kapacita, hlasování o termínu a správa kalendáře.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 dní"
+    },
+    "sk": {
+      "title": "Discord Events",
+      "text": "Komunitné stretnutia na Discorde: prihlášky, kapacita, hlasovanie o termíne a správa kalendára.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 dní"
+    }
+  }
+}

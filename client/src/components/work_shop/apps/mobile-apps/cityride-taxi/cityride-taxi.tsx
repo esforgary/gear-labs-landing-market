@@ -20,9 +20,12 @@ import {
   Zap,
 } from "lucide-react";
 import { useThemeLang } from "../../../../../context/ThemeLangContext";
+import { AppPreviewCopy, PhoneStatusBar } from "../app-preview-presentation";
 import "./cityride-taxi.scss";
 
 const cityrideCar = new URL("./img/cityride-car.svg", import.meta.url).href;
+const cityrideMap = new URL("./img/cityride-map.svg", import.meta.url).href;
+const cityrideMapCar = new URL("./img/cityride-map-car.svg", import.meta.url).href;
 
 type CityrideScreen = "ride" | "cars" | "trips" | "profile";
 type RideOptionId = "eco" | "comfort" | "business";
@@ -88,7 +91,7 @@ type CityrideCopy = {
 
 const CITYRIDE_COPY: Record<string, CityrideCopy> = {
   ru: {
-    previewBadge: "Mobile app",
+    previewBadge: "Мобильное приложение",
     title: "CityRide Go",
     text: "Приложение такси и каршеринга: карта маршрута, выбор тарифа, поиск водителя, бронирование авто рядом, история поездок, профиль, оплата и быстрые статусы.",
     chips: ["Такси и каршеринг", "Живая карта", "Бронирование авто", "История поездок"],
@@ -280,12 +283,11 @@ export const CityRideTaxiPreview = () => {
     <div className="mobile-app-preview mobile-app-preview--cityride">
       <div className="mobile-app-preview__device">
         <div className="app-phone-frame app-phone-frame--cityride">
-          <div className="cityride-phone-app">
-            <div className="cityride-phone-app__notch" />
+          <div className={`cityride-phone-app cityride-phone-app--${screen}`}>
+            <PhoneStatusBar />
             <header className="cityride-topbar">
               <div>
-                <span>{copy.phone.greeting}</span>
-                <strong>{copy.phone.brand}</strong>
+                <strong><span className="cityride-brand-mark"><Car size={20} /></span>{copy.phone.brand}<b>go</b></strong>
                 <small>
                   <MapPin size={12} />
                   {copy.phone.location}
@@ -295,7 +297,7 @@ export const CityRideTaxiPreview = () => {
                 <button type="button" onClick={() => setScreen("profile")} aria-label={copy.phone.nav.profile}>
                   <UserRound size={18} />
                 </button>
-                <button type="button" onClick={() => triggerNotice(copy.phone.messages.settings)} aria-label="Settings">
+                <button type="button" onClick={() => { setScreen("profile"); triggerNotice(copy.phone.messages.settings); }} aria-label={lang === "ru" ? "Настройки" : "Settings"}>
                   <Settings size={18} />
                 </button>
               </div>
@@ -304,70 +306,66 @@ export const CityRideTaxiPreview = () => {
             <main className={`cityride-screen cityride-screen--${screen}`}>
               {screen === "ride" && (
                 <section className="cityride-panel cityride-ride-panel">
-                  <div className="cityride-section-title">
-                    <div>
-                      <h3>{copy.phone.ride.title}</h3>
-                      <p>{copy.phone.ride.subtitle}</p>
-                    </div>
-                    <span>{rideOption.price}</span>
-                  </div>
-
                   <div className="cityride-map">
-                    <div className="cityride-map__grid" />
-                    <svg className="cityride-map__route" viewBox="0 0 300 156" aria-hidden="true">
-                      <path d="M40 116 C98 32 158 134 246 42" />
+                    <img className="cityride-map__base" src={cityrideMap} alt="" />
+                    <svg className="cityride-map__route" viewBox="0 0 360 270" preserveAspectRatio="none" aria-hidden="true">
+                      <path className="cityride-map__route-outline" d="M101 201 V137 Q101 127 112 127 H235 Q247 127 247 115 V66" />
+                      <path d="M101 201 V137 Q101 127 112 127 H235 Q247 127 247 115 V66" />
                     </svg>
+                    <span className="cityride-map__label cityride-map__label--park">{lang === "ru" ? "Городской сад" : "City Gardens"}</span>
+                    <span className="cityride-map__label cityride-map__label--street">{lang === "ru" ? "Тверская улица" : "Market Street"}</span>
+                    <span className="cityride-map__arrival"><Car size={14} />{status === "matched" ? copy.phone.ride.eta : rideOption.time}</span>
                     <span className="cityride-map__pin cityride-map__pin--from">
-                      <MapPin size={15} />
+                      <span />
                     </span>
                     <span className="cityride-map__pin cityride-map__pin--to">
-                      <Navigation size={14} />
+                      <MapPin size={17} />
                     </span>
-                    <img className="cityride-map__car cityride-map__car--one" src={cityrideCar} alt="" />
-                    <img className="cityride-map__car cityride-map__car--two" src={cityrideCar} alt="" />
+                    <img className="cityride-map__car cityride-map__car--one" src={cityrideMapCar} alt="" />
+                    <img className="cityride-map__car cityride-map__car--two" src={cityrideMapCar} alt="" />
+                    <span className="cityride-map__location" aria-hidden="true"><Navigation size={17} /></span>
                   </div>
 
-                  <div className="cityride-route-box">
-                    <div>
-                      <span>{copy.phone.ride.from}</span>
-                      <strong>{copy.phone.ride.pickup}</strong>
+                  <div className="cityride-booking-sheet">
+                    <span className="cityride-booking-sheet__handle" />
+                    <div className="cityride-section-title">
+                      <h3>{copy.phone.ride.title}</h3>
+                      <span><Clock3 size={12} />{rideOption.time}</span>
                     </div>
-                    <Route size={18} />
-                    <div>
-                      <span>{copy.phone.ride.to}</span>
-                      <strong>{copy.phone.ride.destination}</strong>
+                    <div className="cityride-route-box">
+                      <Route size={19} />
+                      <div>
+                        <span><small>{copy.phone.ride.from}</small><strong>{copy.phone.ride.pickup}</strong></span>
+                        <span><small>{copy.phone.ride.to}</small><strong>{copy.phone.ride.destination}</strong></span>
+                      </div>
+                      <ChevronRight size={16} />
                     </div>
-                  </div>
 
-                  <div className="cityride-fare-list" role="list">
+                  <div className="cityride-fare-list" role="group" aria-label={lang === "ru" ? "Тариф" : "Fare"}>
                     {copy.phone.ride.options.map((option) => (
                       <button
                         key={option.id}
                         type="button"
-                        className={option.id === rideType ? "is-active" : ""}
+                        className={`cityride-fare cityride-fare--${option.id} ${option.id === rideType ? "is-active" : ""}`}
+                        aria-pressed={option.id === rideType}
                         onClick={() => {
                           setRideType(option.id);
                           setStatus("idle");
                         }}
                       >
-                        <span>
-                          <Car size={16} />
-                          {option.title}
-                        </span>
-                        <small>{option.note}</small>
+                        <img src={cityrideCar} alt="" />
+                        <span>{option.title}</span>
                         <strong>{option.price}</strong>
                         <em>{option.time}</em>
                       </button>
                     ))}
                   </div>
 
-                  <button className={`cityride-main-action is-${status}`} type="button" onClick={startRide}>
-                    {status === "idle" && copy.phone.ride.search}
-                    {status === "searching" && copy.phone.ride.searching}
-                    {status === "matched" && copy.phone.ride.cancel}
+                  <button className="cityride-payment" type="button" onClick={() => triggerNotice(copy.phone.profile.payment)}>
+                    <CreditCard size={17} /><span>{copy.phone.profile.payment}</span><ChevronRight size={15} />
                   </button>
 
-                  <div className={`cityride-driver-sheet ${status === "matched" ? "is-visible" : ""}`}>
+                  {status === "matched" && <div className="cityride-driver-sheet" role="status">
                     <span>
                       <CheckCircle2 size={16} />
                       {copy.phone.ride.matched}
@@ -376,6 +374,15 @@ export const CityRideTaxiPreview = () => {
                     <small>
                       {copy.phone.ride.plate} • {copy.phone.ride.eta}
                     </small>
+                  </div>}
+
+                  <button className={`cityride-main-action is-${status}`} type="button" onClick={startRide} aria-live="polite" disabled={status === "searching"}>
+                    <span>{status === "idle" && copy.phone.ride.search}
+                    {status === "searching" && copy.phone.ride.searching}
+                    {status === "matched" && copy.phone.ride.cancel}</span>
+                    {status === "idle" && <strong>{rideOption.price}</strong>}
+                    {status === "searching" && <span className="cityride-main-action__spinner" />}
+                  </button>
                   </div>
                 </section>
               )}
@@ -492,6 +499,8 @@ export const CityRideTaxiPreview = () => {
                   <button
                     className={`cityride-toggle ${notifications ? "is-on" : ""}`}
                     type="button"
+                    role="switch"
+                    aria-checked={notifications}
                     onClick={() => setNotifications((value) => !value)}
                   >
                     <Bell size={18} />
@@ -513,28 +522,19 @@ export const CityRideTaxiPreview = () => {
                 ["trips", History],
                 ["profile", UserRound],
               ] as const).map(([id, Icon]) => (
-                <button key={id} type="button" className={screen === id ? "is-active" : ""} onClick={() => setScreen(id)}>
+                <button key={id} type="button" className={screen === id ? "is-active" : ""} aria-current={screen === id ? "page" : undefined} onClick={() => setScreen(id)}>
                   <Icon size={18} />
                   <span>{copy.phone.nav[id]}</span>
                 </button>
               ))}
             </nav>
 
-            <div className={`cityride-toast ${notice ? "is-visible" : ""}`}>{notice}</div>
+            <div className={`cityride-toast ${notice ? "is-visible" : ""}`} role="status">{notice}</div>
           </div>
         </div>
       </div>
 
-      <aside className="mobile-app-preview__copy cityride-preview-copy">
-        <span>{copy.previewBadge}</span>
-        <h2>{copy.title}</h2>
-        <p>{copy.text}</p>
-        <div className="cityride-preview-copy__chips">
-          {copy.chips.map((chip) => (
-            <em key={chip}>{chip}</em>
-          ))}
-        </div>
-      </aside>
+      <AppPreviewCopy kicker={copy.previewBadge} title={copy.title} description={copy.text} features={copy.chips} />
     </div>
   );
 };

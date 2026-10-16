@@ -145,7 +145,7 @@ const workshopItems = [
     id: 34,
     category: "sites",
     title: "FlowCraft Editor",
-    text: "Сайт онлайн-редактора схем в стиле Visio: холст, фигуры, связи, шаблоны, совместная работа и экспорт.",
+    text: "Онлайн-редактор схем: холст, фигуры, связи, шаблоны, совместная работа и экспорт.",
     textKey: "workshop.product.flowcraft.text",
     img: "/static/workshop/sites/flowcraft-editor/img/cover.svg",
     type: "Diagram Editor",
@@ -190,7 +190,7 @@ const workshopItems = [
     id: 102,
     category: "apps",
     title: "Nectar Grocery",
-    text: "Mobile grocery app with splash, product shelves, search, cart, favourites, account and checkout flow.",
+    text: "A grocery shopping app with a product catalogue, search, cart, favourites, personal account, and checkout.",
     textKey: "workshop.product.nectar.text",
     img: "",
     type: "Grocery App",
@@ -232,5 +232,19 @@ const workshopItems = [
     previewMode: "app",
   },
 ];
+
+workshopItems.push(
+  { id: 37, category: "sites", title: "Meridian — Market Analysis", text: "Обзор рынков: активы, графики, валюты, новости и избранное.", img: "", type: "Analytics", price: "1000 $", time: "14 дней", coverKey: "market-analysis", previewKey: "market-analysis" },
+  { id: 40, category: "sites", title: "QA Abstract", text: "Интерактивный справочник по тестированию: темы, поиск, вопросы и проверка знаний.", img: "", type: "Knowledge Base", price: "600 $", time: "8 дней", coverKey: "qa-abstract", previewKey: "qa-abstract" },
+  { id: 43, category: "sites", title: "Scenarios Photo Editor", text: "Фоторедактор со слоями, кистями, текстом, эффектами и экспортом PNG. Сохранение на устройстве.", img: "", type: "Photo Editor", price: "1500 $", time: "18 дней", coverKey: "scenarios-photo-editor", previewKey: "scenarios-photo-editor" },
+  { id: 105, category: "apps", title: "Ритм — Calorie Calculator", text: "Дневник питания: калории, продукты, рецепты, вода и активность. Без регистрации, с локальным сохранением.", img: "", type: "Diary App", price: "1000 $", time: "14 дней", coverKey: "calorie-calculator", previewKey: "calorie-calculator", previewMode: "app" },
+);
+
+workshopItems.push(require("../../client/src/components/work_shop/bots/tg-market/catalog.json"));
+workshopItems.push(require("../../client/src/components/work_shop/bots/tg-booking/catalog.json"));
+workshopItems.push(require("../../client/src/components/work_shop/bots/tg-support/catalog.json"));
+workshopItems.push(require("../../client/src/components/work_shop/bots/discord-guard/catalog.json"));
+workshopItems.push(require("../../client/src/components/work_shop/bots/discord-events/catalog.json"));
+workshopItems.push(require("../../client/src/components/work_shop/bots/discord-levels/catalog.json"));
 
 module.exports = workshopItems;

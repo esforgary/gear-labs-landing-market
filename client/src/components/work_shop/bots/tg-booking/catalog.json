@@ -1,0 +1,71 @@
+{
+  "id": 201,
+  "category": "bots",
+  "title": "TG Booking",
+  "text": "Запись на услуги в Telegram: выбор специалиста и свободного времени, перенос и отмена записей. Подтверждение и управление расписанием через чат администратора.",
+  "img": "",
+  "type": "Telegram Bot",
+  "price": "800 $",
+  "time": "10 дней",
+  "coverKey": "tg-booking",
+  "previewKey": "tg-booking",
+  "previewMode": "app",
+  "translations": {
+    "ru": {
+      "title": "TG Booking",
+      "text": "Запись на услуги в Telegram: выбор специалиста и свободного времени, перенос и отмена записей. Подтверждение и управление расписанием через чат администратора.",
+      "type": "Telegram-бот",
+      "price": "800 $",
+      "time": "10 дней"
+    },
+    "en": {
+      "title": "TG Booking",
+      "text": "Service appointments in Telegram: choose a specialist and an available time, reschedule or cancel. Confirm bookings and manage availability through the admin chat.",
+      "type": "Telegram bot",
+      "price": "800 $",
+      "time": "10 days"
+    },
+    "de": {
+      "title": "TG Booking",
+      "text": "Dienstleistungstermine in Telegram: Fachkraft und freie Uhrzeit wählen, Termine verschieben oder stornieren. Buchungen bestätigen und Verfügbarkeiten im Admin-Chat verwalten.",
+      "type": "Telegram-Bot",
+      "price": "800 $",
+      "time": "10 Tage"
+    },
+    "fr": {
+      "title": "TG Booking",
+      "text": "Rendez-vous dans Telegram : choix du spécialiste et du créneau disponible, report et annulation. Confirmation et gestion des disponibilités dans le chat administrateur.",
+      "type": "Bot Telegram",
+      "price": "800 $",
+      "time": "10 jours"
+    },
+    "it": {
+      "title": "TG Booking",
+      "text": "Appuntamenti su Telegram: scelta dello specialista e dell’orario disponibile, spostamento e annullamento. Conferma delle prenotazioni e gestione delle disponibilità dalla chat amministratore.",
+      "type": "Bot Telegram",
+      "price": "800 $",
+      "time": "10 giorni"
+    },
+    "pl": {
+      "title": "TG Booking",
+      "text": "Wizyty w Telegramie: wybór specjalisty i wolnego terminu, przekładanie i odwoływanie wizyt. Potwierdzanie rezerwacji i zarządzanie dostępnością przez czat administratora.",
+      "type": "Bot Telegram",
+      "price": "800 $",
+      "time": "10 dni"
+    },
+    "cz": {
+      "title": "TG Booking",
+      "text": "Rezervace služeb v Telegramu: výběr specialisty a volného termínu, přesunutí a zrušení rezervací. Potvrzování a správa dostupných termínů přes chat správce.",
+      "type": "Telegram bot",
+      "price": "800 $",
+      "time": "10 dní"
+    },
+    "sk": {
+      "title": "TG Booking",
+      "text": "Rezervácie služieb v Telegrame: výber špecialistu a voľného termínu, presunutie a zrušenie rezervácií. Potvrdzovanie a správa dostupných termínov cez chat správcu.",
+      "type": "Telegram bot",
+      "price": "800 $",
+      "time": "10 dní"
+    }
+  }
+}

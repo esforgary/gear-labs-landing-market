@@ -1,14 +1,14 @@
 .site-builder-promo {
-  padding: 34px clamp(18px, 4vw, 34px) 88px;
+  padding: 28px clamp(18px, 3.2vw, 28px) 68px;
 
   &__heading {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 
     h1 {
       color: var(--text-primary);
-      font-size: clamp(34px, 5vw, 56px);
-      font-weight: 900;
-      letter-spacing: 0;
+      font-size: clamp(28px, 3.4vw, 42px);
+      font-weight: 750;
+      letter-spacing: -0.035em;
       line-height: 1;
       margin: 0;
     }
@@ -19,14 +19,14 @@
     background:
       linear-gradient(135deg, color-mix(in srgb, var(--surface) 94%, transparent), color-mix(in srgb, var(--surface-soft) 88%, transparent));
     border: 1px solid var(--border-soft);
-    border-radius: 26px;
+    border-radius: 20px;
     box-shadow: var(--shadow-soft);
     display: grid;
-    gap: clamp(24px, 5vw, 56px);
+    gap: clamp(20px, 3.6vw, 42px);
     grid-template-columns: minmax(260px, 0.92fr) minmax(280px, 0.78fr);
-    min-height: 640px;
+    min-height: 520px;
     overflow: hidden;
-    padding: clamp(22px, 4vw, 42px);
+    padding: clamp(18px, 3.2vw, 32px);
     position: relative;
   }
 
@@ -46,10 +46,10 @@
       linear-gradient(180deg, color-mix(in srgb, var(--surface) 82%, transparent), color-mix(in srgb, var(--surface-muted) 74%, transparent));
     background-size: 34px 34px, 34px 34px, auto;
     border: 1px solid var(--border-soft);
-    border-radius: 22px;
+    border-radius: 18px;
     display: flex;
     justify-content: center;
-    min-height: 520px;
+    min-height: 440px;
     overflow: hidden;
     padding: clamp(10px, 2vw, 22px);
     position: relative;
@@ -179,6 +179,7 @@
 
   &__assembled-block--hero span {
     color: var(--text-secondary);
+    font-family: var(--font-copy-mono);
     font-size: 13px;
     line-height: 1.45;
   }
@@ -329,9 +330,9 @@
     align-self: stretch;
     align-content: start;
     display: grid;
-    gap: 22px;
+    gap: 18px;
     justify-content: start;
-    padding: clamp(18px, 2.5vw, 28px);
+    padding: clamp(14px, 2vw, 22px);
   }
 
   &__copy-card {
@@ -339,12 +340,12 @@
       radial-gradient(circle at 8% 10%, color-mix(in srgb, var(--orange) 14%, transparent), transparent 26%),
       radial-gradient(circle at 92% 16%, color-mix(in srgb, var(--blue) 13%, transparent), transparent 28%),
       linear-gradient(180deg, #0b111a, #151c26);
-    border-radius: 28px;
+    border-radius: 22px;
     box-shadow: 0 22px 54px color-mix(in srgb, #05070b 28%, transparent);
     display: grid;
-    gap: 22px;
+    gap: 18px;
     max-width: 590px;
-    padding: clamp(22px, 3vw, 32px);
+    padding: clamp(18px, 2.4vw, 26px);
   }
 
   &__copy-kicker {
@@ -369,8 +370,8 @@
   &__copy p {
     color: color-mix(in srgb, #ffffff 86%, transparent);
     font-family: Consolas, "SFMono-Regular", "Liberation Mono", "Courier New", monospace;
-    font-size: clamp(17px, 1.55vw, 20px);
-    line-height: 1.65;
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.6;
     margin: 0;
     max-width: 54ch;
   }
@@ -385,18 +386,18 @@
   &__copy-metrics span {
     background: color-mix(in srgb, var(--surface) 80%, transparent);
     border: 1px solid var(--border-soft);
-    border-radius: 18px;
+    border-radius: 14px;
     box-shadow: 0 16px 30px color-mix(in srgb, var(--text-primary) 7%, transparent);
     display: grid;
     gap: 2px;
-    min-height: 82px;
+    min-height: 68px;
     min-width: 0;
-    padding: 14px 15px;
+    padding: 12px;
   }
 
   &__copy-metrics strong {
     color: var(--orange);
-    font-size: clamp(24px, 2.8vw, 34px);
+    font-size: clamp(22px, 2.3vw, 28px);
     font-weight: 900;
     line-height: 1;
   }
@@ -425,8 +426,8 @@
     display: grid;
     gap: 14px;
     grid-template-columns: 42px minmax(0, 1fr);
-    min-height: 76px;
-    padding: 14px 0;
+    min-height: 64px;
+    padding: 10px 0;
   }
 
   &__copy-flow > div + div {
@@ -463,6 +464,7 @@
   &__copy-flow small {
     color: var(--text-secondary);
     display: block;
+    font-family: var(--font-copy-mono);
     font-size: 14px;
     font-weight: 700;
     line-height: 1.35;
@@ -472,17 +474,17 @@
     align-items: center;
     background: var(--orange);
     border: 0;
-    border-radius: 14px !important;
+    border-radius: 12px !important;
     box-shadow: 0 18px 34px color-mix(in srgb, var(--orange) 24%, transparent);
     color: #111827;
     display: inline-flex;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
     gap: 10px;
     justify-content: center;
     justify-self: start;
     min-width: 170px;
-    padding: 15px 22px;
+    padding: 13px 18px;
     transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
   }
 
@@ -633,7 +635,7 @@
     padding-inline: 14px;
 
     &__panel {
-      border-radius: 22px;
+      border-radius: 18px;
       padding: 18px;
     }
 

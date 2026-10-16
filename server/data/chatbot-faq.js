@@ -3,35 +3,35 @@ const fallbackLang = "ru";
 const copy = {
   ru: {
     greeting: "Привет. Я помогу быстро сориентироваться по макетам, конструктору, цене и запуску проекта.",
-    fallback: "Я пока лучше отвечаю на частые вопросы по GearLabs. Могу подсказать про цену, сроки, макеты, конструктор, оплату, правки и запуск.",
+    fallback: "Я пока лучше отвечаю на частые вопросы по GearLabs. Могу подсказать про цену, сроки, макеты, конструктор, правки и запуск.",
   },
   en: {
     greeting: "Hi. I can help with templates, the builder, pricing, and project launch.",
-    fallback: "I am best at GearLabs FAQ right now. Ask me about pricing, timelines, templates, the builder, payment, revisions, or launch.",
+    fallback: "I am best at GearLabs FAQ right now. Ask me about pricing, timelines, templates, the builder, revisions, or launch.",
   },
   de: {
     greeting: "Hallo. Ich helfe bei Layouts, Konstruktor, Preisen und Projektstart.",
-    fallback: "Ich beantworte aktuell am besten GearLabs-FAQ: Preise, Fristen, Layouts, Konstruktor, Zahlung, Korrekturen und Launch.",
+    fallback: "Ich beantworte aktuell am besten GearLabs-FAQ: Preise, Fristen, Layouts, Konstruktor, Korrekturen und Launch.",
   },
   fr: {
     greeting: "Bonjour. Je peux aider avec les maquettes, le constructeur, les prix et le lancement.",
-    fallback: "Je reponds surtout aux FAQ GearLabs: prix, delais, maquettes, constructeur, paiement, corrections et lancement.",
+    fallback: "Je reponds surtout aux FAQ GearLabs: prix, delais, maquettes, constructeur, corrections et lancement.",
   },
   it: {
     greeting: "Ciao. Posso aiutare con layout, builder, prezzi e lancio del progetto.",
-    fallback: "Per ora rispondo meglio alle FAQ GearLabs: prezzi, tempi, layout, builder, pagamenti, modifiche e lancio.",
+    fallback: "Per ora rispondo meglio alle FAQ GearLabs: prezzi, tempi, layout, builder, modifiche e lancio.",
   },
   pl: {
     greeting: "Czesc. Pomoge z makietami, konstruktorem, cena i uruchomieniem projektu.",
-    fallback: "Najlepiej odpowiadam teraz na FAQ GearLabs: ceny, terminy, makiety, konstruktor, platnosc, poprawki i start.",
+    fallback: "Najlepiej odpowiadam teraz na FAQ GearLabs: ceny, terminy, makiety, konstruktor, poprawki i start.",
   },
   cz: {
     greeting: "Ahoj. Pomuzu s layouty, konstruktorem, cenou a spustenim projektu.",
-    fallback: "Zatim nejlepe odpovidam na GearLabs FAQ: ceny, terminy, layouty, konstruktor, platby, upravy a spusteni.",
+    fallback: "Zatim nejlepe odpovidam na GearLabs FAQ: ceny, terminy, layouty, konstruktor, upravy a spusteni.",
   },
   sk: {
     greeting: "Ahoj. Pomozem s layoutmi, konstruktorom, cenou a spustenim projektu.",
-    fallback: "Zatial najlepsie odpovedam na GearLabs FAQ: ceny, terminy, layouty, konstruktor, platby, upravy a spustenie.",
+    fallback: "Zatial najlepsie odpovedam na GearLabs FAQ: ceny, terminy, layouty, konstruktor, upravy a spustenie.",
   },
 };
 
@@ -48,7 +48,7 @@ const faqs = [
       cz: "Jak se pocita cena?",
       sk: "Ako sa pocita cena?",
     },
-    keywords: ["цена", "стоимость", "сколько", "price", "cost", "preis", "prix", "cena"],
+    keywords: ["цена", "стоим", "стоит", "обойд", "price", "cost", "preis", "prix", "cena"],
     answer: {
       ru: "Цена зависит от выбранного макета или набора блоков в конструкторе. В конструкторе сумма обновляется автоматически, потому что каждый блок добавляет свою стоимость.",
       en: "The price depends on the selected template or the blocks added in the builder. The builder updates the total automatically because every block has its own cost.",
@@ -72,7 +72,7 @@ const faqs = [
       cz: "Jak dlouho trva spusteni?",
       sk: "Ako dlho trva spustenie?",
     },
-    keywords: ["срок", "долго", "дней", "когда", "timeline", "launch", "days", "frist", "delai"],
+    keywords: ["срок", "долго", "дней", "когда", "запуск", "длит", "времени", "недел", "timeline", "launch", "days", "frist", "delai"],
     answer: {
       ru: "Обычно простой лендинг можно собрать за несколько дней, а магазин или приложение требуют больше времени. На карточках макетов указана примерная длительность запуска.",
       en: "A simple landing page can usually be prepared in a few days, while a store or app takes longer. Template cards show an estimated launch time.",
@@ -144,7 +144,7 @@ const faqs = [
       cz: "Lze obsah pozdeji menit?",
       sk: "Da sa obsah neskor menit?",
     },
-    keywords: ["измен", "редакт", "правк", "edit", "change", "content", "modifier", "andern"],
+    keywords: ["измен", "редакт", "правк", "менять", "поменять", "контент", "edit", "change", "content", "modifier", "andern"],
     answer: {
       ru: "Да. Тексты, изображения и состав блоков можно менять. Если нужен личный кабинет или админка, это лучше обсудить отдельно в заявке.",
       en: "Yes. Texts, images, and block composition can be changed. If you need an admin panel, mention it in the request.",
@@ -160,6 +160,13 @@ const faqs = [
 
 const normalizeLang = (lang) => (copy[lang] ? lang : fallbackLang);
 
+const normalizeQuestion = (value) => String(value || "")
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/\p{M}/gu, "")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .trim();
+
 const pick = (field, lang) => field[lang] || field[fallbackLang] || Object.values(field)[0] || "";
 
 const getFaqSuggestions = (lang = fallbackLang) => {
@@ -172,7 +179,7 @@ const getFaqSuggestions = (lang = fallbackLang) => {
 
 const answerQuestion = (message, lang = fallbackLang) => {
   const normalizedLang = normalizeLang(lang);
-  const question = String(message || "").toLowerCase();
+  const question = normalizeQuestion(message);
 
   if (!question.trim()) {
     return {
@@ -181,10 +188,11 @@ const answerQuestion = (message, lang = fallbackLang) => {
     };
   }
 
-  const match = faqs
+  const exactMatch = faqs.find((faq) => normalizeQuestion(pick(faq.title, normalizedLang)) === question);
+  const match = exactMatch ? { faq: exactMatch, score: 1 } : faqs
     .map((faq) => ({
       faq,
-      score: faq.keywords.reduce((sum, keyword) => sum + (question.includes(keyword) ? 1 : 0), 0),
+      score: faq.keywords.reduce((sum, keyword) => sum + (question.includes(normalizeQuestion(keyword)) ? 1 : 0), 0),
     }))
     .sort((a, b) => b.score - a.score)[0];
 

@@ -1,0 +1,71 @@
+{
+  "id": 202,
+  "category": "bots",
+  "title": "TG Support",
+  "text": "Поддержка в Telegram: создание обращений, общая история клиента и администратора, очередь, ответы и статусы.",
+  "img": "",
+  "type": "Telegram Bot",
+  "price": "600 $",
+  "time": "8 дней",
+  "coverKey": "tg-support",
+  "previewKey": "tg-support",
+  "previewMode": "app",
+  "translations": {
+    "ru": {
+      "title": "TG Support",
+      "text": "Поддержка в Telegram: создание обращений, общая история клиента и администратора, очередь, ответы и статусы.",
+      "type": "Telegram-бот",
+      "price": "600 $",
+      "time": "8 дней"
+    },
+    "en": {
+      "title": "TG Support",
+      "text": "Support in Telegram: create tickets, share conversation history between customers and administrators, manage the queue, reply and update statuses.",
+      "type": "Telegram bot",
+      "price": "600 $",
+      "time": "8 days"
+    },
+    "de": {
+      "title": "TG Support",
+      "text": "Support in Telegram: Anfragen erstellen, den Gesprächsverlauf zwischen Kunden und Administratoren teilen, die Warteschlange verwalten, antworten und den Status ändern.",
+      "type": "Telegram-Bot",
+      "price": "600 $",
+      "time": "8 Tage"
+    },
+    "fr": {
+      "title": "TG Support",
+      "text": "Assistance dans Telegram : création de tickets, historique partagé entre clients et administrateurs, file d’attente, réponses et suivi des statuts.",
+      "type": "Bot Telegram",
+      "price": "600 $",
+      "time": "8 jours"
+    },
+    "it": {
+      "title": "TG Support",
+      "text": "Assistenza su Telegram: creazione di ticket, cronologia condivisa tra clienti e amministratori, gestione della coda, risposte e aggiornamento degli stati.",
+      "type": "Bot Telegram",
+      "price": "600 $",
+      "time": "8 giorni"
+    },
+    "pl": {
+      "title": "TG Support",
+      "text": "Wsparcie w Telegramie: tworzenie zgłoszeń, wspólna historia klienta i administratora, kolejka, odpowiedzi i statusy.",
+      "type": "Bot Telegram",
+      "price": "600 $",
+      "time": "8 dni"
+    },
+    "cz": {
+      "title": "TG Support",
+      "text": "Podpora v Telegramu: vytváření požadavků, společná historie zákazníka a správce, fronta, odpovědi a stavy požadavků.",
+      "type": "Telegram bot",
+      "price": "600 $",
+      "time": "8 dní"
+    },
+    "sk": {
+      "title": "TG Support",
+      "text": "Podpora v Telegrame: vytváranie požiadaviek, spoločná história zákazníka a správcu, front, odpovede a stavy požiadaviek.",
+      "type": "Telegram bot",
+      "price": "600 $",
+      "time": "8 dní"
+    }
+  }
+}

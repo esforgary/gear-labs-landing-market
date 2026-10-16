@@ -111,25 +111,6 @@
   }
 }
 
-.mobile-app-preview--nectar {
-  box-sizing: border-box;
-  min-height: min(760px, calc(100vh - 120px));
-  overflow: hidden;
-  padding: clamp(26px, 4vw, 56px);
-  width: 100%;
-}
-
-.app-phone-frame--nectar {
-  background: #03050a;
-  border: 1px solid rgba(160, 166, 176, 0.96);
-  border-radius: 50px;
-  box-shadow:
-    0 36px 95px rgba(0, 0, 0, 0.48),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
-  padding: 12px;
-  width: var(--app-preview-phone-width, min(100%, 360px));
-}
-
 .nectar-phone-app {
   --nectar-green: #53b175;
   --nectar-ink: #181725;
@@ -144,36 +125,6 @@
   min-height: 0;
   overflow: hidden;
   position: relative;
-}
-
-.nectar-phone-top {
-  align-items: center;
-  display: flex;
-  font-size: 12px;
-  font-weight: 900;
-  height: 31px;
-  justify-content: space-between;
-  padding: 0 22px;
-  position: relative;
-  z-index: 4;
-
-  i {
-    background: #e5ebf1;
-    border-radius: 999px;
-    height: 5px;
-    left: 50%;
-    position: absolute;
-    top: 13px;
-    transform: translateX(-50%);
-    width: 74px;
-  }
-
-  b {
-    background: #111827;
-    border-radius: 999px;
-    height: 8px;
-    width: 8px;
-  }
 }
 
 .nectar-splash {
@@ -1456,12 +1407,6 @@
   z-index: 45;
 }
 
-.mobile-app-preview--nectar .mobile-app-preview__features span {
-  svg {
-    color: #53b175;
-  }
-}
-
 @keyframes nectar-seq-in {
   from {
     opacity: 0;
@@ -1507,15 +1452,5 @@
   to {
     opacity: 1;
     transform: translate(-50%, 0);
-  }
-}
-
-@media (max-width: 960px) {
-  .app-phone-frame--nectar {
-    width: min(100%, var(--app-preview-phone-width, 330px));
-  }
-
-  .nectar-phone-app {
-    height: 100%;
   }
 }

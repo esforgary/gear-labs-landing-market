@@ -1,0 +1,43 @@
+.calorie-phone-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 36px;
+  background: #14171c;
+  color: #fff;
+
+  iframe { display: block; width: 100%; flex: 1; min-height: 0; border: 0; background: #14171c; }
+}
+
+.calorie-cover {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 12px 18px;
+  height: 100%;
+  min-height: 180px;
+  padding: 22px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #14171c;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+
+  &__brand { display: flex; align-items: center; gap: 7px; grid-column: 1 / -1; color: #b7ff39; }
+  &__brand strong { color: #fff; font-size: 22px; font-weight: 800; letter-spacing: -1px; }
+  &__brand strong span { color: #b7ff39; }
+  &__ring { display: grid; place-items: center; width: 110px; height: 110px; padding: 9px; border-radius: 50%; background: conic-gradient(#b7ff39 0 57%, #ffca6e 57% 72%, #bb9fe9 72% 86%, #30353d 86%); }
+  &__ring > span { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%; background: #14171c; }
+  &__ring b { color: #fff; font-size: 25px; line-height: 1.15; }
+  &__ring small { color: #aeb3bc; font-size: 9px; }
+  &__macros { display: grid; gap: 11px; }
+  &__macros > span { display: grid; grid-template-columns: 5px 1fr auto; align-items: center; gap: 5px; color: #b4bbc3; font-size: 9px; white-space: nowrap; }
+  &__macros i { height: 5px; border-radius: 50%; background: #b7ff39; }
+  &__macros > span:nth-child(2) i { background: #ffca6e; }
+  &__macros > span:nth-child(3) i { background: #bb9fe9; }
+  &__macros b { color: #fff; font-size: 10px; }
+  &__caption { grid-column: 1 / -1; color: #b4bbc3; font-size: 10px; }
+}

@@ -161,6 +161,30 @@
   padding: clamp(26px, 5vw, 54px);
 }
 
+.tech-banner-slot {
+  align-self: stretch;
+  min-width: 0;
+  position: relative;
+}
+
+// The phone slide determines the height at every responsive width.
+.tech-banner-reference {
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+
+  .tech-banner-copy { animation: none !important; }
+}
+
+.tech-banner-active {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  position: absolute;
+
+  .tech-banner-copy { width: 100%; }
+}
+
 .tech-banner-copy {
   display: grid;
   gap: 18px;

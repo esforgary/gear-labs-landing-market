@@ -24,6 +24,7 @@ import {
   X,
 } from "lucide-react";
 import { useThemeLang } from "../../../../../context/ThemeLangContext";
+import { AppPreviewCopy, PhoneStatusBar } from "../app-preview-presentation";
 import "./dribbbox-cloud.scss";
 
 const dribbCopy = {
@@ -37,7 +38,7 @@ const dribbCopy = {
     home: "Home", profile: "Profile", storage: "Storage", shared: "Shared", stats: "Stats", settings: "Settings", help: "Help", logout: "Logout", version: "Version 2.0.1",
     accountName: "Account name", accountEmail: "Email for a new workspace", add: "Add", currentPassword: "Current password", newPassword: "New password", confirmPassword: "Confirm password", savePassword: "Save password",
     planBasic: "Basic", planPro: "Pro", planTeam: "Team", choosePlan: "Choose plan", activeAccount: "Active account", connectAccount: "Connect account",
-    copyKicker: "Mobile app", copyTitle: "Dribbbox Cloud", copyDesc: "Mobile cloud storage mockup: smooth authorization, folder list, grid/list views, color groups, profile, settings, and storage chart.", features: ["Smooth onboarding", "Grid and list folders", "7 color groups", "Live storage chart"],
+    copyKicker: "Mobile app", copyTitle: "Dribbbox Cloud", copyDesc: "A cloud storage app with folders, grid and list views, color groups, profile settings and storage usage tracking.", features: ["Smooth onboarding", "Grid and list folders", "7 color groups", "Live storage chart"],
   },
   ru: {
     welcomeTo: "Добро пожаловать в", intro: "Облачное хранилище для бизнеса и личных файлов: папки, команды и данные в одном месте.", join: "Присоединяйтесь бесплатно.", smartId: "Smart ID", signIn: "Войти", social: "Вход через соцсети", createAccount: "Создать аккаунт",
@@ -49,7 +50,7 @@ const dribbCopy = {
     home: "Главная", profile: "Профиль", storage: "Хранилище", shared: "Общие", stats: "Статистика", settings: "Настройки", help: "Помощь", logout: "Выйти", version: "Версия 2.0.1",
     accountName: "Имя аккаунта", accountEmail: "Email для нового пространства", add: "Добавить", currentPassword: "Текущий пароль", newPassword: "Новый пароль", confirmPassword: "Повторите пароль", savePassword: "Сохранить",
     planBasic: "Базовый", planPro: "Про", planTeam: "Команда", choosePlan: "Выбрать тариф", activeAccount: "Активный аккаунт", connectAccount: "Подключить аккаунт",
-    copyKicker: "Мобильное приложение", copyTitle: "Dribbbox Cloud", copyDesc: "Мобильный макет облачного хранилища: плавная авторизация, папки, сетка/список, цветовые группы, профиль, настройки и диаграмма заполнения.", features: ["Плавный onboarding", "Папки: сетка и список", "7 цветовых групп", "Живая диаграмма"],
+    copyKicker: "Мобильное приложение", copyTitle: "Dribbbox Cloud", copyDesc: "Облачное хранилище: папки, просмотр сеткой и списком, цветовые группы, настройки профиля и контроль занятого места.", features: ["Плавный onboarding", "Папки: сетка и список", "7 цветовых групп", "Живая диаграмма"],
   },
   de: {
     welcomeTo: "Willkommen bei", intro: "Cloud-Speicher fur Teams, Dateien, Ordner und gemeinsame Projektdaten.", join: "Kostenlos starten.", smartId: "Smart ID", signIn: "Einloggen", social: "Social Login", createAccount: "Konto erstellen",
@@ -61,7 +62,7 @@ const dribbCopy = {
     home: "Start", profile: "Profil", storage: "Speicher", shared: "Geteilt", stats: "Statistik", settings: "Einstellungen", help: "Hilfe", logout: "Abmelden", version: "Version 2.0.1",
     accountName: "Kontoname", accountEmail: "E-Mail fur Workspace", add: "Hinzufugen", currentPassword: "Aktuelles Passwort", newPassword: "Neues Passwort", confirmPassword: "Passwort bestatigen", savePassword: "Speichern",
     planBasic: "Basic", planPro: "Pro", planTeam: "Team", choosePlan: "Tarif wahlen", activeAccount: "Aktives Konto", connectAccount: "Konto verbinden",
-    copyKicker: "Mobile App", copyTitle: "Dribbbox Cloud", copyDesc: "Mobiles Cloud-Speicher-Mockup mit Login, Ordnern, Grid/List, Farbgruppen, Profil, Einstellungen und Speicherdiagramm.", features: ["Sanfter Einstieg", "Grid und Liste", "7 Farbgruppen", "Live-Speicherdiagramm"],
+    copyKicker: "Mobile App", copyTitle: "Dribbbox Cloud", copyDesc: "Eine Cloud-Speicher-App mit Ordnern, Raster- und Listenansicht, Farbgruppen, Profileinstellungen und Übersicht der Speichernutzung.", features: ["Sanfter Einstieg", "Grid und Liste", "7 Farbgruppen", "Live-Speicherdiagramm"],
   },
   fr: {
     welcomeTo: "Bienvenue sur", intro: "Stockage cloud pour gerer fichiers, dossiers et donnees d'equipe.", join: "Inscription gratuite.", smartId: "Smart ID", signIn: "Connexion", social: "Connexion sociale", createAccount: "Creer un compte",
@@ -73,7 +74,7 @@ const dribbCopy = {
     home: "Accueil", profile: "Profil", storage: "Stockage", shared: "Partage", stats: "Stats", settings: "Parametres", help: "Aide", logout: "Deconnexion", version: "Version 2.0.1",
     accountName: "Nom du compte", accountEmail: "Email du nouvel espace", add: "Ajouter", currentPassword: "Mot de passe actuel", newPassword: "Nouveau mot de passe", confirmPassword: "Confirmer le mot de passe", savePassword: "Enregistrer",
     planBasic: "Basic", planPro: "Pro", planTeam: "Equipe", choosePlan: "Choisir", activeAccount: "Compte actif", connectAccount: "Connecter un compte",
-    copyKicker: "Application mobile", copyTitle: "Dribbbox Cloud", copyDesc: "Maquette mobile de stockage cloud avec connexion fluide, dossiers, grille/liste, groupes colores, profil, parametres et graphique.", features: ["Onboarding fluide", "Grille et liste", "7 groupes couleurs", "Graphique vivant"],
+    copyKicker: "Application mobile", copyTitle: "Dribbbox Cloud", copyDesc: "Une application de stockage cloud avec dossiers, affichage en grille ou en liste, groupes de couleurs, paramètres du profil et suivi de l’espace utilisé.", features: ["Onboarding fluide", "Grille et liste", "7 groupes couleurs", "Graphique vivant"],
   },
   it: {
     welcomeTo: "Benvenuto in", intro: "Archivio cloud per gestire file, cartelle e dati del team.", join: "Inizia gratis.", smartId: "Smart ID", signIn: "Accedi", social: "Accesso social", createAccount: "Crea account",
@@ -85,7 +86,7 @@ const dribbCopy = {
     home: "Home", profile: "Profilo", storage: "Archivio", shared: "Condivisi", stats: "Statistiche", settings: "Impostazioni", help: "Aiuto", logout: "Esci", version: "Versione 2.0.1",
     accountName: "Nome account", accountEmail: "Email spazio", add: "Aggiungi", currentPassword: "Password attuale", newPassword: "Nuova password", confirmPassword: "Conferma password", savePassword: "Salva",
     planBasic: "Basic", planPro: "Pro", planTeam: "Team", choosePlan: "Scegli piano", activeAccount: "Account attivo", connectAccount: "Collega account",
-    copyKicker: "App mobile", copyTitle: "Dribbbox Cloud", copyDesc: "Mockup cloud mobile con login fluido, cartelle, griglia/lista, gruppi colore, profilo, impostazioni e grafico.", features: ["Onboarding fluido", "Griglia e lista", "7 gruppi colore", "Grafico live"],
+    copyKicker: "App mobile", copyTitle: "Dribbbox Cloud", copyDesc: "Un’app di archiviazione cloud con cartelle, vista a griglia o elenco, gruppi colore, impostazioni del profilo e controllo dello spazio utilizzato.", features: ["Onboarding fluido", "Griglia e lista", "7 gruppi colore", "Grafico live"],
   },
   pl: {
     welcomeTo: "Witaj w", intro: "Chmura do zarzadzania plikami, folderami i danymi zespolu.", join: "Dolacz za darmo.", smartId: "Smart ID", signIn: "Zaloguj", social: "Logowanie social", createAccount: "Utworz konto",
@@ -97,7 +98,7 @@ const dribbCopy = {
     home: "Start", profile: "Profil", storage: "Pamiec", shared: "Wspolne", stats: "Statystyki", settings: "Ustawienia", help: "Pomoc", logout: "Wyloguj", version: "Wersja 2.0.1",
     accountName: "Nazwa konta", accountEmail: "Email obszaru", add: "Dodaj", currentPassword: "Obecne haslo", newPassword: "Nowe haslo", confirmPassword: "Potwierdz haslo", savePassword: "Zapisz",
     planBasic: "Basic", planPro: "Pro", planTeam: "Team", choosePlan: "Wybierz plan", activeAccount: "Aktywne konto", connectAccount: "Polacz konto",
-    copyKicker: "Aplikacja mobilna", copyTitle: "Dribbbox Cloud", copyDesc: "Mobilny mockup chmury: logowanie, foldery, siatka/lista, grupy kolorow, profil, ustawienia i wykres.", features: ["Plynny onboarding", "Siatka i lista", "7 grup kolorow", "Wykres live"],
+    copyKicker: "Aplikacja mobilna", copyTitle: "Dribbbox Cloud", copyDesc: "Aplikacja do przechowywania plików w chmurze z folderami, widokiem siatki i listy, grupami kolorów, ustawieniami profilu i kontrolą zajętego miejsca.", features: ["Plynny onboarding", "Siatka i lista", "7 grup kolorow", "Wykres live"],
   },
   cz: {
     welcomeTo: "Vitejte v", intro: "Cloud pro spravu souboru, slozek a tymovych dat.", join: "Zacnete zdarma.", smartId: "Smart ID", signIn: "Prihlasit", social: "Social login", createAccount: "Vytvorit ucet",
@@ -109,7 +110,7 @@ const dribbCopy = {
     home: "Domu", profile: "Profil", storage: "Uloziste", shared: "Sdilene", stats: "Statistiky", settings: "Nastaveni", help: "Pomoc", logout: "Odhlasit", version: "Verze 2.0.1",
     accountName: "Nazev uctu", accountEmail: "Email prostoru", add: "Pridat", currentPassword: "Aktualni heslo", newPassword: "Nove heslo", confirmPassword: "Potvrdit heslo", savePassword: "Ulozit",
     planBasic: "Basic", planPro: "Pro", planTeam: "Tym", choosePlan: "Vybrat tarif", activeAccount: "Aktivni ucet", connectAccount: "Pripojit ucet",
-    copyKicker: "Mobilni aplikace", copyTitle: "Dribbbox Cloud", copyDesc: "Mobilni cloudovy mockup s loginem, slozkami, mrizkou/seznamem, barvami, profilem, nastavenim a grafem.", features: ["Plynuly onboarding", "Mrizka a seznam", "7 barevnych skupin", "Zivy graf"],
+    copyKicker: "Mobilni aplikace", copyTitle: "Dribbbox Cloud", copyDesc: "Aplikace cloudového úložiště se složkami, mřížkou a seznamem, barevnými skupinami, nastavením profilu a přehledem využitého místa.", features: ["Plynuly onboarding", "Mrizka a seznam", "7 barevnych skupin", "Zivy graf"],
   },
   sk: {
     welcomeTo: "Vitajte v", intro: "Cloud na spravu suborov, priecinkov a timovych dat.", join: "Zacnite zdarma.", smartId: "Smart ID", signIn: "Prihlasit", social: "Social login", createAccount: "Vytvorit ucet",
@@ -121,7 +122,7 @@ const dribbCopy = {
     home: "Domov", profile: "Profil", storage: "Ulozisko", shared: "Zdielane", stats: "Statistiky", settings: "Nastavenia", help: "Pomoc", logout: "Odhlasit", version: "Verzia 2.0.1",
     accountName: "Nazov uctu", accountEmail: "Email priestoru", add: "Pridat", currentPassword: "Aktualne heslo", newPassword: "Nove heslo", confirmPassword: "Potvrdit heslo", savePassword: "Ulozit",
     planBasic: "Basic", planPro: "Pro", planTeam: "Tim", choosePlan: "Vybrat plan", activeAccount: "Aktivny ucet", connectAccount: "Pripojit ucet",
-    copyKicker: "Mobilna aplikacia", copyTitle: "Dribbbox Cloud", copyDesc: "Mobilny cloudovy mockup s loginom, priecinkami, mriezkou/zoznamom, farbami, profilom, nastaveniami a grafom.", features: ["Plynuly onboarding", "Mriezka a zoznam", "7 farebnych skupin", "Zivy graf"],
+    copyKicker: "Mobilna aplikacia", copyTitle: "Dribbbox Cloud", copyDesc: "Aplikácia cloudového úložiska s priečinkami, mriežkou a zoznamom, farebnými skupinami, nastavením profilu a prehľadom využitého miesta.", features: ["Plynuly onboarding", "Mriezka a zoznam", "7 farebnych skupin", "Zivy graf"],
   },
 } as const;
 
@@ -406,7 +407,7 @@ export const DribbboxAppPreview = () => {
               setAddTarget(null);
             }}
           >
-            <div className="dribb-phone-app__notch" />
+            <PhoneStatusBar />
 
             {screen === "welcome" && (
               <section className="dribb-welcome">
@@ -684,16 +685,7 @@ export const DribbboxAppPreview = () => {
         </div>
       </div>
 
-      <aside className="mobile-app-preview__copy">
-        <span className="mobile-app-preview__kicker">{copy.copyKicker}</span>
-        <h2>{copy.copyTitle}</h2>
-        <p>{copy.copyDesc}</p>
-        <div className="mobile-app-preview__features">
-          {copy.features.map((feature) => (
-            <span key={feature}>{feature}</span>
-          ))}
-        </div>
-      </aside>
+      <AppPreviewCopy kicker={copy.copyKicker} title={copy.copyTitle} description={copy.copyDesc} features={copy.features} />
     </div>
   );
 };

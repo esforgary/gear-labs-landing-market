@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Rocket } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Code2, Palette, Rocket } from "lucide-react";
 import ButtonWithExplosion from "../Button/button";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./banner.scss";
@@ -23,15 +23,97 @@ const createPointTones = () => {
   return tones.sort(() => Math.random() - 0.5);
 };
 
+const processSteps = [
+  { key: "design", Icon: Palette },
+  { key: "dev", Icon: Code2 },
+  { key: "launch", Icon: Rocket },
+];
+
+const useFloatingSlider = () => {
+  const boundaryRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const boundary = boundaryRef.current;
+    const slider = sliderRef.current;
+    if (!boundary || !slider) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    let frame = 0;
+
+    const reset = () => {
+      cancelAnimationFrame(frame);
+      slider.style.removeProperty("--hero-repel-x");
+      slider.style.removeProperty("--hero-repel-y");
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (reducedMotion.matches || !finePointer.matches || event.pointerType !== "mouse") {
+        reset();
+        return;
+      }
+
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        // Measure the stationary container so the floating image never chases its own bounds.
+        const rect = boundary.getBoundingClientRect();
+        const dx = rect.left + rect.width / 2 - event.clientX;
+        const dy = rect.top + rect.height / 2 - event.clientY;
+        const edgeDistance = Math.hypot(
+          Math.max(Math.abs(dx) - rect.width / 2, 0),
+          Math.max(Math.abs(dy) - rect.height / 2, 0)
+        );
+        const proximity = Math.max(0, 1 - edgeDistance / 160);
+        const strength = 8 * proximity * proximity;
+        // Ease through the center instead of flipping direction at full strength.
+        const distance = Math.max(Math.hypot(dx, dy), 80);
+        slider.style.setProperty("--hero-repel-x", `${(dx / distance * strength).toFixed(2)}px`);
+        slider.style.setProperty("--hero-repel-y", `${(dy / distance * strength).toFixed(2)}px`);
+      });
+    };
+
+    const handlePointerOut = (event: PointerEvent) => {
+      if (!event.relatedTarget) reset();
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerout", handlePointerOut);
+    window.addEventListener("pointercancel", reset);
+    window.addEventListener("blur", reset);
+    window.addEventListener("resize", reset);
+    window.addEventListener("scroll", reset, { capture: true, passive: true });
+    document.addEventListener("visibilitychange", reset);
+    reducedMotion.addEventListener("change", reset);
+    finePointer.addEventListener("change", reset);
+
+    return () => {
+      reset();
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerout", handlePointerOut);
+      window.removeEventListener("pointercancel", reset);
+      window.removeEventListener("blur", reset);
+      window.removeEventListener("resize", reset);
+      window.removeEventListener("scroll", reset, true);
+      document.removeEventListener("visibilitychange", reset);
+      reducedMotion.removeEventListener("change", reset);
+      finePointer.removeEventListener("change", reset);
+    };
+  }, []);
+
+  return { boundaryRef, sliderRef };
+};
+
 export const Banner = () => {
   const { lang, t } = useThemeLang();
+  const { boundaryRef, sliderRef } = useFloatingSlider();
   const [currentTypingIndex, setCurrentTypingIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [typingPhase, setTypingPhase] = useState<"typing" | "pause" | "deleting">("typing");
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(false);
-  const pointTones = useMemo(createPointTones, []);
+  const [pointTones] = useState(createPointTones);
 
   const typingTexts = useMemo(
     () => [
@@ -169,7 +251,6 @@ export const Banner = () => {
       <span className="hero-glow hero-glow-orange" />
       <span className="hero-glow hero-glow-blue" />
       <h1>{t("banner.welcome")} <span className="logo"><span className="orange">Gear</span><span className="blue">Labs</span></span></h1>
-
       <div className="banner">
         <div className="banner-left scroll-animate">
           <div className="hero-kicker section-eyebrow">
@@ -202,8 +283,8 @@ export const Banner = () => {
           </div>
         </div>
 
-        <div className="banner-right scroll-animate">
-          <div className="image-block">
+        <div className="banner-right scroll-animate" ref={boundaryRef}>
+          <div className="image-block" ref={sliderRef}>
             <div className="visual-toolbar">
               <div className="window-dots">
                 <span />
@@ -243,6 +324,18 @@ export const Banner = () => {
           </div>
         </div>
       </div>
+
+      <ol className="hero-process">
+        {processSteps.map(({ key, Icon }, index) => (
+          <li className="hero-process-step" key={key}>
+            <span className={`hero-process-icon hero-process-icon--${pointTones[index]}`} aria-hidden="true"><Icon size={22} /></span>
+            <div>
+              <strong>{t(`banner.point.${key}`)}</strong>
+              <p>{t(`banner.process.${key}`)}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 };

@@ -96,18 +96,6 @@
   font-weight: 1000;
 }
 
-.app-phone-frame.app-phone-frame--finflow {
-  width: var(--app-preview-phone-width, clamp(302px, 23vw, 350px));
-  max-height: calc(100vh - 128px);
-  aspect-ratio: 390 / 810;
-  background: #05070c;
-  border-color: rgba(160, 166, 176, 0.96);
-  border-radius: 50px;
-  padding: 12px;
-  box-shadow:
-    0 35px 95px rgba(0, 0, 0, 0.48);
-}
-
 .finflow-phone-app {
   position: relative;
   width: 100%;
@@ -123,7 +111,7 @@
 }
 
 .finflow-screen {
-  height: calc(100% - 72px);
+  height: calc(100% - 103px);
   overflow: hidden;
   min-height: 0;
   padding: 18px 16px 82px;
@@ -2141,47 +2129,6 @@
   animation: finflow-toast-in 0.24s ease both;
 }
 
-.finflow-preview-copy span {
-  border-color: rgba(54, 214, 151, 0.34);
-  color: #36d697;
-}
-
-.finflow-preview-copy h3 {
-  max-width: 600px;
-  margin: 0 0 22px;
-  color: #ffffff;
-  font-size: clamp(48px, 6vw, 84px);
-  font-weight: 950;
-  letter-spacing: -0.08em;
-  line-height: 0.9;
-}
-
-.finflow-preview-copy p {
-  max-width: 720px;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(18px, 1.8vw, 24px);
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.finflow-preview-copy div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.finflow-preview-copy small {
-  padding: 10px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  color: #f8fbff;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 15px;
-  font-weight: 900;
-}
-
 @keyframes finflow-screen-in {
   from {
     opacity: 0;
@@ -2215,21 +2162,7 @@
   }
 }
 
-@media (max-width: 900px) {
-  .mobile-app-preview--finflow {
-    gap: 34px;
-  }
-
-  .finflow-preview-copy div {
-    gap: 8px;
-  }
-}
-
 @media (max-width: 560px) {
-  .finflow-phone-app {
-    border-radius: 28px;
-  }
-
   .finflow-screen {
     padding: 24px 18px 90px;
   }
@@ -2250,7 +2183,4 @@
     font-size: 29px;
   }
 
-  .finflow-preview-copy small {
-    font-size: 13px;
-  }
 }

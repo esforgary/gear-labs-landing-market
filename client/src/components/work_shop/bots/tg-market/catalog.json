@@ -1,0 +1,71 @@
+{
+  "id": 200,
+  "category": "bots",
+  "title": "TG Market",
+  "text": "Telegram-магазин: каталог, корзина, заказы и статусы. Добавление, удаление и импорт товаров через чат администратора.",
+  "img": "",
+  "type": "Telegram Bot",
+  "price": "1000 $",
+  "time": "12 дней",
+  "coverKey": "tg-market",
+  "previewKey": "tg-market",
+  "previewMode": "app",
+  "translations": {
+    "ru": {
+      "title": "TG Market",
+      "text": "Telegram-магазин: каталог, корзина, заказы и статусы. Добавление, удаление и импорт товаров через чат администратора.",
+      "type": "Telegram-бот",
+      "price": "1000 $",
+      "time": "12 дней"
+    },
+    "en": {
+      "title": "TG Market",
+      "text": "A Telegram store with a catalog, cart, orders and statuses. Add, delete and import products through the admin chat.",
+      "type": "Telegram bot",
+      "price": "1000 $",
+      "time": "12 days"
+    },
+    "de": {
+      "title": "TG Market",
+      "text": "Telegram-Shop mit Katalog, Warenkorb, Bestellungen und Statusanzeige. Produkte im Admin-Chat hinzufügen, löschen und importieren.",
+      "type": "Telegram-Bot",
+      "price": "1000 $",
+      "time": "12 Tage"
+    },
+    "fr": {
+      "title": "TG Market",
+      "text": "Boutique Telegram avec catalogue, panier, commandes et suivi. Ajout, suppression et import de produits dans le chat administrateur.",
+      "type": "Bot Telegram",
+      "price": "1000 $",
+      "time": "12 jours"
+    },
+    "it": {
+      "title": "TG Market",
+      "text": "Negozio Telegram con catalogo, carrello, ordini e stato delle consegne. Aggiunta, eliminazione e importazione dei prodotti dalla chat amministratore.",
+      "type": "Bot Telegram",
+      "price": "1000 $",
+      "time": "12 giorni"
+    },
+    "pl": {
+      "title": "TG Market",
+      "text": "Sklep Telegram z katalogiem, koszykiem, zamówieniami i statusami. Dodawanie, usuwanie i import produktów przez czat administratora.",
+      "type": "Bot Telegram",
+      "price": "1000 $",
+      "time": "12 dni"
+    },
+    "cz": {
+      "title": "TG Market",
+      "text": "Obchod v Telegramu s katalogem, košíkem, objednávkami a jejich stavy. Přidávání, mazání a import produktů přes chat správce.",
+      "type": "Telegram bot",
+      "price": "1000 $",
+      "time": "12 dní"
+    },
+    "sk": {
+      "title": "TG Market",
+      "text": "Obchod v Telegrame s katalógom, košíkom, objednávkami a ich stavmi. Pridávanie, mazanie a import produktov cez chat správcu.",
+      "type": "Telegram bot",
+      "price": "1000 $",
+      "time": "12 dní"
+    }
+  }
+}

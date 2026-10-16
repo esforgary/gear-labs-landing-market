@@ -1,0 +1,99 @@
+.mobile-app-preview__copy {
+  color: #ffffff;
+  max-width: 560px;
+  min-width: 0;
+
+  h2 {
+    color: inherit;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 950;
+    letter-spacing: -0.08em;
+    line-height: 0.9;
+    margin: 0 0 22px;
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.78);
+    font-family: var(--font-copy-mono);
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.mobile-app-preview__kicker {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  text-transform: uppercase;
+}
+
+.mobile-app-preview__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+
+  span {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-weight: 900;
+    padding: 10px 13px;
+  }
+}
+
+.app-phone-status {
+  align-items: center;
+  display: flex;
+  flex: 0 0 31px;
+  font-size: 12px;
+  font-weight: 900;
+  height: 31px;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: relative;
+  z-index: 4;
+
+  i {
+    background: currentColor;
+    border-radius: 999px;
+    height: 5px;
+    left: 50%;
+    opacity: 0.14;
+    position: absolute;
+    top: 13px;
+    transform: translateX(-50%);
+    width: 74px;
+  }
+
+  b {
+    background: currentColor;
+    border-radius: 999px;
+    height: 8px;
+    width: 8px;
+  }
+}
+
+@media (max-width: 720px) {
+  .mobile-app-preview__copy {
+    h2 {
+      font-size: clamp(40px, 14vw, 60px);
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}

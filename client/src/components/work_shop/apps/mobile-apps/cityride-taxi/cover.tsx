@@ -12,9 +12,8 @@ export const CityRideTaxiCover = () => (
     </div>
     <div className="cityride-cover-info">
       <strong>CityRide</strong>
-      <span />
-      <span />
+      <span>go anywhere</span>
     </div>
-    <div className="cityride-cover-price">12 min</div>
+    <div className="cityride-cover-price">4 min <span>→</span></div>
   </div>
 );

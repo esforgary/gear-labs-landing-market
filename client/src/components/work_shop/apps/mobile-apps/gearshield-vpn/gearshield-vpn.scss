@@ -149,7 +149,7 @@
     radial-gradient(circle at 24% 8%, rgba(59, 130, 246, 0.26), transparent 28%),
     radial-gradient(circle at 90% 28%, rgba(255, 111, 0, 0.16), transparent 30%),
     var(--vpn-bg);
-  border-radius: 40px;
+  border-radius: 36px;
   box-sizing: border-box;
   color: var(--vpn-text);
   height: 100%;
@@ -170,12 +170,8 @@
   }
 }
 
-.vpn-phone-app__notch {
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 999px;
-  height: 5px;
-  margin: 0 auto 24px;
-  width: 86px;
+.vpn-phone-app > .app-phone-status {
+  margin: -24px -18px 22px;
 }
 
 .vpn-phone-app__header {
@@ -727,58 +723,6 @@
   background: var(--vpn-panel-bg);
   border-color: var(--vpn-panel-border);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
-}
-
-.mobile-app-preview__copy {
-  color: #ffffff;
-  max-width: 560px;
-
-  h2 {
-    font-size: clamp(48px, 6vw, 84px);
-    font-weight: 950;
-    letter-spacing: -0.08em;
-    line-height: 0.9;
-    margin: 0 0 22px;
-  }
-
-  p {
-    color: rgba(255, 255, 255, 0.78);
-    font-size: clamp(18px, 1.8vw, 24px);
-    font-weight: 700;
-    line-height: 1.5;
-    margin: 0;
-  }
-}
-
-.mobile-app-preview__kicker {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  color: #ffffff;
-  display: inline-flex;
-  font-size: 13px;
-  font-weight: 950;
-  letter-spacing: 0.12em;
-  margin-bottom: 18px;
-  padding: 10px 14px;
-  text-transform: uppercase;
-}
-
-.mobile-app-preview__features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
-
-  span {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 999px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 900;
-    padding: 10px 13px;
-  }
 }
 
 @keyframes vpn-cover-pulse {

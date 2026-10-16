@@ -1,0 +1,71 @@
+{
+  "id": 205,
+  "category": "bots",
+  "title": "Discord Levels",
+  "text": "Опыт за общение, уровни, рейтинг участников и автоматические роли. Управление XP и наградами через команды администратора.",
+  "img": "",
+  "type": "Discord-бот",
+  "price": "600 $",
+  "time": "8 дней",
+  "coverKey": "discord-levels",
+  "previewKey": "discord-levels",
+  "previewMode": "app",
+  "translations": {
+    "ru": {
+      "title": "Discord Levels",
+      "text": "Опыт за общение, уровни, рейтинг участников и автоматические роли. Управление XP и наградами через команды администратора.",
+      "type": "Discord-бот",
+      "price": "600 $",
+      "time": "8 дней"
+    },
+    "en": {
+      "title": "Discord Levels",
+      "text": "Conversation XP, levels, member rankings and automatic roles. Manage XP and rewards through administrator commands.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 days"
+    },
+    "de": {
+      "title": "Discord Levels",
+      "text": "Erfahrung für Gespräche, Level, Ranglisten und automatische Rollen. XP und Belohnungen über Administratorbefehle verwalten.",
+      "type": "Discord-Bot",
+      "price": "600 $",
+      "time": "8 Tage"
+    },
+    "fr": {
+      "title": "Discord Levels",
+      "text": "XP pour les échanges, niveaux, classement et rôles automatiques. Gestion des XP et des récompenses par les commandes administrateur.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 jours"
+    },
+    "it": {
+      "title": "Discord Levels",
+      "text": "XP per le conversazioni, livelli, classifiche e ruoli automatici. Gestisci XP e ricompense tramite i comandi amministratore.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 giorni"
+    },
+    "pl": {
+      "title": "Discord Levels",
+      "text": "XP za rozmowy, poziomy, ranking członków i automatyczne role. Zarządzanie XP i nagrodami za pomocą poleceń administratora.",
+      "type": "Bot Discord",
+      "price": "600 $",
+      "time": "8 dni"
+    },
+    "cz": {
+      "title": "Discord Levels",
+      "text": "XP za konverzace, úrovně, žebříček členů a automatické role. Správa XP a odměn pomocí příkazů správce.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 dní"
+    },
+    "sk": {
+      "title": "Discord Levels",
+      "text": "XP za rozhovory, úrovne, rebríček členov a automatické roly. Správa XP a odmien pomocou príkazov správcu.",
+      "type": "Discord bot",
+      "price": "600 $",
+      "time": "8 dní"
+    }
+  }
+}

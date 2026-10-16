@@ -95,12 +95,6 @@
   }
 }
 
-.app-phone-frame--dribbbox {
-  border-radius: 50px;
-  padding: 12px;
-  width: var(--app-preview-phone-width, min(100%, 350px));
-}
-
 .dribb-phone-app {
   --dribb-primary: #5f7df3;
   --dribb-ink: #171b34;
@@ -109,7 +103,7 @@
   --dribb-line: rgba(85, 101, 145, 0.12);
 
   background: #ffffff;
-  border-radius: 34px;
+  border-radius: 36px;
   box-sizing: border-box;
   color: var(--dribb-ink);
   height: 100%;
@@ -119,12 +113,8 @@
   position: relative;
 }
 
-.dribb-phone-app__notch {
-  background: #e5ecfa;
-  border-radius: 999px;
-  height: 5px;
-  margin: 0 auto 18px;
-  width: 74px;
+.dribb-phone-app > .app-phone-status {
+  margin: -20px -18px 12px;
 }
 
 .dribb-screen {

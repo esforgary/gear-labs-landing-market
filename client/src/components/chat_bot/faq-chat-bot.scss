@@ -10,27 +10,41 @@
 
 .faq-chat__toggle {
   align-items: center;
-  background: linear-gradient(135deg, var(--orange), var(--blue));
+  appearance: none;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.34), transparent 36%),
+    linear-gradient(135deg, var(--orange), var(--blue));
   border: 0;
-  border-radius: 22px;
-  box-shadow:
-    0 20px 48px color-mix(in srgb, var(--orange) 25%, transparent),
-    0 14px 42px color-mix(in srgb, var(--blue) 22%, transparent);
-  color: var(--space-gray);
+  border-radius: 18px;
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--blue) 24%, transparent);
+  color: #ffffff;
   cursor: pointer;
   display: flex;
-  height: 64px;
+  height: 58px;
   justify-content: center;
   pointer-events: auto;
   position: relative;
   transition:
-    border-radius 0.24s ease,
     box-shadow 0.24s ease,
     transform 0.24s ease;
-  width: 64px;
+  width: 58px;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::after {
+    background: currentColor;
+    border-radius: 2px;
+    bottom: 5px;
+    content: "";
+    height: 2px;
+    position: absolute;
+    width: 18px;
+  }
 
   &:hover {
-    border-radius: 18px;
     box-shadow:
       0 24px 58px color-mix(in srgb, var(--orange) 32%, transparent),
       0 18px 46px color-mix(in srgb, var(--blue) 26%, transparent);
@@ -38,24 +52,46 @@
   }
 }
 
-.faq-chat__spark {
-  color: #ffffff;
+.faq-chat__toggle-icon {
+  inset: 0;
+  margin: auto;
+  opacity: 1;
+  pointer-events: none;
   position: absolute;
-  right: 12px;
-  top: 11px;
+  transform: rotate(0deg) scale(1);
+  transition: opacity 220ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-chat__toggle-icon--close {
+  opacity: 0;
+  transform: rotate(-60deg) scale(0.55);
+}
+
+.faq-chat.is-open {
+  .faq-chat__toggle-icon--message {
+    opacity: 0;
+    transform: rotate(45deg) scale(0.55);
+  }
+
+  .faq-chat__toggle-icon--close {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 .faq-chat__panel {
   background:
     radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--orange) 15%, transparent), transparent 38%),
     radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 40%),
-    color-mix(in srgb, var(--surface) 94%, transparent);
+    var(--surface);
   border: 1px solid var(--border-soft);
   border-radius: 26px;
   box-shadow: 0 28px 78px color-mix(in srgb, var(--text-primary) 20%, transparent);
   color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
   margin-bottom: 14px;
-  max-height: min(620px, calc(100vh - 116px));
+  max-height: min(620px, calc(100dvh - 116px));
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
@@ -79,6 +115,7 @@
   display: grid;
   gap: 12px;
   grid-template-columns: auto 1fr auto;
+  flex-shrink: 0;
   padding: 16px;
 
   strong,
@@ -88,14 +125,14 @@
 
   strong {
     font-size: 17px;
-    font-weight: 950;
-    line-height: 1;
+    font-weight: 750;
+    line-height: 1.2;
   }
 
   span {
     color: var(--text-secondary);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 500;
     margin-top: 4px;
   }
 
@@ -109,12 +146,19 @@
     display: flex;
     height: 38px;
     justify-content: center;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: background 0.2s ease;
     width: 38px;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
 
     &:hover {
       background: color-mix(in srgb, var(--surface-muted) 80%, var(--orange));
-      transform: rotate(90deg);
+
+      svg {
+        transform: rotate(90deg);
+      }
     }
   }
 }
@@ -136,6 +180,7 @@
   flex-direction: column;
   gap: 10px;
   max-height: 280px;
+  min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
   padding: 16px;
@@ -149,10 +194,12 @@
 .faq-chat__message {
   border-radius: 17px;
   font-size: 14px;
-  font-weight: 750;
+  font-weight: 500;
   line-height: 1.45;
   max-width: 88%;
   padding: 12px 14px;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
 }
 
 .faq-chat__message--bot {
@@ -163,8 +210,20 @@
 
 .faq-chat__message--user {
   align-self: flex-end;
-  background: linear-gradient(135deg, var(--orange), var(--blue));
-  color: var(--space-gray);
+  background: color-mix(in srgb, var(--blue) 16%, var(--surface));
+  color: var(--text-primary);
+}
+
+.faq-chat__retry {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  display: block;
+  font: inherit;
+  margin-top: 8px;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .faq-chat__message--thinking {
@@ -193,6 +252,7 @@
 .faq-chat__suggestions {
   display: flex;
   flex-wrap: wrap;
+  flex-shrink: 0;
   gap: 8px;
   padding: 0 16px 14px;
 
@@ -200,17 +260,21 @@
     background: color-mix(in srgb, var(--blue) 10%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--blue) 16%, var(--border-soft));
     border-radius: 999px;
-    color: var(--blue);
+    color: var(--text-primary);
     cursor: pointer;
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 600;
     padding: 9px 11px;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 
-    &:hover {
-      background: var(--blue);
-      color: var(--space-gray);
+    &:not(:disabled):hover {
+      background: color-mix(in srgb, var(--blue) 22%, var(--surface));
       transform: translateY(-1px);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.55;
     }
   }
 }
@@ -221,6 +285,7 @@
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr auto;
+  flex-shrink: 0;
   padding: 14px 16px 16px;
 
   input {
@@ -230,7 +295,7 @@
     color: var(--text-primary);
     font: inherit;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 500;
     min-width: 0;
     outline: none;
     padding: 13px 14px;
@@ -285,8 +350,21 @@
     right: 16px;
   }
 
-  .faq-chat__toggle {
-    height: 58px;
-    width: 58px;
+  .faq-chat__panel {
+    max-height: calc(100dvh - 104px);
+  }
+}
+
+@media (max-height: 500px) {
+  .faq-chat__suggestions {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-chat *,
+  .faq-chat *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -1,0 +1,129 @@
+/* Shared controls for the native Meridian chart. */
+.trading-wrap.trading-terminal {
+  min-width: 0;
+  max-width: 100%;
+  margin-top: 19px;
+  padding: 0 20px 17px;
+}
+
+.trading-wrap.trading-terminal .trading-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  gap: 11px 16px;
+  padding-bottom: 16px;
+}
+.trading-wrap.trading-terminal .trading-view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 60%, var(--surface));
+  box-shadow: var(--material-inset);
+  min-width: 0;
+  max-width: 100%;
+}
+.trading-wrap.trading-terminal .trading-view-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.trading-wrap.trading-terminal .trading-view-tabs button[aria-pressed="true"],
+.trading-wrap.trading-terminal .trading-view-tabs button.pressed {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent-green) 22%, var(--line));
+  background: radial-gradient(ellipse at 75% 120%, color-mix(in srgb, var(--accent-green) 16%, transparent), transparent 75%), var(--material-control);
+  box-shadow: var(--material-rim), 0 3px 8px #00000016;
+}
+.trading-wrap.trading-terminal .trading-view-tabs button[aria-pressed="true"] svg,
+.trading-wrap.trading-terminal .trading-view-tabs button.pressed svg { color: var(--accent-green); }
+.trading-wrap.trading-terminal .trading-tool-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-left: auto;
+  min-width: 0;
+}
+.trading-wrap.trading-terminal .trading-tool-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  border: 1px solid var(--line);
+  color: var(--soft);
+  background: var(--material-control);
+  box-shadow: inset 0 1px #ffffff0c, 0 3px 8px #00000013;
+  font-size: 11px;
+  font-weight: 500;
+}
+.trading-wrap.trading-terminal .trading-tool-actions button.pressed,
+.trading-wrap.trading-terminal .trading-tool-actions button[aria-pressed="true"] {
+  color: var(--accent-green);
+  border-color: color-mix(in srgb, var(--accent-green) 35%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent-green) 12%, var(--surface-2)), var(--surface));
+  box-shadow: var(--material-rim), 0 0 15px color-mix(in srgb, var(--accent-green) 7%, transparent);
+}
+.trading-wrap.trading-terminal .trading-tool-actions button svg,
+.trading-wrap.trading-terminal .trading-view-tabs button svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.trading-wrap.trading-terminal:fullscreen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(14px, 2vw, 28px);
+  background: var(--bg);
+  overflow: auto;
+}
+
+.trading-wrap.trading-terminal:fullscreen .trading-toolbar { flex-shrink: 0; }
+
+
+@media (hover:hover) and (pointer:fine) {
+  .trading-wrap.trading-terminal .trading-toolbar button:hover {
+    border-color: color-mix(in srgb, var(--accent-green) 34%, var(--line));
+    color: var(--text);
+    box-shadow: var(--material-rim), 0 4px 13px #00000020;
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width:760px) {
+  .trading-wrap.trading-terminal { padding-inline: 14px; padding-bottom: 13px; margin-top: 17px; }
+  .trading-wrap.trading-terminal .trading-toolbar { gap: 10px; padding-bottom: 15px; }
+}
+@media (max-width:380px) {
+  .trading-wrap.trading-terminal { padding-inline: 10px; }
+  .trading-wrap.trading-terminal .trading-view-tabs button { gap: 6px; padding-inline: 12px; }
+  .trading-wrap.trading-terminal .trading-tool-actions { gap: 6px; }
+  .trading-wrap.trading-terminal .trading-tool-actions button { padding-inline: 10px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .trading-wrap.trading-terminal .trading-toolbar button:hover { transform: none; }
+}
+
+
+@media(prefers-reduced-motion:reduce){.trading-wrap.trading-terminal .trading-toolbar button{transition:none!important}}

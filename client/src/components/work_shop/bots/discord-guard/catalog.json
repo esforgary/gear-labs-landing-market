@@ -1,0 +1,23 @@
+{
+  "id": 203,
+  "category": "bots",
+  "title": "Discord Guard",
+  "text": "Модерация Discord-сервера: жалобы участников, предупреждения, тайм-ауты, удаление сообщений и журнал действий администратора.",
+  "img": "",
+  "type": "Discord bot",
+  "price": "500 $",
+  "time": "7 дней",
+  "coverKey": "discord-guard",
+  "previewKey": "discord-guard",
+  "previewMode": "app",
+  "translations": {
+    "ru": { "title": "Discord Guard", "text": "Модерация Discord-сервера: жалобы участников, предупреждения, тайм-ауты, удаление сообщений и журнал действий администратора.", "type": "Discord-бот", "price": "500 $", "time": "7 дней" },
+    "en": { "title": "Discord Guard", "text": "Discord server moderation: member reports, warnings, timeouts, message removal and an administrator activity log.", "type": "Discord bot", "price": "500 $", "time": "7 days" },
+    "de": { "title": "Discord Guard", "text": "Moderation für Discord-Server: Meldungen von Mitgliedern, Verwarnungen, Timeouts, Löschen von Nachrichten und ein Protokoll der Administratoraktionen.", "type": "Discord-Bot", "price": "500 $", "time": "7 Tage" },
+    "fr": { "title": "Discord Guard", "text": "Modération de serveur Discord : signalements des membres, avertissements, exclusions temporaires, suppression de messages et journal des actions de l’administrateur.", "type": "Bot Discord", "price": "500 $", "time": "7 jours" },
+    "it": { "title": "Discord Guard", "text": "Moderazione di server Discord: segnalazioni dei membri, avvertimenti, timeout, rimozione dei messaggi e registro delle azioni dell’amministratore.", "type": "Bot Discord", "price": "500 $", "time": "7 giorni" },
+    "pl": { "title": "Discord Guard", "text": "Moderacja serwera Discord: zgłoszenia członków, ostrzeżenia, czasowe wyciszenia, usuwanie wiadomości i dziennik działań administratora.", "type": "Bot Discord", "price": "500 $", "time": "7 dni" },
+    "cz": { "title": "Discord Guard", "text": "Moderování serveru Discord: hlášení členů, varování, dočasné ztlumení, odstraňování zpráv a protokol akcí správce.", "type": "Discord bot", "price": "500 $", "time": "7 dní" },
+    "sk": { "title": "Discord Guard", "text": "Moderovanie servera Discord: hlásenia členov, upozornenia, dočasné stíšenie, odstraňovanie správ a protokol akcií správcu.", "type": "Discord bot", "price": "500 $", "time": "7 dní" }
+  }
+}

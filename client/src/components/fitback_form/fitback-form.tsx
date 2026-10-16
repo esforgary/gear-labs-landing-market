@@ -23,6 +23,9 @@ const googleFormsPlaceholderUrl = "https://docs.google.com/forms/";
 export default function FitbackForm() {
   const { t } = useThemeLang();
   const { selectedProject } = useProjectSelection();
+  const contentCategory = selectedProject && ["sites", "apps", "bots"].includes(selectedProject.category)
+    ? selectedProject.category
+    : "text";
 
   const scrollToCatalog = () => {
     const element = document.getElementById("catalog");
@@ -57,7 +60,7 @@ export default function FitbackForm() {
     {
       icon: <FileArchive />,
       title: t("fitback.feature.content.title"),
-      text: t("fitback.feature.content.text"),
+      text: t(`fitback.feature.content.${contentCategory}`),
       tone: "silver",
       upload: true,
     },

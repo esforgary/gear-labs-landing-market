@@ -1,0 +1,16 @@
+/* Fit the original diary inside the gallery's 278–326 px phone viewport. */
+html, body { overscroll-behavior: contain; }
+@media (max-width: 340px) {
+  .app-shell { padding-inline: 12px; }
+  .workspace > main { padding-top: 18px; }
+  .page-heading h1 { font-size: 25px; }
+  .nutrition-content { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .nutrition-content > div:first-child { width: 100%; }
+  .calorie-ring { width: 140px; margin-inline: auto; }
+  .macro-column { min-width: 0; }
+  .modal, .modal.wide { width: 100%; padding: 20px 14px; }
+  .food-quantity-fields { grid-template-columns: minmax(0, 1fr); }
+  .profile-form > .card-heading { flex-wrap: wrap; }
+  .profile-measurements { grid-template-columns: minmax(0, 1fr); }
+  .profile-measurements > :last-child { grid-column: auto; }
+}

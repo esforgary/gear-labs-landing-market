@@ -28,6 +28,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { useThemeLang } from "../../../../../context/ThemeLangContext";
+import { AppPreviewCopy, PhoneStatusBar } from "../app-preview-presentation";
 import "./finflow-wallet.scss";
 
 const finflowMark = new URL("./img/finflow-mark.svg", import.meta.url).href;
@@ -92,7 +93,7 @@ const bankCopy: Record<string, BankCopy> = {
   ru: {
     previewBadge: "Банковское приложение",
     title: "FinFlow Bank",
-    text: "Мобильный банк в стиле Monobank: живая карта, кешбек, депозиты, кредитный лимит, накопления и быстрые операции.",
+    text: "Мобильный банк: управление картой, кешбек, вклады, кредитный лимит, накопления, переводы и история операций.",
     chips: ["Переворот карты", "Кешбек и банки", "Депозиты и кредит", "Умные накопления"],
     phone: {
       brand: "FinFlow",
@@ -183,7 +184,7 @@ const bankCopy: Record<string, BankCopy> = {
   en: {
     previewBadge: "Banking app",
     title: "FinFlow Bank",
-    text: "A Monobank-inspired mobile bank with a flipping card, cashback, deposits, credit limits, savings jars, and quick payments.",
+    text: "A mobile banking app with card management, cashback, deposits, credit limits, savings goals, transfers and transaction history.",
     chips: ["Flipping card", "Cashback and jars", "Deposits and credit", "Smart savings"],
     phone: {
       brand: "FinFlow",
@@ -274,7 +275,7 @@ const bankCopy: Record<string, BankCopy> = {
   de: {
     previewBadge: "Banking-App",
     title: "FinFlow Bank",
-    text: "Mobile Bank im Monobank-Stil: drehbare Karte, Cashback, Einlagen, Kreditlimit, Sparziele und schnelle Zahlungen.",
+    text: "Eine Banking-App mit Kartenverwaltung, Cashback, Einlagen, Kreditlimit, Sparzielen, Überweisungen und Transaktionsverlauf.",
     chips: ["Drehbare Karte", "Cashback", "Einlagen und Kredit", "Sparziele"],
     phone: {
       brand: "FinFlow",
@@ -365,7 +366,7 @@ const bankCopy: Record<string, BankCopy> = {
   fr: {
     previewBadge: "App bancaire",
     title: "FinFlow Bank",
-    text: "Banque mobile inspiree de Monobank avec carte retournable, cashback, depots, credit, cagnottes et paiements rapides.",
+    text: "Une application bancaire avec gestion de carte, cashback, dépôts, limite de crédit, objectifs d’épargne, virements et historique des opérations.",
     chips: ["Carte retournable", "Cashback", "Depots et credit", "Cagnottes"],
     phone: {
       brand: "FinFlow",
@@ -425,7 +426,7 @@ const bankCopy: Record<string, BankCopy> = {
   it: {
     previewBadge: "App bancaria",
     title: "FinFlow Bank",
-    text: "Banca mobile in stile Monobank: carta ribaltabile, cashback, depositi, credito, salvadanai e pagamenti rapidi.",
+    text: "Un’app bancaria con gestione della carta, cashback, depositi, limite di credito, obiettivi di risparmio, bonifici e cronologia delle operazioni.",
     chips: ["Carta flip", "Cashback", "Depositi e credito", "Risparmi"],
     phone: {
       brand: "FinFlow",
@@ -485,7 +486,7 @@ const bankCopy: Record<string, BankCopy> = {
   pl: {
     previewBadge: "Aplikacja bankowa",
     title: "FinFlow Bank",
-    text: "Bank mobilny w stylu Monobank: odwracana karta, cashback, lokaty, kredyt, skarbonki i szybkie platnosci.",
+    text: "Aplikacja bankowa z zarządzaniem kartą, cashbackiem, lokatami, limitem kredytowym, celami oszczędnościowymi, przelewami i historią operacji.",
     chips: ["Karta flip", "Cashback", "Lokaty i kredyt", "Skarbonki"],
     phone: {
       brand: "FinFlow",
@@ -545,7 +546,7 @@ const bankCopy: Record<string, BankCopy> = {
   cz: {
     previewBadge: "Bankovni app",
     title: "FinFlow Bank",
-    text: "Mobilni banka ve stylu Monobank: otocna karta, cashback, vklady, kredit, sporici cile a rychle platby.",
+    text: "Bankovní aplikace se správou karty, cashbackem, vklady, úvěrovým limitem, cíli spoření, převody a historií transakcí.",
     chips: ["Otocna karta", "Cashback", "Vklady a kredit", "Sporeni"],
     phone: {
       brand: "FinFlow",
@@ -605,7 +606,7 @@ const bankCopy: Record<string, BankCopy> = {
   sk: {
     previewBadge: "Bankova appka",
     title: "FinFlow Bank",
-    text: "Mobilna banka v style Monobank: otocna karta, cashback, vklady, kredit, sporiace ciele a rychle platby.",
+    text: "Banková aplikácia so správou karty, cashbackom, vkladmi, úverovým limitom, cieľmi sporenia, prevodmi a históriou transakcií.",
     chips: ["Otocna karta", "Cashback", "Vklady a kredit", "Sporenie"],
     phone: {
       brand: "FinFlow",
@@ -1755,6 +1756,7 @@ export function FinFlowWalletPreview() {
       <div className="mobile-app-preview__device">
         <div className="app-phone-frame app-phone-frame--finflow">
           <div className="finflow-phone-app">
+            <PhoneStatusBar />
             {screen === "home" && renderHome()}
             {selectedDetails && renderDetails()}
             {screen === "settings" && renderSettings()}
@@ -1785,16 +1787,7 @@ export function FinFlowWalletPreview() {
         </div>
       </div>
 
-      <div className="mobile-app-preview__copy finflow-preview-copy">
-        <span>{copy.previewBadge}</span>
-        <h3>{copy.title}</h3>
-        <p>{copy.text}</p>
-        <div>
-          {copy.chips.map((chip) => (
-            <small key={chip}>{chip}</small>
-          ))}
-        </div>
-      </div>
+      <AppPreviewCopy kicker={copy.previewBadge} title={copy.title} description={copy.text} features={copy.chips} />
     </div>
   );
 }

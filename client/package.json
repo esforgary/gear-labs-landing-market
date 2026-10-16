@@ -6,28 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:photo-editor": "tsc -p demos/scenarios-photo-editor/tsconfig.json && node demos/scenarios-photo-editor/build.mjs",
+    "build:calorie-calculator": "node src/components/work_shop/apps/mobile-apps/calorie-calculator/build-standalone.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
-    "axios": "^1.13.2",
+    "@imgly/background-removal": "1.7.0",
     "bootstrap": "^5.3.8",
     "framer-motion": "^12.23.25",
-    "gsap": "^3.13.0",
     "lucide-react": "^0.556.0",
+    "onnxruntime-web": "1.21.0",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
-    "react-content-loader": "^7.1.1",
-    "react-dom": "^19.2.0",
-    "react-hook-form": "^7.68.0",
-    "react-icons": "^5.5.0",
-    "react-intersection-observer": "^10.0.0",
-    "react-router-dom": "^7.10.1",
-    "sass": "^1.94.2",
-    "swiper": "^12.0.3",
-    "zod": "^4.1.13",
-    "zustand": "^5.0.9"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -39,6 +31,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "sass": "^1.94.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import { Bot, MessageCircle, Send, Sparkles, X } from "lucide-react";
+import { Bot, MessageCircle, Send, X } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./faq-chat-bot.scss";
 
@@ -9,6 +9,7 @@ type ChatMessage = {
   id: string;
   role: ChatRole;
   text: string;
+  retryQuestion?: string;
 };
 
 type ChatSuggestion = {
@@ -25,6 +26,8 @@ type ChatCopy = {
   open: string;
   close: string;
   fallback: string;
+  retry: string;
+  thinking: string;
 };
 
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
@@ -38,7 +41,9 @@ const chatCopy: Record<string, ChatCopy> = {
     send: "Отправить",
     open: "Открыть чат",
     close: "Закрыть чат",
-    fallback: "Похоже, сервер чата сейчас недоступен. Могу подсказать: спроси про цену, сроки, макеты, конструктор или запуск.",
+    fallback: "Не удалось получить ответ. Попробуйте ещё раз — ваш вопрос сохранён.",
+    retry: "Повторить",
+    thinking: "Готовлю ответ…",
   },
   en: {
     title: "GearLabs chat",
@@ -48,7 +53,9 @@ const chatCopy: Record<string, ChatCopy> = {
     send: "Send",
     open: "Open chat",
     close: "Close chat",
-    fallback: "The chat server seems unavailable. Ask about pricing, timelines, templates, the builder, or launch.",
+    fallback: "Could not get a reply. Please try again — your question is saved.",
+    retry: "Try again",
+    thinking: "Preparing a reply…",
   },
   de: {
     title: "GearLabs Chat",
@@ -58,7 +65,9 @@ const chatCopy: Record<string, ChatCopy> = {
     send: "Senden",
     open: "Chat offnen",
     close: "Chat schliessen",
-    fallback: "Der Chat-Server ist gerade nicht erreichbar. Frage nach Preis, Fristen, Layouts, Konstruktor oder Launch.",
+    fallback: "Die Antwort konnte nicht geladen werden. Bitte erneut versuchen — Ihre Frage bleibt erhalten.",
+    retry: "Erneut versuchen",
+    thinking: "Antwort wird vorbereitet…",
   },
   fr: {
     title: "Chat GearLabs",
@@ -68,7 +77,9 @@ const chatCopy: Record<string, ChatCopy> = {
     send: "Envoyer",
     open: "Ouvrir le chat",
     close: "Fermer le chat",
-    fallback: "Le serveur du chat semble indisponible. Demandez les prix, delais, maquettes, constructeur ou lancement.",
+    fallback: "Impossible de recevoir la réponse. Réessayez — votre question est conservée.",
+    retry: "Réessayer",
+    thinking: "Préparation de la réponse…",
   },
 };
 
@@ -111,11 +122,41 @@ function FaqChatBot() {
     { id: "greeting", role: "bot", text: getCopy(lang).greeting },
   ]);
   const messagesRef = useRef<HTMLDivElement | null>(null);
+  const chatRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const requestRef = useRef<AbortController | null>(null);
+
+  const closeChat = () => {
+    setIsOpen(false);
+    toggleRef.current?.focus();
+  };
 
   useEffect(() => {
     setMessages([{ id: "greeting", role: "bot", text: copy.greeting }]);
     setSuggestions(getFallbackSuggestions(lang));
+    setInput("");
+    setIsThinking(false);
+    return () => {
+      requestRef.current?.abort();
+      requestRef.current = null;
+    };
   }, [copy.greeting, lang]);
+
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus({ preventScroll: true });
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (event.target instanceof Node && !chatRef.current?.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick, true);
+    return () => document.removeEventListener("click", handleOutsideClick, true);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -144,15 +185,18 @@ function FaqChatBot() {
   }, [isOpen, messages, isThinking]);
 
   const ask = useCallback(
-    async (question: string) => {
+    async (question: string, retryId?: string) => {
       const cleanQuestion = question.trim();
-      if (!cleanQuestion || isThinking) return;
+      if (!cleanQuestion || requestRef.current) return;
+      const controller = new AbortController();
+      requestRef.current = controller;
+      const timeout = window.setTimeout(() => controller.abort(), 12000);
 
-      setMessages((current) => [
+      setMessages((current) => retryId ? current.filter(message => message.id !== retryId) : [
         ...current,
         { id: makeMessageId(), role: "user", text: cleanQuestion },
       ]);
-      setInput("");
+      if (!retryId) setInput("");
       setIsThinking(true);
 
       try {
@@ -160,29 +204,38 @@ function FaqChatBot() {
           body: JSON.stringify({ message: cleanQuestion, lang }),
           headers: { "Content-Type": "application/json" },
           method: "POST",
+          signal: controller.signal,
         });
 
         if (!response.ok) throw new Error("Chat response failed");
         const payload = (await response.json()) as { answer?: string; suggestions?: ChatSuggestion[] };
+        if (requestRef.current !== controller) return;
+        if (typeof payload.answer !== "string" || !payload.answer.trim()) throw new Error("Empty chat response");
+        const answer = payload.answer;
 
         setMessages((current) => [
           ...current,
-          { id: makeMessageId(), role: "bot", text: payload.answer || copy.fallback },
+          { id: makeMessageId(), role: "bot", text: answer },
         ]);
 
         if (Array.isArray(payload.suggestions) && payload.suggestions.length) {
           setSuggestions(payload.suggestions);
         }
       } catch {
+        if (requestRef.current !== controller) return;
         setMessages((current) => [
           ...current,
-          { id: makeMessageId(), role: "bot", text: copy.fallback },
+          { id: makeMessageId(), role: "bot", text: copy.fallback, retryQuestion: cleanQuestion },
         ]);
       } finally {
-        setIsThinking(false);
+        window.clearTimeout(timeout);
+        if (requestRef.current === controller) {
+          requestRef.current = null;
+          setIsThinking(false);
+        }
       }
     },
-    [copy.fallback, isThinking, lang],
+    [copy.fallback, lang],
   );
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -191,8 +244,13 @@ function FaqChatBot() {
   };
 
   return (
-    <div className={`faq-chat ${isOpen ? "is-open" : ""}`}>
-      <div className="faq-chat__panel" aria-hidden={!isOpen}>
+    <div ref={chatRef} className={`faq-chat ${isOpen ? "is-open" : ""}`} onKeyDown={event => {
+      if (event.key === "Escape" && isOpen) {
+        event.stopPropagation();
+        closeChat();
+      }
+    }}>
+      <div id="faq-chat-panel" className="faq-chat__panel" role="dialog" aria-label={copy.title} aria-hidden={!isOpen} inert={!isOpen}>
         <header className="faq-chat__header">
           <div className="faq-chat__avatar">
             <Bot size={20} />
@@ -201,29 +259,30 @@ function FaqChatBot() {
             <strong>{copy.title}</strong>
             <span>{copy.subtitle}</span>
           </div>
-          <button type="button" onClick={() => setIsOpen(false)} aria-label={copy.close}>
+          <button type="button" onClick={closeChat} aria-label={copy.close}>
             <X size={19} />
           </button>
         </header>
 
-        <div className="faq-chat__messages" ref={messagesRef}>
+        <div className="faq-chat__messages" ref={messagesRef} role="log" aria-live="polite" aria-relevant="additions text" aria-busy={isThinking}>
           {messages.map((message) => (
             <div className={`faq-chat__message faq-chat__message--${message.role}`} key={message.id}>
               {message.text}
+              {message.retryQuestion && <button className="faq-chat__retry" type="button" disabled={isThinking} onClick={() => void ask(message.retryQuestion!, message.id)}>{copy.retry}</button>}
             </div>
           ))}
           {isThinking && (
-            <div className="faq-chat__message faq-chat__message--bot faq-chat__message--thinking">
-              <span />
-              <span />
-              <span />
+            <div className="faq-chat__message faq-chat__message--bot faq-chat__message--thinking" aria-label={copy.thinking}>
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
             </div>
           )}
         </div>
 
         <div className="faq-chat__suggestions">
           {suggestions.slice(0, 3).map((suggestion) => (
-            <button key={suggestion.id} type="button" onClick={() => ask(suggestion.title)}>
+            <button key={suggestion.id} type="button" disabled={isThinking} onClick={() => void ask(suggestion.title)}>
               {suggestion.title}
             </button>
           ))}
@@ -231,6 +290,8 @@ function FaqChatBot() {
 
         <form className="faq-chat__form" onSubmit={handleSubmit}>
           <input
+            ref={inputRef}
+            maxLength={1000}
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder={copy.placeholder}
@@ -243,14 +304,16 @@ function FaqChatBot() {
       </div>
 
       <button
+        ref={toggleRef}
         className="faq-chat__toggle"
         type="button"
         onClick={() => setIsOpen((value) => !value)}
         aria-label={isOpen ? copy.close : copy.open}
         aria-expanded={isOpen}
+        aria-controls="faq-chat-panel"
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={25} />}
-        <Sparkles size={15} className="faq-chat__spark" />
+        <MessageCircle className="faq-chat__toggle-icon faq-chat__toggle-icon--message" size={25} aria-hidden="true" />
+        <X className="faq-chat__toggle-icon faq-chat__toggle-icon--close" size={24} aria-hidden="true" />
       </button>
     </div>
   );

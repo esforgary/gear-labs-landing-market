@@ -1,10 +1,11 @@
 ﻿import { useCallback, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useLayoutEffect } from "react";
+import { getImportedProjectCopy, getWorkshopPreviewLabels } from "./imported-project-copy";
 import { Suspense, lazy, type LazyExoticComponent } from "react";
 import ButtonWithExplosion from "../Button/button"
 import Card from "react-bootstrap/Card";
 import {
-  ArrowUpRight,
   BadgeDollarSign,
   Eye,
   Layers3,
@@ -18,6 +19,22 @@ import { DribbboxAppCover } from "./apps/mobile-apps/dribbbox-cloud/cover";
 import { NectarGroceryCover } from "./apps/mobile-apps/nectar-grocery/cover";
 import { FinFlowWalletCover } from "./apps/mobile-apps/finflow-wallet/cover";
 import { CityRideTaxiCover } from "./apps/mobile-apps/cityride-taxi/cover";
+import { MarketAnalysisCover } from "./sites/market-analysis/cover";
+import { QaAbstractCover } from "./sites/qa-abstract/cover";
+import { ScenariosPhotoEditorCover } from "./sites/scenarios-photo-editor/cover";
+import { CalorieCalculatorCover } from "./apps/mobile-apps/calorie-calculator/cover";
+import { TgMarketCover } from "./bots/tg-market/cover";
+import tgMarketCatalogJson from "./bots/tg-market/catalog.json?raw";
+import { TgBookingCover } from "./bots/tg-booking/cover";
+import { TgSupportCover } from "./bots/tg-support/cover";
+import tgBookingCatalogJson from "./bots/tg-booking/catalog.json?raw";
+import tgSupportCatalogJson from "./bots/tg-support/catalog.json?raw";
+import { DiscordGuardCover } from "./bots/discord-guard/cover";
+import discordGuardCatalogJson from "./bots/discord-guard/catalog.json?raw";
+import { DiscordEventsCover } from "./bots/discord-events/cover";
+import discordEventsCatalogJson from "./bots/discord-events/catalog.json?raw";
+import { DiscordLevelsCover } from "./bots/discord-levels/cover";
+import discordLevelsCatalogJson from "./bots/discord-levels/catalog.json?raw";
 import "./work-shop.scss";
 
 type WorkshopCategory = "sites" | "apps" | "bots";
@@ -52,11 +69,29 @@ interface WorkshopCatalogItem {
   previewMode?: "site" | "app";
   textKey?: string;
   typeKey?: string;
-  translations?: Record<string, Partial<Pick<WorkshopCatalogItem, "title" | "text" | "type" | "time">>>;
+  translations?: Record<string, Partial<Pick<WorkshopCatalogItem, "title" | "text" | "type" | "price" | "time">>>;
 }
 
 interface WorkshopCatalogResponse {
   items?: WorkshopCatalogItem[];
+}
+
+const tgMarketCatalog = JSON.parse(tgMarketCatalogJson) as WorkshopCatalogItem;
+const tgBookingCatalog = JSON.parse(tgBookingCatalogJson) as WorkshopCatalogItem;
+const tgSupportCatalog = JSON.parse(tgSupportCatalogJson) as WorkshopCatalogItem;
+const discordGuardCatalog = JSON.parse(discordGuardCatalogJson) as WorkshopCatalogItem;
+const discordEventsCatalog = JSON.parse(discordEventsCatalogJson) as WorkshopCatalogItem;
+const discordLevelsCatalog = JSON.parse(discordLevelsCatalogJson) as WorkshopCatalogItem;
+
+const catalogPositionKey = "gearlabs.catalog-position.v1";
+function readCatalogPosition(): { category: WorkshopCategory; page: number } {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(catalogPositionKey) ?? "null");
+    if (saved && ["sites", "apps", "bots"].includes(saved.category) && Number.isSafeInteger(saved.page) && saved.page > 0) {
+      return saved;
+    }
+  } catch { /* Storage may be unavailable. */ }
+  return { category: "sites", page: 1 };
 }
 
 const WallpaperLanding = lazy(() => import("../template_sites/wallpaper_landing/wallpaper-landing.jsx"));
@@ -71,6 +106,16 @@ const SneakerLanding = lazy(() => import("../template_sites/sneaker_landing/snea
 const PizzaMenuLanding = lazy(() => import("../template_sites/pizza_menu/pizza-menu.jsx"));
 const SkywayTicketsLanding = lazy(() => import("./sites/skyway-tickets/skyway-tickets.jsx"));
 const FlowcraftEditorLanding = lazy(() => import("./sites/flowcraft-editor/flowcraft-editor.jsx"));
+const MarketAnalysis = lazy(() => import("./sites/market-analysis/market-analysis"));
+const QaAbstract = lazy(() => import("./sites/qa-abstract/qa-abstract"));
+const ScenariosPhotoEditor = lazy(() => import("./sites/scenarios-photo-editor/scenarios-photo-editor"));
+const CalorieCalculator = lazy(() => import("./apps/mobile-apps/calorie-calculator/calorie-calculator"));
+const TgMarketPreview = lazy(() => import("./bots/tg-market/tg-market"));
+const TgBookingPreview = lazy(() => import("./bots/tg-booking/tg-booking"));
+const TgSupportPreview = lazy(() => import("./bots/tg-support/tg-support"));
+const DiscordGuardPreview = lazy(() => import("./bots/discord-guard/discord-guard"));
+const DiscordEventsPreview = lazy(() => import("./bots/discord-events/discord-events"));
+const DiscordLevelsPreview = lazy(() => import("./bots/discord-levels/discord-levels"));
 
 const VpnAppPreview = lazy(() =>
   import("./apps/mobile-apps/gearshield-vpn/gearshield-vpn").then((module) => ({
@@ -516,13 +561,25 @@ const previewComponentByKey: Record<string, WorkshopDemoComponent> = {
   nectar: NectarGroceryPreview,
   finflow: FinFlowWalletPreview,
   cityride: CityRideTaxiPreview,
+  "market-analysis": MarketAnalysis,
+  "qa-abstract": QaAbstract,
+  "scenarios-photo-editor": ScenariosPhotoEditor,
+  "calorie-calculator": CalorieCalculator,
+  "tg-market": TgMarketPreview,
+  "tg-booking": TgBookingPreview,
+  "tg-support": TgSupportPreview,
+  "discord-guard": DiscordGuardPreview,
+  "discord-events": DiscordEventsPreview,
+  "discord-levels": DiscordLevelsPreview,
 };
 
 function WorkShop() {
   const { lang, t } = useThemeLang();
+  const previewLabels = getWorkshopPreviewLabels(lang);
   const { selectProject } = useProjectSelection();
-  const [page, setPage] = useState(1);
-  const [activeCategory, setActiveCategory] = useState<WorkshopCategory>("sites");
+  const [catalogPosition] = useState(readCatalogPosition);
+  const [page, setPage] = useState(catalogPosition.page);
+  const [activeCategory, setActiveCategory] = useState<WorkshopCategory>(catalogPosition.category);
   const [activePreview, setActivePreview] = useState<WorkshopItem | null>(null);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [serverItems, setServerItems] = useState<WorkshopCatalogItem[] | null>(null);
@@ -780,6 +837,16 @@ function WorkShop() {
       DemoComponent: CityRideTaxiPreview,
       previewMode: "app",
     },
+    { id: 37, category: "sites", ...getImportedProjectCopy("market-analysis", lang)!, img: "", cover: <MarketAnalysisCover />, DemoComponent: MarketAnalysis },
+    { id: 40, category: "sites", ...getImportedProjectCopy("qa-abstract", lang)!, img: "", cover: <QaAbstractCover />, DemoComponent: QaAbstract },
+    { id: 43, category: "sites", ...getImportedProjectCopy("scenarios-photo-editor", lang)!, img: "", cover: <ScenariosPhotoEditorCover />, DemoComponent: ScenariosPhotoEditor },
+    { id: 105, category: "apps", ...getImportedProjectCopy("calorie-calculator", lang)!, img: "", cover: <CalorieCalculatorCover />, DemoComponent: CalorieCalculator, previewMode: "app" },
+    { ...tgMarketCatalog, ...getImportedProjectCopy("tg-market", lang)!, cover: <TgMarketCover />, DemoComponent: TgMarketPreview },
+    { ...tgBookingCatalog, ...(tgBookingCatalog.translations?.[lang] ?? tgBookingCatalog.translations?.en), cover: <TgBookingCover />, DemoComponent: TgBookingPreview },
+    { ...tgSupportCatalog, ...(tgSupportCatalog.translations?.[lang] ?? tgSupportCatalog.translations?.en), cover: <TgSupportCover />, DemoComponent: TgSupportPreview },
+    { ...discordGuardCatalog, ...(discordGuardCatalog.translations?.[lang] ?? discordGuardCatalog.translations?.en), cover: <DiscordGuardCover />, DemoComponent: DiscordGuardPreview },
+    { ...discordEventsCatalog, ...(discordEventsCatalog.translations?.[lang] ?? discordEventsCatalog.translations?.en), cover: <DiscordEventsCover />, DemoComponent: DiscordEventsPreview },
+    { ...discordLevelsCatalog, ...(discordLevelsCatalog.translations?.[lang] ?? discordLevelsCatalog.translations?.en), cover: <DiscordLevelsCover />, DemoComponent: DiscordLevelsPreview },
   ];
 
   const coverByKey = useMemo<Record<string, ReactNode>>(
@@ -801,6 +868,16 @@ function WorkShop() {
       nectar: <NectarGroceryCover />,
       finflow: <FinFlowWalletCover />,
       cityride: <CityRideTaxiCover />,
+      "market-analysis": <MarketAnalysisCover />,
+      "qa-abstract": <QaAbstractCover />,
+      "scenarios-photo-editor": <ScenariosPhotoEditorCover />,
+      "calorie-calculator": <CalorieCalculatorCover />,
+      "tg-market": <TgMarketCover />,
+      "tg-booking": <TgBookingCover />,
+      "tg-support": <TgSupportCover />,
+      "discord-guard": <DiscordGuardCover />,
+      "discord-events": <DiscordEventsCover />,
+      "discord-levels": <DiscordLevelsCover />,
     }),
     []
   );
@@ -842,12 +919,13 @@ function WorkShop() {
         text: textKey ? t(textKey) : localized.text ?? item.text,
         img: serverAsset(item.img),
         type: typeKey ? t(typeKey) : localized.type ?? item.type,
-        price: item.price,
+        price: localized.price ?? item.price,
         time: days ? formatWorkshopDays(lang, days) : localized.time ?? item.time,
         cover: item.coverKey ? coverByKey[item.coverKey] : undefined,
         DemoComponent: item.previewKey ? previewComponentByKey[item.previewKey] : undefined,
         previewClassName: item.previewClassName,
         previewMode: item.previewMode,
+        ...getImportedProjectCopy(item.previewKey, lang),
       };
     });
 
@@ -862,8 +940,9 @@ function WorkShop() {
   const pageItems = filteredItems.slice((safePage - 1) * perPage, safePage * perPage);
 
   useEffect(() => {
-    setPage(1);
-  }, [activeCategory]);
+    try { sessionStorage.setItem(catalogPositionKey, JSON.stringify({ category: activeCategory, page })); }
+    catch { /* Browsing still works without storage. */ }
+  }, [activeCategory, page]);
 
   useEffect(() => {
     setPage((currentPage) => Math.min(Math.max(currentPage, 1), totalPages));
@@ -901,8 +980,45 @@ function WorkShop() {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!activePreview) return undefined;
+
+    const body = document.body;
+    const root = document.documentElement;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const scrollbarWidth = window.innerWidth - root.getBoundingClientRect().width;
+    const pageHeight = root.scrollHeight;
+    const previousBodyPadding = body.style.paddingRight;
+    const previousRootOverflow = root.style.overflow;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    const bodyPadding = Number.parseFloat(getComputedStyle(body).paddingRight) || 0;
+
+    // Keep the sticky header in its original scroll container and preserve page width.
+    root.style.overflow = "hidden";
+    root.style.scrollBehavior = "auto";
+    body.style.paddingRight = `${bodyPadding + scrollbarWidth}px`;
+
+    // Native scrollbars can auto-hide and disappear under the backdrop blur.
+    // Paint the frozen track and thumb explicitly, with their own light blur.
+    const backgroundScrollbar = document.createElement("div");
+    backgroundScrollbar.className = "preview-background-scrollbar";
+    backgroundScrollbar.setAttribute("aria-hidden", "true");
+    backgroundScrollbar.inert = true;
+    backgroundScrollbar.style.width = `${Math.max(scrollbarWidth, 8)}px`;
+    const thumb = document.createElement("div");
+    thumb.className = "preview-background-scrollbar__thumb";
+    const updateScrollbar = () => {
+      const height = window.innerHeight;
+      const thumbHeight = Math.min(height, Math.max(28, height * height / pageHeight));
+      const progress = scrollY / Math.max(1, pageHeight - height);
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.top = `${Math.min(1, Math.max(0, progress)) * (height - thumbHeight)}px`;
+    };
+    updateScrollbar();
+    backgroundScrollbar.append(thumb);
+    body.append(backgroundScrollbar);
+    window.addEventListener("resize", updateScrollbar);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closePreview();
@@ -921,7 +1037,13 @@ function WorkShop() {
     window.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
 
     return () => {
+      backgroundScrollbar.remove();
+      window.removeEventListener("resize", updateScrollbar);
       document.body.classList.remove("is-preview-open");
+      body.style.paddingRight = previousBodyPadding;
+      root.style.overflow = previousRootOverflow;
+      window.scrollTo(scrollX, scrollY);
+      root.style.scrollBehavior = previousScrollBehavior;
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("wheel", preventBackgroundScroll);
       window.removeEventListener("touchmove", preventBackgroundScroll);
@@ -971,7 +1093,7 @@ function WorkShop() {
             role="tab"
             aria-selected={activeCategory === category.id}
             className={`workshop-tab ${activeCategory === category.id ? "active" : ""}`}
-            onClick={() => setActiveCategory(category.id)}
+            onClick={() => { if (activeCategory !== category.id) { setActiveCategory(category.id); setPage(1); } }}
           >
             {category.label}
           </button>
@@ -1012,7 +1134,6 @@ function WorkShop() {
                   </ButtonWithExplosion>
                 </div>
               </Card.Body>
-              <ArrowUpRight className="card-corner-icon" size={24} />
             </Card>
           </div>
         ))}
@@ -1043,14 +1164,14 @@ function WorkShop() {
           }}
           role="dialog"
           aria-modal="true"
-          aria-label={`Обзор ${activePreview.title}`}
+          aria-label={`${previewLabels.preview} ${activePreview.title}`}
         >
           {activePreview.previewMode === "app" ? (
             <div className="template-app-preview-shell" onClick={(event) => event.stopPropagation()}>
-              <button className="template-app-preview-close" type="button" onClick={closePreview} aria-label="Закрыть">
+              <button className="template-app-preview-close" type="button" onClick={closePreview} aria-label={previewLabels.close}>
                 <X size={30} />
               </button>
-              <Suspense fallback={<div className="template-preview-loading">Загрузка...</div>}>
+              <Suspense fallback={<div className="template-preview-loading">{previewLabels.loading}</div>}>
                 <ActivePreview />
               </Suspense>
             </div>
@@ -1058,15 +1179,15 @@ function WorkShop() {
           <div className="template-preview-shell" onClick={(event) => event.stopPropagation()}>
             <div className="template-preview-bar">
               <div>
-                <span>preview</span>
+                <span>{previewLabels.preview}</span>
                 <strong>{activePreview.title}</strong>
               </div>
-              <button type="button" onClick={closePreview} aria-label="Закрыть">
+              <button type="button" onClick={closePreview} aria-label={previewLabels.close}>
                 <X size={24} />
               </button>
             </div>
             <div className={`template-preview-frame ${activePreview.previewClassName ?? ""}`}>
-              <Suspense fallback={<div className="template-preview-loading">Загрузка...</div>}>
+              <Suspense fallback={<div className="template-preview-loading">{previewLabels.loading}</div>}>
                 <ActivePreview />
               </Suspense>
             </div>

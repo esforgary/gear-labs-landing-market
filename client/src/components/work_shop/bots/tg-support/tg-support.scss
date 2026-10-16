@@ -1,0 +1,109 @@
+.tg-support-phone {
+  background: #edf4f4; border-radius: 36px; color: #203b42; display: flex; flex-direction: column; font: 12px/1.45 Arial, sans-serif; height: 100%; isolation: isolate; min-height: 0; overflow: hidden;
+  *, *::before, *::after { box-sizing: border-box; }
+  button, input, textarea, select { font: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; opacity: .5; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid #168abd; outline-offset: 2px; }
+  .app-phone-status { background: #fff; color: #203b42; }
+  input, textarea, select { color: #203b42; }
+  button svg { flex: none; }
+}
+.tg-support-header { align-items: center; background: #fff; display: flex; flex: none; gap: 8px; padding: 9px 11px 11px;
+  > button { background: transparent; border: 0; color: #278da5; display: flex; padding: 5px 0; }
+  h3 { color: #203b42; font-size: 14px; font-weight: 700; line-height: 1.3; margin: 0 0 3px; }
+  h3 span { background: #309eb7; border-radius: 50%; color: #fff; display: inline-block; font-size: 9px; line-height: 13px; text-align: center; width: 13px; }
+  small { color: #7d9096; font-size: 10px; }
+}
+.tg-support-avatar { align-items: center; background: linear-gradient(135deg, #73cad1, #269bb0); border-radius: 50%; color: #fff; display: flex; flex: 0 0 36px; height: 36px; justify-content: center; }
+.tg-support-banner { background: #e8f5f6; color: #43818b; flex: none; font-size: 10px; padding: 6px 8px; text-align: center; }
+.tg-support-chat { background-color: #dfece5; background-image: radial-gradient(#85a99826 1px, transparent 1px); background-size: 15px 15px; display: flex; flex: 1; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 12px 9px; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+.tg-support-bubble { align-self: flex-start; background: #fff; border-radius: 12px 12px 12px 3px; box-shadow: 0 1px 1px #2a5a3912; flex: none; max-width: 96%; padding: 10px;
+  strong { font-size: 13px; } b { color: #388e9c; font-size: 10px; }
+  p { color: #28454b; font-size: 12px; font-weight: 400; line-height: 1.5; margin: 5px 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+  small { color: #788d91; display: block; font-size: 10px; line-height: 1.5; }
+  time { align-items: center; color: #7d9990; display: flex; font-size: 9px; gap: 4px; justify-content: flex-end; margin-top: 6px; }
+  &.is-own { align-self: flex-end; background: #eafbdc; border-radius: 12px 12px 3px 12px; }
+}
+.tg-support-phone .tg-support-primary { align-items: center; background: #289daf; border: 0; border-radius: 9px; color: #fff; display: flex; flex: none; font-weight: 600; gap: 5px; justify-content: center; min-height: 37px; padding: 9px; width: 100%; }
+.tg-support-list-heading { display: grid; flex: none; gap: 8px; padding: 2px;
+  > strong { font-size: 12px; } label { align-items: center; color: #516f74; display: flex; font-size: 10px; gap: 8px; }
+  select { background: #ffffffdc; border: 1px solid #c6dcd5; border-radius: 6px; flex: 1; min-width: 0; padding: 6px; }
+}
+.tg-support-ticket-card { background: #fff; border: 0; border-radius: 10px; color: #28434a; display: grid; flex: none; gap: 4px; padding: 10px; text-align: left; width: 100%;
+  > span { align-items: center; display: flex; gap: 6px; justify-content: space-between; }
+  strong { font-size: 12px; overflow-wrap: anywhere; } small { color: #748b90; font-size: 10px; } .tg-support-date { font-size: 9px; margin-top: 3px; }
+  &:hover { box-shadow: 0 0 0 2px #63b5be; }
+}
+.tg-support-status { background: #e9f2fb; border-radius: 5px; color: #397ea8; display: inline-block; font-size: 9px; font-weight: 600; padding: 3px 6px; width: fit-content;
+  &.is-in-progress { background: #e1f3f0; color: #257d70; } &.is-waiting { background: #fff0d8; color: #976a25; } &.is-resolved { background: #edf0f3; color: #71808d; }
+}
+.tg-support-empty { background: #f8fcf8b0; border-radius: 8px; color: #66817a; font-size: 12px; padding: 17px 12px; text-align: center; }
+.tg-support-topics { display: grid; flex: none; gap: 5px; grid-template-columns: 1fr 1fr;
+  button { background: #f6fcfc; border: 1px solid #bfdbd5; border-radius: 8px; color: #43858b; font-size: 10px; min-height: 38px; padding: 6px; } button[aria-pressed="true"] { background: #2996a5; border-color: #2996a5; color: #fff; }
+}
+.tg-support-new-form { background: #fff; border-radius: 10px; display: grid; flex: none; gap: 10px; margin: 0; padding: 11px;
+  label { display: grid; font-size: 11px; gap: 5px; } input, textarea { background: #f7fafb; border: 1px solid #d1e1e5; border-radius: 6px; font-size: 12px; padding: 9px; resize: vertical; width: 100%; } small { color: #8a9fa4; font-size: 9px; }
+}
+.tg-support-ticket-head { background: #fff; display: flex; flex: none; flex-wrap: wrap; gap: 5px 8px; padding: 9px 11px;
+  > strong { font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; width: 100%; } > small { color: #80969a; font-size: 9px; } > small:first-child { width: 100%; }
+}
+.tg-support-history { display: flex; flex-direction: column; gap: 10px; }
+.tg-support-chat-date { align-self: center; background: #7a9b8766; border-radius: 12px; color: #fff; flex: none; font-size: 9px; padding: 3px 9px; }
+.tg-support-chat-entry { align-self: flex-start; display: flex; flex: none; flex-direction: column; gap: 3px; max-width: 94%; min-width: 0;
+  &.is-own { align-self: flex-end; }
+  .tg-support-bubble { max-width: 100%; min-width: 52px; }
+  .is-command { color: #267c9b; }
+}
+.tg-support-inline-keyboard { display: grid; gap: 3px;
+  button { background: #ffffffc9; border: 0; border-radius: 6px; color: #2d7b8b; font-size: 11px; font-weight: 600; line-height: 1.4; min-height: 32px; padding: 7px 9px; white-space: normal; }
+  button:disabled { background: #ffffff75; color: #719494; opacity: .72; }
+}
+.tg-support-active-ticket { align-items: center; background: #edf7f7; border-top: 1px solid #d9e9e5; color: #67898e; display: flex; flex: none; font-size: 9px; gap: 6px; justify-content: space-between; padding: 5px 12px;
+  button { background: transparent; border: 0; color: #278c9b; font-size: 10px; padding: 3px; }
+}
+.tg-support-command-menu { background: #fff; border-top: 1px solid #dce9e8; display: grid; flex: none; max-height: 180px; overflow: auto; padding: 6px 10px;
+  button { align-items: center; background: transparent; border: 0; color: #6b8b90; display: flex; font-size: 11px; gap: 12px; padding: 8px 5px; text-align: left; }
+  b { color: #278c9b; min-width: 58px; }
+}
+.tg-support-event { align-self: center; background: #7da18d20; border-radius: 9px; color: #618075; font-size: 10px; line-height: 1.45; max-width: 95%; padding: 5px 9px; text-align: center;
+  time { display: block; font-size: 8px; opacity: .8; }
+}
+.tg-support-ticket-actions { background: #f8fcfc; display: flex; flex: none; flex-wrap: wrap; gap: 5px; padding: 7px 8px;
+  button, select { background: #fff; border: 1px solid #d1e4e5; border-radius: 6px; color: #44838e; flex: 1 1 auto; font-size: 10px; min-height: 30px; padding: 5px; }
+}
+.tg-support-canned { background: #f8fcfc; flex: none; padding: 0 8px 6px;
+  button { background: #e8f4f6; border: 0; border-radius: 5px; color: #5b8790; font-size: 10px; padding: 6px; width: 100%; }
+}
+.tg-support-composer { align-items: center; background: #fff; display: flex; flex: none; gap: 7px; margin: 0; padding: 8px 9px 11px;
+  textarea { background: #f4f8f9; border: 0; border-radius: 8px; flex: 1; font-size: 12px; line-height: 1.4; min-width: 0; padding: 8px; resize: none; } > button { align-items: center; background: #299db0; border: 0; border-radius: 50%; color: #fff; display: flex; flex: 0 0 33px; height: 33px; justify-content: center; padding: 0; }
+}
+.tg-support-composer > .tg-support-menu-button { background: transparent; color: #299db0; flex-basis: 25px; }
+.tg-support-closed-note, .tg-support-footer { background: #f8fcfc; color: #7a9699; flex: none; font-size: 10px; line-height: 1.5; padding: 10px; text-align: center; }
+.tg-support-footer { align-items: center; display: flex; font-size: 8px; gap: 5px; justify-content: center; }
+.tg-support-phone .tg-support-error { background: #fff0ea; color: #a55338; flex: none; font-size: 11px; font-weight: 400; line-height: 1.4; margin: 0; max-height: 65px; overflow: auto; padding: 8px; }
+.tg-support-presentation { min-width: 0; }
+.tg-support-controls { margin-top: 28px; max-width: 540px;
+  button { cursor: pointer; font-family: inherit; } button:focus-visible { outline: 2px solid #86d9e2; outline-offset: 3px; }
+}
+.tg-support-role-switch { background: #ffffff0c; border: 1px solid #ffffff24; border-radius: 12px; display: flex; gap: 4px; padding: 4px;
+  button { background: transparent; border: 0; border-radius: 8px; color: #ffffffa6; flex: 1; font-size: 13px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; padding: 12px 9px; } button[aria-pressed="true"] { background: #62c0cb; color: #143d45; }
+}
+.tg-support-demo-note, .tg-support-storage-error { color: #ffffff8c; font-size: 12px; font-weight: 400; line-height: 1.65; margin: 16px 0 10px; }
+.tg-support-storage-error { color: #ffb99a; }
+.tg-support-reset, .tg-support-reset-confirm button { background: transparent; border: 1px solid #ffffff30; border-radius: 8px; color: #ffffffa8; font-size: 11px; padding: 8px 11px; }
+.tg-support-reset-confirm { align-items: center; color: #ffffffad; display: flex; flex-wrap: wrap; font-size: 12px; gap: 8px; line-height: 1.5; span { width: 100%; } }
+.tg-support-cover { background: linear-gradient(135deg, #173f50, #2a7281 65%, #4a9e9d); height: 100%; isolation: isolate; min-height: 230px; overflow: hidden; position: relative; width: 100%;
+  *, *::before, *::after { box-sizing: border-box; }
+}
+.tg-support-cover__orb { background: #7addcc; border-radius: 50%; filter: blur(50px); height: 200px; opacity: .3; position: absolute; right: -40px; top: -60px; width: 200px; }
+.tg-support-cover__chat { background: #e2eee6; border: 1px solid #ffffff80; border-radius: 15px; box-shadow: 0 18px 30px #0c29352e; left: 7%; overflow: hidden; position: absolute; top: 10%; transform: rotate(-6deg); width: 58%;
+  header { align-items: center; background: #fff; display: flex; gap: 7px; padding: 10px; > span { align-items: center; background: #5ebcc7; border-radius: 50%; color: #fff; display: flex; height: 30px; justify-content: center; width: 30px; } b { color: #2c444a; font-size: 12px; } small { color: #829b9e; display: block; font-size: 7px; } i { color: #3b9cae; font-size: 12px; font-style: normal; margin-left: auto; } }
+  footer { align-items: center; background: #fff; color: #95a8aa; display: flex; font-size: 9px; justify-content: space-between; margin-top: 12px; padding: 10px; svg { color: #42a8bb; } }
+}
+.tg-support-cover__bubble { background: #fff; border-radius: 8px 8px 8px 2px; color: #38565b; font-size: 10px; line-height: 1.5; margin: 10px 10px 5px; padding: 8px; width: 77%; small { color: #9caeb0; display: block; font-size: 7px; text-align: right; } }
+.tg-support-cover__topics { display: grid; gap: 4px; margin: 0 10px; width: 77%; span { background: #f6fcfc; border-radius: 4px; color: #448d99; font-size: 8px; padding: 5px; text-align: center; } }
+.tg-support-cover__reply { align-items: center; background: #eaf9d9; border-radius: 8px 8px 2px 8px; color: #55714d; display: flex; font-size: 8px; gap: 4px; margin: 10px 8px 0 auto; padding: 8px; width: fit-content; }
+.tg-support-cover__ticket { align-items: flex-start; background: #fbfefe; border: 1px solid #ffffff99; border-radius: 14px; box-shadow: 0 16px 24px #082b3a38; display: flex; flex-direction: column; gap: 8px; padding: 15px; position: absolute; right: 5%; top: 25%; transform: rotate(7deg); width: 40%; span { color: #7d9a9c; font-size: 7px; font-weight: 700; letter-spacing: .5px; } svg { color: #42a4b1; margin: 4px 0; } b { color: #274d55; font-size: 15px; line-height: 1.2; } small { color: #7e969c; font-size: 8px; } i { background: #e4f4ec; border-radius: 4px; color: #468b70; font-size: 8px; font-style: normal; margin-top: 3px; padding: 4px 8px; } }
+.tg-support-cover__tag { background: #f0fbf3; border: 1px solid #b8e1cb; border-radius: 7px; bottom: 9%; box-shadow: 0 8px 15px #0e3a3833; color: #418269; font-size: 10px; font-weight: 700; padding: 9px 12px; position: absolute; right: 8%; transform: rotate(-4deg); }
+@media (max-width: 720px) { .tg-support-presentation { order: -1; } .tg-support-controls { margin-top: 20px; } }

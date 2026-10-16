@@ -1,0 +1,70 @@
+.discord-events-phone {
+  background: #313338; border-radius: 36px; color: #dbdee1; display: flex; flex-direction: column; font: 12px/1.45 Arial, sans-serif; height: 100%; isolation: isolate; min-height: 0; min-width: 0; overflow: hidden; position: relative;
+  *, *::before, *::after { box-sizing: border-box; }
+  button, input, textarea { font: inherit; } button { cursor: pointer; } button:disabled { cursor: default; opacity: .5; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #a6adff; outline-offset: 2px; }
+  button svg { flex: none; } h3, h4, p { font-family: Arial, sans-serif; } p { color: inherit; font-size: 11px; font-weight: 400; line-height: 1.45; }
+  .app-phone-status { background: #232428; color: #f2f3f5; }
+}
+.discord-events-server { align-items: center; background: #232428; display: flex; flex: none; gap: 9px; padding: 8px 12px 13px;
+  strong { align-items: center; color: #f2f3f5; display: flex; font-size: 15px; gap: 6px; } small { align-items: center; color: #a4a9b1; display: flex; font-size: 8px; gap: 4px; margin-top: 3px; } i { background: #23a55a; border-radius: 50%; height: 5px; width: 5px; }
+}
+.discord-events-server-icon { align-items: center; background: #5865f2; border-radius: 12px; color: #fff; display: flex; height: 36px; justify-content: center; width: 36px; }
+.discord-events-channel { align-items: center; border-bottom: 1px solid #26272c; box-shadow: 0 1px 2px #0002; display: flex; flex: none; gap: 8px; padding: 10px 12px;
+  svg { color: #b5bac1; } strong { color: #f2f3f5; font-size: 13px; } > svg:last-child { margin-left: auto; }
+}
+.discord-events-chat { flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 12px 10px; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+.discord-events-welcome { margin: 0 0 14px;
+  > span { align-items: center; background: #41434a; border-radius: 50%; color: #f2f3f5; display: flex; height: 43px; justify-content: center; width: 43px; }
+  h3 { color: #f2f3f5; font-size: 23px; font-weight: 800; margin: 7px 0 3px; } p { color: #b5bac1; font-size: 10px; margin: 0 0 5px; }
+  button { background: none; border: 0; color: #00a8fc; font-size: 10px; padding: 0; }
+}
+.discord-events-divider { align-items: center; color: #9a9fa8; display: flex; font-size: 7px; gap: 7px; margin: 12px 0; &::before, &::after { background: #ffffff12; content: ""; flex: 1; height: 1px; } }
+.discord-events-messages { display: grid; gap: 15px; }
+.discord-events-avatar { align-items: center; background: #8259c6; border-radius: 50%; color: #fff; display: flex; flex: 0 0 28px; font-size: 13px; font-weight: 700; height: 28px; justify-content: center; width: 28px; &.is-bot { background: #5865f2; } &.is-admin { background: #3b8f82; } &.is-lena { background: #bd6894; } }
+.discord-events-message { align-items: flex-start; display: flex; gap: 7px;
+  > div { flex: 1; min-width: 0; } header { align-items: center; display: flex; flex-wrap: wrap; gap: 4px; min-height: 17px; } header > b { color: #f2f3f5; font-size: 11px; font-weight: 600; } time { color: #969ba4; font-size: 8px; }
+  > div > p { font-size: 11px; margin: 2px 0 6px; overflow-wrap: anywhere; white-space: pre-wrap; }
+}
+.discord-events-app { align-items: center; background: #5865f2; border-radius: 3px; color: #fff; display: inline-flex; font-size: 6px; gap: 2px; line-height: 12px; padding: 0 3px; }
+.discord-events-embed { background: #2b2d31; border-left: 3px solid #5865f2; border-radius: 4px; padding: 10px;
+  > small { align-items: center; color: #b5bac1; display: flex; flex-wrap: wrap; font-size: 7px; gap: 4px; > span { color: #79d9a0; font-size: 6px; } }
+  h4 { color: #f2f3f5; font-size: 13px; font-weight: 700; line-height: 1.3; margin: 7px 0; overflow-wrap: anywhere; }
+  > p { color: #c5c8ce; font-size: 10px; margin: 0 0 10px; overflow-wrap: anywhere; white-space: pre-wrap; }
+  footer { color: #9ca1ab; font-size: 8px; margin-top: 9px; overflow-wrap: anywhere; }
+  &.is-cancelled { border-color: #ed4245; > small > span { color: #ff9395; } h4 { color: #b5bac1; text-decoration: line-through; } }
+}
+.discord-events-fields { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; div { display: grid; gap: 3px; min-width: 0; } b { color: #f2f3f5; font-size: 9px; } span { color: #c5c8ce; font-size: 9px; overflow-wrap: anywhere; } }
+.discord-events-attending { align-items: center; color: #aeb4c0; display: flex; font-size: 9px; gap: 4px; margin-top: 10px; overflow-wrap: anywhere; svg { flex: none; } }
+.discord-events-actions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px;
+  button { align-items: center; background: #4e5058; border: 0; border-radius: 3px; color: #fff; display: inline-flex; font-size: 9px; gap: 3px; min-height: 27px; padding: 5px 6px; }
+  button:hover:not(:disabled) { filter: brightness(1.12); } button.is-success { background: #248046; } button[aria-pressed="true"] { opacity: 1; box-shadow: inset 0 0 0 1px #e8edff99; } button.is-danger { background: #a12c32; }
+}
+.discord-events-admin-actions { border-top: 1px solid #ffffff0c; padding-top: 5px; button { font-size: 8px; min-height: 24px; } }
+.discord-events-poll { background: #2b2d31; border: 1px solid #ffffff0c; border-radius: 5px; display: grid; gap: 5px; margin-top: 7px; padding: 8px;
+  > b { color: #f2f3f5; font-size: 10px; } button { align-items: center; background: #383a40; border: 1px solid #4d5058; border-radius: 4px; color: #d9dde4; display: flex; font-size: 9px; justify-content: space-between; padding: 6px; } button > span { align-items: center; display: flex; gap: 4px; } button[aria-pressed="true"] { background: #5865f22b; border-color: #858fff; opacity: 1; } > small { color: #969ba4; font-size: 8px; }
+}
+.discord-events-compose-area { flex: none; position: relative; }
+.discord-events-composer { align-items: center; background: #383a40; border-radius: 20px; display: flex; gap: 5px; margin: 5px 9px 8px; padding: 6px;
+  input { background: none; border: 0; color: #dbdee1; flex: 1; font-size: 11px; min-width: 0; outline-offset: 0; padding: 6px 0; } input::placeholder { color: #a2a6af; }
+  button { align-items: center; background: none; border: 0; color: #b5bac1; display: flex; flex: 0 0 26px; justify-content: center; padding: 3px; } button[type="submit"]:not(:disabled) { color: #a9b0ff; }
+}
+.discord-events-suggestions { background: #2b2d31; border: 1px solid #45474f; border-radius: 9px; bottom: 100%; box-shadow: 0 -5px 20px #0003; left: 9px; max-height: 170px; overflow: auto; padding: 8px; position: absolute; right: 9px; scrollbar-width: none; z-index: 2;
+  > small { color: #949ba4; display: block; font-size: 8px; margin: 0 0 5px; } button { align-items: center; background: none; border: 0; border-radius: 4px; color: #dbdee1; display: flex; gap: 7px; padding: 8px 3px; text-align: left; width: 100%; } button:hover { background: #404249; } button b { font-size: 10px; } button span { color: #a4a9b3; font-size: 8px; margin-left: auto; }
+}
+.discord-events-account { align-items: center; background: #232428; display: flex; gap: 7px; padding: 7px 12px 11px; .discord-events-avatar { flex-basis: 23px; font-size: 10px; height: 23px; width: 23px; } > div { display: grid; flex: 1; gap: 1px; } b { color: #eee; font-size: 9px; } small { color: #949ba4; font-size: 7px; } > svg { color: #b5bac1; margin-right: 6px; } }
+.discord-events-online { background: #23a55a; border: 2px solid #232428; border-radius: 50%; height: 9px; left: 29px; position: absolute; bottom: 11px; width: 9px; }
+.discord-events-backdrop { align-items: center; background: #000a; display: flex; inset: 31px 0 0; padding: 10px; position: absolute; z-index: 5; }
+.discord-events-modal { background: #313338; border: 1px solid #484a53; border-radius: 9px; box-shadow: 0 10px 35px #0006; max-height: 100%; min-width: 0; overflow-y: auto; overscroll-behavior: contain; padding: 13px; scrollbar-width: none; width: 100%;
+  > header { align-items: flex-start; display: flex; gap: 6px; justify-content: space-between; margin-bottom: 14px; } header small { color: #aaaeb8; font-size: 7px; } h4 { color: #f2f3f5; font-size: 15px; font-weight: 700; margin: 5px 0 0; } header button { background: none; border: 0; color: #b5bac1; padding: 0; }
+  form { display: grid; gap: 10px; } label { color: #b5bac1; display: grid; font-size: 10px; font-weight: 700; gap: 5px; }
+  input, textarea { background: #1e1f22; border: 1px solid #45464e; border-radius: 4px; color: #dbdee1; color-scheme: dark; font-size: 11px; max-width: 100%; min-width: 0; padding: 8px; width: 100%; } textarea { resize: vertical; }
+  form > small { color: #aaaeb8; font-size: 9px; } form > p { margin: 0; overflow-wrap: anywhere; } .discord-events-form-error { color: #ff979a; }
+}
+.discord-events-form-buttons { display: flex; gap: 7px; justify-content: flex-end; margin-top: 5px; button { background: #4e5058; border: 0; border-radius: 4px; color: #fff; font-size: 10px; padding: 8px 10px; } .is-primary { background: #5865f2; } .is-danger { background: #b9343a; } }
+.discord-events-presentation { min-width: 0; }
+.discord-events-controls { margin-top: 26px; max-width: 540px; button { cursor: pointer; font-family: inherit; } button:focus-visible { outline: 2px solid #b6bdff; outline-offset: 3px; } > p { color: #ffffff8c; font-size: 12px; font-weight: 400; line-height: 1.6; margin: 15px 0 10px; } > p[role="status"] { color: #ffcf8c; } }
+.discord-events-role-switch { background: #ffffff0c; border: 1px solid #ffffff24; border-radius: 12px; display: flex; gap: 4px; padding: 4px; button { background: none; border: 0; border-radius: 8px; color: #ffffffa6; flex: 1; font-size: 13px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; padding: 12px 9px; } button[aria-pressed="true"] { background: #5865f2; color: #fff; } }
+.discord-events-reset, .discord-events-reset-confirm button { background: none; border: 1px solid #ffffff30; border-radius: 8px; color: #ffffffa8; font-size: 11px; padding: 8px 11px; }
+.discord-events-reset-confirm { align-items: center; color: #ffffffad; display: flex; flex-wrap: wrap; font-size: 12px; gap: 8px; line-height: 1.5; span { width: 100%; } }
+@media (max-width: 720px) { .discord-events-controls { margin-top: 20px; } }

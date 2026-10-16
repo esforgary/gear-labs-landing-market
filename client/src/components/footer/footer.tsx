@@ -12,14 +12,12 @@ const navItems = [
   { key: "nav.constructor", target: "builder-promo" },
 ];
 
-const serviceItems = ["Landing pages", "React UI", "Telegram bots", "3D visual"];
 const createAccent = () => (Math.random() > 0.5 ? "var(--orange)" : "var(--blue)");
 
 export default function Footer() {
   const { t } = useThemeLang();
   const year = new Date().getFullYear();
   const navAccents = useMemo(() => navItems.map(createAccent), []);
-  const serviceAccents = useMemo(() => serviceItems.map(createAccent), []);
 
   const scrollToSection = (target: string) => (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -91,19 +89,6 @@ export default function Footer() {
             </a>
           ))}
         </nav>
-
-        <div className="footer-col">
-          <span className="footer-col-title">{t("footer.services")}</span>
-          {serviceItems.map((item, index) => (
-            <span
-              className="footer-link"
-              key={item}
-              style={{ "--footer-accent": serviceAccents[index] } as CSSProperties}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
 
         <div className="footer-cta">
           <span className="section-eyebrow">

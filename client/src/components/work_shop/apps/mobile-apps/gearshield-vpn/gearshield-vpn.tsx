@@ -1,6 +1,7 @@
 ﻿import { useCallback, useEffect, useRef, useState } from "react";
 import { Power, Settings, ShieldCheck, UserRound } from "lucide-react";
 import { useThemeLang } from "../../../../../context/ThemeLangContext";
+import { AppPreviewCopy, PhoneStatusBar } from "../app-preview-presentation";
 import "./gearshield-vpn.scss";
 type VpnFlagVariant = "de" | "nl" | "us" | "jp" | "uk" | "fr" | "sg" | "ca" | "br" | "au";
 type VpnSignalLevel = "bad" | "ok" | "good";
@@ -26,7 +27,7 @@ const vpnCopy = {
     key: "Subscription key",
     copyKicker: "Mobile app",
     copyTitle: "GearShield VPN",
-    copyDesc: "Demo VPN app mockup: one-tap connection, 10 live servers, subscription profile and fast theme settings.",
+    copyDesc: "A VPN app with one-tap connection, a choice of 10 servers, network status, subscription management and appearance settings.",
     features: ["One-tap connection", "10 countries and live signal", "Subscription profile", "Light and dark themes"],
     countries: { de: "Germany", nl: "Netherlands", us: "United States", jp: "Japan", uk: "United Kingdom", fr: "France", sg: "Singapore", ca: "Canada", br: "Brazil", au: "Australia" },
   },
@@ -50,7 +51,7 @@ const vpnCopy = {
     key: "Ключ подписки",
     copyKicker: "Мобильное приложение",
     copyTitle: "GearShield VPN",
-    copyDesc: "Демонстрационный макет VPN-приложения: подключение в один тап, 10 серверов с живым состоянием сети, профиль подписки и быстрые настройки схемы.",
+    copyDesc: "VPN-приложение: подключение в одно касание, выбор из 10 серверов, состояние сети, управление подпиской и настройки оформления.",
     features: ["Подключение в 1 касание", "10 стран и живой сигнал", "Профиль подписки", "Светлая и темная схема"],
     countries: { de: "Германия", nl: "Нидерланды", us: "США", jp: "Япония", uk: "Великобритания", fr: "Франция", sg: "Сингапур", ca: "Канада", br: "Бразилия", au: "Австралия" },
   },
@@ -74,7 +75,7 @@ const vpnCopy = {
     key: "Abo-Schlussel",
     copyKicker: "Mobile App",
     copyTitle: "GearShield VPN",
-    copyDesc: "VPN-App-Mockup: Verbindung mit einem Tipp, 10 Live-Server, Abo-Profil und schnelle Theme-Einstellungen.",
+    copyDesc: "Eine VPN-App mit Verbindung per Fingertipp, Auswahl aus 10 Servern, Netzwerkstatus, Abo-Verwaltung und Darstellungseinstellungen.",
     features: ["1-Tap Verbindung", "10 Lander mit Live-Signal", "Abo-Profil", "Helles und dunkles Theme"],
     countries: { de: "Deutschland", nl: "Niederlande", us: "USA", jp: "Japan", uk: "Vereinigtes Konigreich", fr: "Frankreich", sg: "Singapur", ca: "Kanada", br: "Brasilien", au: "Australien" },
   },
@@ -98,7 +99,7 @@ const vpnCopy = {
     key: "Cle d'abonnement",
     copyKicker: "Application mobile",
     copyTitle: "GearShield VPN",
-    copyDesc: "Maquette VPN mobile: connexion en un geste, 10 serveurs vivants, profil d'abonnement et reglages rapides.",
+    copyDesc: "Une application VPN avec connexion en un geste, choix parmi 10 serveurs, état du réseau, gestion de l’abonnement et réglages d’apparence.",
     features: ["Connexion en 1 geste", "10 pays et signal en direct", "Profil d'abonnement", "Themes clair et sombre"],
     countries: { de: "Allemagne", nl: "Pays-Bas", us: "Etats-Unis", jp: "Japon", uk: "Royaume-Uni", fr: "France", sg: "Singapour", ca: "Canada", br: "Bresil", au: "Australie" },
   },
@@ -122,7 +123,7 @@ const vpnCopy = {
     key: "Chiave abbonamento",
     copyKicker: "App mobile",
     copyTitle: "GearShield VPN",
-    copyDesc: "Mockup VPN mobile: connessione in un tap, 10 server live, profilo abbonamento e temi rapidi.",
+    copyDesc: "Un’app VPN con connessione in un tocco, scelta tra 10 server, stato della rete, gestione dell’abbonamento e impostazioni dell’aspetto.",
     features: ["Connessione in 1 tap", "10 paesi e segnale live", "Profilo abbonamento", "Tema chiaro e scuro"],
     countries: { de: "Germania", nl: "Paesi Bassi", us: "Stati Uniti", jp: "Giappone", uk: "Regno Unito", fr: "Francia", sg: "Singapore", ca: "Canada", br: "Brasile", au: "Australia" },
   },
@@ -146,7 +147,7 @@ const vpnCopy = {
     key: "Klucz subskrypcji",
     copyKicker: "Aplikacja mobilna",
     copyTitle: "GearShield VPN",
-    copyDesc: "Mockup aplikacji VPN: polaczenie jednym tapnieciem, 10 serwerow live, profil subskrypcji i szybkie motywy.",
+    copyDesc: "Aplikacja VPN z połączeniem jednym dotknięciem, wyborem spośród 10 serwerów, stanem sieci, zarządzaniem subskrypcją i ustawieniami wyglądu.",
     features: ["Polaczenie 1 tap", "10 krajow i sygnal live", "Profil subskrypcji", "Jasny i ciemny motyw"],
     countries: { de: "Niemcy", nl: "Holandia", us: "USA", jp: "Japonia", uk: "Wielka Brytania", fr: "Francja", sg: "Singapur", ca: "Kanada", br: "Brazylia", au: "Australia" },
   },
@@ -170,7 +171,7 @@ const vpnCopy = {
     key: "Klic predplatneho",
     copyKicker: "Mobilni aplikace",
     copyTitle: "GearShield VPN",
-    copyDesc: "VPN mockup: pripojeni jednim klepnutim, 10 live serveru, profil predplatneho a rychle motivy.",
+    copyDesc: "VPN aplikace s připojením jedním klepnutím, výběrem z 10 serverů, stavem sítě, správou předplatného a nastavením vzhledu.",
     features: ["1 klepnuti", "10 zemi a live signal", "Profil predplatneho", "Svetly a tmavy motiv"],
     countries: { de: "Nemecko", nl: "Nizozemsko", us: "USA", jp: "Japonsko", uk: "Velka Britanie", fr: "Francie", sg: "Singapur", ca: "Kanada", br: "Brazilie", au: "Australie" },
   },
@@ -194,7 +195,7 @@ const vpnCopy = {
     key: "Kluc predplatneho",
     copyKicker: "Mobilna aplikacia",
     copyTitle: "GearShield VPN",
-    copyDesc: "VPN mockup: pripojenie jednym klepnutim, 10 live serverov, profil predplatneho a rychle temy.",
+    copyDesc: "VPN aplikácia s pripojením jedným klepnutím, výberom z 10 serverov, stavom siete, správou predplatného a nastavením vzhľadu.",
     features: ["1 klepnutie", "10 krajin a live signal", "Profil predplatneho", "Svetla a tmava tema"],
     countries: { de: "Nemecko", nl: "Holandsko", us: "USA", jp: "Japonsko", uk: "Velka Britania", fr: "Francuzsko", sg: "Singapur", ca: "Kanada", br: "Brazilia", au: "Australia" },
   },
@@ -475,7 +476,7 @@ export const VpnAppPreview = () => {
       <div className="mobile-app-preview__phone-wrap">
         <div className="app-phone-frame">
           <div className={`vpn-phone-app vpn-phone-app--${scheme}`} onClick={closePanel}>
-            <div className="vpn-phone-app__notch" />
+            <PhoneStatusBar />
             <header className="vpn-phone-app__header">
               <div>
                 <span>GearShield</span>
@@ -590,16 +591,7 @@ export const VpnAppPreview = () => {
         </div>
       </div>
 
-      <aside className="mobile-app-preview__copy">
-        <span className="mobile-app-preview__kicker">{copy.copyKicker}</span>
-        <h2>{copy.copyTitle}</h2>
-        <p>{copy.copyDesc}</p>
-        <div className="mobile-app-preview__features">
-          {copy.features.map((feature) => (
-            <span key={feature}>{feature}</span>
-          ))}
-        </div>
-      </aside>
+      <AppPreviewCopy kicker={copy.copyKicker} title={copy.copyTitle} description={copy.copyDesc} features={copy.features} />
     </div>
   );
 };

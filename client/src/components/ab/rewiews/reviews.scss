@@ -27,6 +27,7 @@
 }
 
 .review-card {
+  container-type: inline-size;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--surface) 98%, transparent), color-mix(in srgb, var(--surface-soft) 94%, transparent));
   border: 1px solid var(--border-soft);
@@ -273,6 +274,16 @@
   0% { opacity: 1; transform: translateY(0); }
   50% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@container (max-width: 280px) {
+  .review-header {
+    flex-wrap: wrap;
+
+    .stars {
+      width: 100%;
+    }
+  }
 }
 
 @media (max-width: 760px) {

@@ -1,9 +1,9 @@
 .fitback-form-section {
-  padding: 64px clamp(18px, 4vw, 34px) 80px;
+  padding: 48px clamp(18px, 3.2vw, 28px) 64px;
   position: relative;
 
   .fitback-heading {
-    margin-bottom: 34px;
+    margin-bottom: 26px;
   }
 
   .fitback-eyebrow {
@@ -16,23 +16,23 @@
 
   .section-title {
     color: var(--text-primary);
-    font-size: clamp(34px, 5vw, 56px);
-    font-weight: 900;
-    letter-spacing: 0;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 750;
+    letter-spacing: -0.035em;
     line-height: 1;
     margin: 0;
   }
 
   .fitback-form-wrapper {
     display: grid;
-    gap: clamp(26px, 4vw, 54px);
+    gap: clamp(22px, 3.2vw, 42px);
     grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.86fr);
     align-items: center;
   }
 
   .form-left {
     display: grid;
-    gap: 18px;
+    gap: 14px;
   }
 
   .feature-item {
@@ -40,15 +40,16 @@
     appearance: none;
     background: color-mix(in srgb, var(--surface) 82%, transparent);
     border: 1px solid var(--border-soft);
-    border-radius: 22px;
+    border-radius: 18px;
     box-shadow: var(--shadow-soft);
     color: inherit;
     display: grid;
     font: inherit;
-    gap: 22px;
-    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 18px;
+    grid-template-columns: 104px minmax(0, 1fr);
+    min-height: 136px;
     overflow: hidden;
-    padding: 18px;
+    padding: 20px 14px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -88,7 +89,7 @@
   .feature-box {
     align-items: center;
     aspect-ratio: 1 / 0.78;
-    border-radius: 18px;
+    border-radius: 14px;
     color: var(--text-inverse);
     display: flex;
     justify-content: center;
@@ -160,7 +161,7 @@
       color: var(--text-primary);
       display: flex;
       gap: 9px;
-      font-size: clamp(21px, 2.6vw, 30px);
+      font-size: clamp(19px, 2.2vw, 25px);
       font-weight: 900;
       line-height: 1.08;
       margin: 0 0 9px;
@@ -174,8 +175,8 @@
     p {
       color: var(--text-secondary);
       font-family: Consolas, "SFMono-Regular", "Liberation Mono", "Courier New", monospace;
-      font-size: clamp(15px, 1.4vw, 17px);
-      line-height: 1.58;
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.4;
       margin: 0;
       max-width: 58ch;
     }
@@ -196,14 +197,14 @@
       radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--blue) 26%, transparent), transparent 34%),
       linear-gradient(145deg, color-mix(in srgb, var(--surface-inverse) 96%, var(--blue)), var(--surface-inverse));
     border: 1px solid var(--input-border);
-    border-radius: 30px;
+    border-radius: 24px;
     box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     max-width: 470px;
     overflow: hidden;
-    padding: clamp(26px, 4vw, 42px);
+    padding: clamp(22px, 3.2vw, 32px);
     position: relative;
     width: 100%;
 
@@ -246,7 +247,7 @@
     color: var(--text-inverse);
     display: flex;
     gap: 10px;
-    font-size: clamp(32px, 4vw, 46px);
+    font-size: clamp(28px, 3.2vw, 38px);
     font-weight: 900;
     justify-content: center;
     letter-spacing: 0;
@@ -266,10 +267,10 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 18px;
+    border-radius: 14px;
     display: grid;
-    grid-template-columns: 58px minmax(0, 1fr);
-    min-height: 70px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    min-height: 60px;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -311,17 +312,17 @@
     border: none;
     color: var(--input-text);
     font: inherit;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
     height: 100%;
     outline: none;
-    padding: 24px 18px 10px;
+    padding: 24px 14px 10px;
     resize: vertical;
     width: 100%;
   }
 
   textarea {
-    min-height: 138px;
+    min-height: 112px;
   }
 
   .form-field-textarea {
@@ -335,12 +336,12 @@
 
   .field-label {
     color: #111827;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 900;
-    left: 76px;
+    left: 62px;
     pointer-events: none;
     position: absolute;
-    top: 22px;
+    top: 18px;
     transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
   }
 
@@ -354,10 +355,10 @@
     z-index: 1;
 
     .btn {
-      border-radius: 16px !important;
-      font-size: 18px;
-      min-width: 210px;
-      padding: 15px 22px;
+      border-radius: 12px !important;
+      font-size: 16px;
+      min-width: 180px;
+      padding: 13px 18px;
     }
   }
 
@@ -365,15 +366,15 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 16px;
+    border-radius: 12px;
     color: var(--text-inverse);
     cursor: pointer;
     display: flex;
-    height: 54px;
+    height: 48px;
     justify-content: center;
     margin: 0;
     transition: background 0.25s ease, transform 0.25s ease;
-    width: 58px;
+    width: 48px;
 
     &:hover {
       background: color-mix(in srgb, var(--blue) 30%, transparent);
@@ -424,7 +425,7 @@
     }
 
     .form-container {
-      border-radius: 24px;
+      border-radius: 20px;
     }
 
     .form-title {
@@ -433,11 +434,11 @@
     }
 
     .form-field {
-      grid-template-columns: 52px minmax(0, 1fr);
+      grid-template-columns: 44px minmax(0, 1fr);
     }
 
     .field-label {
-      left: 68px;
+      left: 58px;
     }
 
     .form-footer {

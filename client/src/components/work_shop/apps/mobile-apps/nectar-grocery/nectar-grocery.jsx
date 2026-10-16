@@ -8,14 +8,12 @@ import {
   Compass,
   CreditCard,
   Heart,
-  Leaf,
   LockKeyhole,
   MapPin,
   Minus,
   Plus,
   Search,
   Settings,
-  ShieldCheck,
   ShoppingBag,
   SlidersHorizontal,
   Star,
@@ -26,6 +24,7 @@ import {
   X,
 } from "lucide-react";
 import { useThemeLang } from "../../../../../context/ThemeLangContext";
+import { AppPreviewCopy, PhoneStatusBar } from "../app-preview-presentation";
 import carrotIcon from "./img/carrot.svg";
 import "./nectar-grocery.scss";
 
@@ -75,8 +74,8 @@ const baseCopy = {
   copyKicker: "Mobile app",
   copyTitle: "Nectar Grocery",
   copyDesc:
-    "Mobile grocery app mockup: splash, auth flow, location, shop, search, cart, favorites, account and checkout.",
-  features: ["Auth screens", "Empty cart by default", "Working favorites", "Real categories"],
+    "A grocery shopping app with a product catalog, search, cart, favorites, personal account and checkout.",
+  features: ["Product catalog", "Product search", "Favorites", "Checkout"],
   onboardingWelcome: "Get your groceries with Nectar",
   onboardingText: "Choose fresh food, save favorites and place an order in a few taps.",
   phoneTitle: "Enter your mobile number",
@@ -165,8 +164,8 @@ const copyByLang = {
     categoryGrains: "Крупы",
     copyKicker: "Мобильное приложение",
     copyDesc:
-      "Мобильный магазин продуктов по макету Nectar: splash, вход, выбор локации, витрина, поиск, корзина, избранное, профиль и оформление заказа.",
-    features: ["Экраны входа", "Пустая корзина", "Рабочее избранное", "Реальные категории"],
+      "Приложение для покупки продуктов: каталог, поиск, корзина, избранное, личный кабинет и оформление заказа.",
+    features: ["Каталог продуктов", "Поиск товаров", "Избранное", "Оформление заказа"],
     onboardingWelcome: "Покупайте продукты с Nectar",
     onboardingText: "Выбирайте свежие товары, сохраняйте избранное и оформляйте заказ в пару касаний.",
     phoneTitle: "Введите номер телефона",
@@ -222,7 +221,8 @@ const copyByLang = {
     emptyCart: "Der Korb ist leer",
     emptyFav: "Keine Favoriten",
     copyKicker: "Mobile App",
-    features: ["Login Screens", "Leerer Korb", "Favoriten", "Kategorien"],
+    copyDesc: "Eine App für den Lebensmitteleinkauf mit Produktkatalog, Suche, Warenkorb, Favoriten, Kundenkonto und Bestellabschluss.",
+    features: ["Produktkatalog", "Produktsuche", "Favoriten", "Bestellung aufgeben"],
   },
   fr: {
     search: "Chercher des produits",
@@ -236,6 +236,8 @@ const copyByLang = {
     emptyCart: "Panier vide",
     emptyFav: "Aucun favori",
     copyKicker: "Application mobile",
+    copyDesc: "Une application de courses alimentaires avec catalogue, recherche, panier, favoris, espace personnel et commande en ligne.",
+    features: ["Catalogue de produits", "Recherche de produits", "Favoris", "Passer commande"],
   },
   it: {
     search: "Cerca prodotti",
@@ -249,6 +251,8 @@ const copyByLang = {
     emptyCart: "Carrello vuoto",
     emptyFav: "Nessun preferito",
     copyKicker: "App mobile",
+    copyDesc: "Un’app per la spesa alimentare con catalogo, ricerca, carrello, preferiti, area personale e completamento dell’ordine.",
+    features: ["Catalogo prodotti", "Ricerca prodotti", "Preferiti", "Invio dell’ordine"],
   },
   pl: {
     search: "Szukaj produktow",
@@ -262,6 +266,8 @@ const copyByLang = {
     emptyCart: "Koszyk jest pusty",
     emptyFav: "Brak ulubionych",
     copyKicker: "Aplikacja mobilna",
+    copyDesc: "Aplikacja do zakupów spożywczych z katalogiem, wyszukiwarką, koszykiem, ulubionymi, kontem użytkownika i składaniem zamówień.",
+    features: ["Katalog produktów", "Wyszukiwanie produktów", "Ulubione", "Składanie zamówień"],
   },
   cz: {
     search: "Hledat produkty",
@@ -275,6 +281,8 @@ const copyByLang = {
     emptyCart: "Kosik je prazdny",
     emptyFav: "Zadne oblibene",
     copyKicker: "Mobilni aplikace",
+    copyDesc: "Aplikace pro nákup potravin s katalogem, vyhledáváním, košíkem, oblíbenými produkty, osobním účtem a dokončením objednávky.",
+    features: ["Katalog potravin", "Vyhledávání produktů", "Oblíbené", "Dokončení objednávky"],
   },
   sk: {
     search: "Hladat produkty",
@@ -288,6 +296,8 @@ const copyByLang = {
     emptyCart: "Kosik je prazdny",
     emptyFav: "Ziadne oblubene",
     copyKicker: "Mobilna aplikacia",
+    copyDesc: "Aplikácia na nákup potravín s katalógom, vyhľadávaním, košíkom, obľúbenými produktmi, osobným účtom a dokončením objednávky.",
+    features: ["Katalóg potravín", "Vyhľadávanie produktov", "Obľúbené", "Dokončenie objednávky"],
   },
 };
 
@@ -1171,7 +1181,7 @@ const ProductIllustration = ({ product, compact = false }) => {
   if (visual === "eggs") {
     return (
       <svg {...baseProps}>
-        {[44, 62, 80].map((x, index) => (
+        {[44, 62, 80].map((x) => (
           <ellipse cx={x} cy="52" fill={color} key={x} rx="14" ry="18" />
         ))}
         <circle cx="62" cy="55" r="8" fill={dark} opacity="0.85" />
@@ -1414,14 +1424,6 @@ export const NectarGroceryPreview = () => {
         </button>
       </span>
     </article>
-  );
-
-  const PhoneTop = () => (
-    <div className="nectar-phone-top">
-      <span>9:41</span>
-      <i />
-      <b />
-    </div>
   );
 
   const BottomNav = () => {
@@ -1945,7 +1947,7 @@ export const NectarGroceryPreview = () => {
       <div className="mobile-app-preview__phone-wrap">
         <div className="app-phone-frame app-phone-frame--nectar">
           <div className="nectar-phone-app">
-            <PhoneTop />
+            <PhoneStatusBar />
             {screen === "splash" ? (
               <div className="nectar-splash">
                 <img className="nectar-seq" src={carrotIcon} alt="" />
@@ -2021,19 +2023,7 @@ export const NectarGroceryPreview = () => {
           </div>
         </div>
       </div>
-      <aside className="mobile-app-preview__copy">
-        <span className="mobile-app-preview__kicker">{copy.copyKicker}</span>
-        <h2>{copy.copyTitle}</h2>
-        <p>{copy.copyDesc}</p>
-        <div className="mobile-app-preview__features">
-          {copy.features.map((feature) => (
-            <span key={feature}>
-              <Leaf size={15} />
-              {feature}
-            </span>
-          ))}
-        </div>
-      </aside>
+      <AppPreviewCopy kicker={copy.copyKicker} title={copy.copyTitle} description={copy.copyDesc} features={copy.features} />
     </div>
   );
 };

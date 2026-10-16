@@ -34,6 +34,7 @@ import {
   createElement,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -47,6 +48,7 @@ import {
   type ReactNode,
 } from "react";
 import { useThemeLang } from "../../context/ThemeLangContext";
+import BlockMiniature from "./block-miniature";
 import "./site-builder-page.scss";
 
 const builderIconByName: Record<string, LucideIcon> = {
@@ -149,6 +151,12 @@ interface BuilderFonts {
   heading: string;
   body: string;
   ui: string;
+}
+
+interface BuilderHistorySnapshot {
+  canvasItems: CanvasItem[];
+  colors: BuilderColors;
+  builderFonts: BuilderFonts;
 }
 
 type BuilderCopy = Record<string, string>;
@@ -751,10 +759,10 @@ const getCanvasItemPrice = (item: CanvasItem, blocks: Map<string, BuilderBlock> 
 };
 
 const editableTextSelector = [
-  ".builder-header strong:not(.editable-text)",
+  ".builder-header strong:not(.editable-text), .builder-header strong.editable-text--auto",
   ".builder-header nav span",
   ".builder-header button",
-  ".builder-hero > div:first-child > span:not(.editable-text)",
+  ".builder-hero > div:first-child > span:not(.editable-text), .builder-hero > div:first-child > span.editable-text--auto",
   ".builder-hero h3",
   ".builder-hero p",
   ".builder-hero button",
@@ -2492,8 +2500,7 @@ const getBuilderText = (copy: BuilderCopy, key: string, params?: Record<string, 
   return template.replace(/\{(\w+)\}/g, (_, name: string) => String(params[name] ?? `{${name}}`));
 };
 
-const serializeCanvasItems = (items: CanvasItem[]) => JSON.stringify(items);
-const cloneCanvasItems = (items: CanvasItem[]) => JSON.parse(JSON.stringify(items)) as CanvasItem[];
+const serializeBuilderSnapshot = (snapshot: BuilderHistorySnapshot) => JSON.stringify(snapshot);
 const canvasBlockIdPrefix = "builder-section-";
 
 const getCanvasBlockId = (element: Element | null) => {
@@ -2505,6 +2512,23 @@ const getCanvasBlockId = (element: Element | null) => {
 const isEditorTypingTarget = (target: EventTarget | null) => {
   if (!(target instanceof Element)) return false;
   return Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
+};
+
+const hasNativeTextHistory = (target: EventTarget | null) => {
+  if (!(target instanceof Element)) return false;
+  const editor = target.closest<HTMLElement>("input, textarea, [contenteditable]");
+  if (editor instanceof HTMLInputElement) {
+    return ["text", "search", "url", "tel", "email", "password", "number"].includes(editor.type);
+  }
+  return editor instanceof HTMLTextAreaElement || Boolean(editor?.isContentEditable);
+};
+
+const getBuilderHistoryDirection = (event: KeyboardEvent) => {
+  if (event.defaultPrevented || event.isComposing || event.altKey || !(event.ctrlKey || event.metaKey)) return null;
+  const key = event.key.toLowerCase();
+  if (event.code === "KeyZ" || key === "z") return event.shiftKey ? "redo" : "undo";
+  if (event.code === "KeyY" || key === "y") return "redo";
+  return null;
 };
 
 const isBuilderStaticTarget = (target: EventTarget | null) => {
@@ -2536,10 +2560,9 @@ export default function SiteBuilderPage() {
   const canvasRef = useRef<HTMLDivElement | null>(null);
   const builderSettingsRef = useRef<HTMLDivElement | null>(null);
   const selectedRepeatableElementRef = useRef<HTMLElement | null>(null);
-  const canvasHistoryRef = useRef<{ past: CanvasItem[][]; future: CanvasItem[][]; applying: boolean; last: string }>({
+  const canvasHistoryRef = useRef<{ past: BuilderHistorySnapshot[]; future: BuilderHistorySnapshot[]; last: string }>({
     past: [],
     future: [],
-    applying: false,
     last: "",
   });
   const activeAllBlocks = useMemo(() => catalogSections.flatMap((section) => section.blocks), [catalogSections]);
@@ -2643,8 +2666,10 @@ export default function SiteBuilderPage() {
     "--builder-ui-font": builderFonts.ui,
   } as CSSProperties;
 
-  useEffect(() => {
-    const serialized = serializeCanvasItems(canvasItems);
+  useLayoutEffect(() => {
+    // Loading a saved project establishes the baseline, not an undoable edit.
+    if (!isBuilderStateReady) return;
+    const serialized = serializeBuilderSnapshot({ canvasItems, colors, builderFonts });
     const history = canvasHistoryRef.current;
 
     if (!history.last) {
@@ -2652,47 +2677,30 @@ export default function SiteBuilderPage() {
       return;
     }
 
-    if (history.applying) {
-      history.last = serialized;
-      history.applying = false;
-      return;
-    }
-
     if (serialized === history.last) return;
 
-    history.past.push(cloneCanvasItems(JSON.parse(history.last) as CanvasItem[]));
+    history.past.push(JSON.parse(history.last) as BuilderHistorySnapshot);
     if (history.past.length > 80) history.past.shift();
     history.future = [];
     history.last = serialized;
-  }, [canvasItems]);
+  }, [canvasItems, colors, builderFonts, isBuilderStateReady]);
 
   const restoreCanvasHistory = useCallback((direction: "undo" | "redo") => {
     const history = canvasHistoryRef.current;
-    const currentSnapshot = cloneCanvasItems(canvasItems);
+    const snapshot = direction === "undo" ? history.past.pop() : history.future.shift();
+    if (!snapshot) return;
+    const currentSnapshot = JSON.parse(history.last) as BuilderHistorySnapshot;
+    if (direction === "undo") history.future.unshift(currentSnapshot);
+    else history.past.push(currentSnapshot);
 
-    if (direction === "undo") {
-      const previous = history.past.pop();
-      if (!previous) return;
-      history.future.unshift(currentSnapshot);
-      history.applying = true;
-      history.last = serializeCanvasItems(previous);
-      setCanvasItems(previous);
-      setSelectedCanvasItemId(null);
-      setSelectedRepeatableItem(null);
-      selectedRepeatableElementRef.current = null;
-      return;
-    }
-
-    const next = history.future.shift();
-    if (!next) return;
-    history.past.push(currentSnapshot);
-    history.applying = true;
-    history.last = serializeCanvasItems(next);
-    setCanvasItems(next);
+    history.last = serializeBuilderSnapshot(snapshot);
+    setCanvasItems(snapshot.canvasItems);
+    setColors(snapshot.colors);
+    setBuilderFonts(snapshot.builderFonts);
     setSelectedCanvasItemId(null);
     setSelectedRepeatableItem(null);
     selectedRepeatableElementRef.current = null;
-  }, [canvasItems]);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -3206,22 +3214,16 @@ export default function SiteBuilderPage() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (isEditorTypingTarget(event.target)) return;
-
-      const key = event.key.toLowerCase();
-      const isMod = event.ctrlKey || event.metaKey;
-
-      if (isMod && key === "z") {
+      const direction = getBuilderHistoryDirection(event);
+      if (direction) {
+        // Text editors keep browser undo; color pickers and selects use builder undo.
+        if (hasNativeTextHistory(event.target)) return;
         event.preventDefault();
-        restoreCanvasHistory(event.shiftKey ? "redo" : "undo");
+        restoreCanvasHistory(direction);
         return;
       }
 
-      if (isMod && key === "y") {
-        event.preventDefault();
-        restoreCanvasHistory("redo");
-        return;
-      }
+      if (event.defaultPrevented || event.isComposing || isEditorTypingTarget(event.target)) return;
 
       if (event.key === "Delete") {
         if (deleteSelectedRepeatableItem() || deleteSelectedCanvasItem()) {
@@ -3766,6 +3768,7 @@ function CanvasBlock({
   onCanvasDragEnd: () => void;
 }) {
   const blockRef = useRef<HTMLElement>(null);
+  const autoTextDefaultsRef = useRef(new WeakMap<HTMLElement, string>());
   const blockSettingsRef = useRef<HTMLDivElement>(null);
   const itemCount = getCanvasItemCount(item, block.type);
   const [catalogPage, setCatalogPage] = useState(0);
@@ -3913,6 +3916,9 @@ function CanvasBlock({
 
       const field = `auto-text.${index}`;
       const translatedDefault = defaultTexts[`${block.type}.${index}`];
+      if (!autoTextDefaultsRef.current.has(element)) {
+        autoTextDefaultsRef.current.set(element, element.textContent ?? "");
+      }
       element.classList.add("editable-text", "editable-text--auto");
       element.setAttribute("contenteditable", "true");
       element.setAttribute("spellcheck", "false");
@@ -3920,8 +3926,8 @@ function CanvasBlock({
 
       if (document.activeElement !== element && hasOwnValue(item.text, field)) {
         element.textContent = normalizeRussianMojibake(item.text[field]);
-      } else if (document.activeElement !== element && !hasOwnValue(item.text, field) && translatedDefault) {
-        element.textContent = normalizeRussianMojibake(translatedDefault);
+      } else if (document.activeElement !== element && !hasOwnValue(item.text, field)) {
+        element.textContent = normalizeRussianMojibake(translatedDefault ?? autoTextDefaultsRef.current.get(element) ?? "");
       }
 
       const handleBlur = () => onTextChange(item.instanceId, field, normalizeRussianMojibake(element.textContent ?? ""));
@@ -4874,7 +4880,6 @@ function BuilderCyclicMarquee({
   trackClassName = "builder-marquee__track",
   itemClassName = "builder-marquee__item",
   renderItem,
-  addButton,
 }: {
   items: BuilderMarqueeEntry[];
   light?: boolean;
@@ -4882,7 +4887,6 @@ function BuilderCyclicMarquee({
   trackClassName?: string;
   itemClassName?: string;
   renderItem: (entry: BuilderMarqueeEntry) => ReactNode;
-  addButton: ReactNode;
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const cycleRef = useRef<HTMLSpanElement>(null);
@@ -4951,7 +4955,6 @@ function BuilderCyclicMarquee({
           ))}
         </div>
       </div>
-      {addButton}
     </div>
   );
 }
@@ -4960,12 +4963,10 @@ function BuilderSwitchingInfoBlock({
   items,
   renderCard,
   renderPreview,
-  addButton,
 }: {
   items: BuilderMarqueeEntry[];
   renderCard: (entry: BuilderMarqueeEntry) => ReactNode;
   renderPreview: (entry: BuilderMarqueeEntry) => ReactNode;
-  addButton: ReactNode;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHoverPaused, setIsHoverPaused] = useState(false);
@@ -5058,7 +5059,6 @@ function BuilderSwitchingInfoBlock({
         ))}
       </div>
 
-      {addButton}
     </div>
   );
 }
@@ -5067,12 +5067,10 @@ function BuilderTeamSpotlight({
   items,
   renderFeatured,
   renderCompact,
-  addButton,
 }: {
   items: BuilderMarqueeEntry[];
   renderFeatured: (entry: BuilderMarqueeEntry) => ReactNode;
   renderCompact: (entry: BuilderMarqueeEntry, selectEntry: () => void) => ReactNode;
-  addButton: ReactNode;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -5113,7 +5111,6 @@ function BuilderTeamSpotlight({
       <div className="builder-team-spotlight__rail">
         <div className="builder-team-spotlight__list">
           {compactItems.map((entry) => renderCompact(entry, () => selectEntry(entry.index)))}
-          {addButton}
         </div>
       </div>
     </div>
@@ -5125,13 +5122,11 @@ function BuilderTypingMarquee({
   title,
   getItemText,
   renderActiveItem,
-  addButton,
 }: {
   items: BuilderMarqueeEntry[];
   title: ReactNode;
   getItemText: (entry: BuilderMarqueeEntry) => string;
   renderActiveItem: (entry: BuilderMarqueeEntry, displayText: string) => ReactNode;
-  addButton: ReactNode;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState<"typing" | "holding" | "deleting">("typing");
@@ -5218,7 +5213,6 @@ function BuilderTypingMarquee({
         </div>
       </div>
       <div className="builder-marquee-typing__actions">
-        {addButton}
       </div>
     </div>
   );
@@ -5287,7 +5281,6 @@ function renderBlockContent(
       <X size={18} strokeWidth={2.4} />
     </button>
   );
-  const addItemButton = (_label = "Добавить") => null;
   const handleBuilderNavClick = (event: ReactMouseEvent<HTMLAnchorElement>, instanceId: string) => {
     event.preventDefault();
     event.stopPropagation();
@@ -5594,7 +5587,6 @@ function renderBlockContent(
               </div>
               );
             })}
-            {addItemButton("Добавить метрику")}
           </div>
         );
       }
@@ -5614,7 +5606,6 @@ function renderBlockContent(
               </div>
               );
             })}
-            {addItemButton("Добавить шаг")}
           </div>
         );
       }
@@ -5633,7 +5624,6 @@ function renderBlockContent(
             </div>
             );
           })}
-          {addItemButton("Добавить карточку")}
         </div>
       );
     case "form":
@@ -6026,7 +6016,6 @@ function renderBlockContent(
         <div className={`builder-catalog ${isLoadMoreCatalog ? "builder-catalog--load-more" : "builder-catalog--paged"}`}>
           <div className="builder-catalog__grid">
             {visibleCatalogItems.map((catalogItem) => renderCatalogCard(catalogItem))}
-            {addItemButton("Добавить товар")}
           </div>
           {!isLoadMoreCatalog && catalogPageCount > 1 && (
             <div className="builder-catalog__pagination" data-builder-static="true">
@@ -6184,7 +6173,6 @@ function renderBlockContent(
               </div>
               );
             })}
-            {addItemButton("Добавить тариф")}
           </div>
         </div>
       );
@@ -6238,7 +6226,6 @@ function renderBlockContent(
                 Next
               </button>
             </div>
-            {addItemButton("Добавить отзыв")}
           </div>
         );
       }
@@ -6340,7 +6327,6 @@ function renderBlockContent(
                   {entry.sourceIndex !== null && removeItemButton(entry.index, "Удалить отзыв")}
                 </div>
               ))}
-              {addItemButton("Добавить отзыв")}
             </div>
           </div>
         );
@@ -6366,7 +6352,6 @@ function renderBlockContent(
               {removeItemButton(index, "Удалить отзыв")}
             </article>
           )}
-          addButton={addItemButton("Добавить отзыв")}
         />
       );
     case "marquee":
@@ -6407,7 +6392,6 @@ function renderBlockContent(
                 <span>{getSwitchText(sourceIndex)}</span>
               </>
             )}
-            addButton={addItemButton("Добавить сообщение")}
           />
         );
       }
@@ -6435,7 +6419,6 @@ function renderBlockContent(
                 {removeItemButton(index, "Удалить фразу")}
               </div>
             )}
-            addButton={addItemButton("Добавить фразу")}
           />
         );
       }
@@ -6451,7 +6434,6 @@ function renderBlockContent(
               {removeItemButton(index, "Удалить сообщение")}
             </span>
           )}
-          addButton={addItemButton("Добавить сообщение")}
         />
         </>
       );
@@ -6488,7 +6470,6 @@ function renderBlockContent(
                 );
               })}
             </div>
-            {addItemButton("Добавить прогресс")}
           </div>
         );
       }
@@ -6518,7 +6499,6 @@ function renderBlockContent(
               );
             })}
           </div>
-          {addItemButton("Добавить прогресс")}
         </div>
       );
     case "stats": {
@@ -6593,7 +6573,6 @@ function renderBlockContent(
                   {removeItemButton(index, "Удалить столбец")}
                 </div>
               ))}
-              {addItemButton("Добавить столбец")}
             </div>
           </div>
         );
@@ -6617,7 +6596,6 @@ function renderBlockContent(
                     {removeItemButton(index, "Удалить сектор")}
                   </div>
                 ))}
-                {addItemButton("Добавить сектор")}
               </div>
             </div>
           </div>
@@ -6654,7 +6632,6 @@ function renderBlockContent(
                 {removeItemButton(index, "Удалить точку")}
               </div>
             ))}
-            {addItemButton("Добавить точку")}
           </div>
         </div>
       );
@@ -6697,7 +6674,6 @@ function renderBlockContent(
                   {removeItemButton(index, "Удалить абзац")}
                 </section>
               ))}
-              {addItemButton("Добавить абзац")}
             </article>
           </div>
         );
@@ -6722,7 +6698,6 @@ function renderBlockContent(
                       {removeItemButton(index, "Удалить строку")}
                     </div>
                   ))}
-                  {addItemButton("Добавить строку")}
                 </div>
               </aside>
               {text("auto-text.0", defaultText(0, "Статья с инфотаблицей"), "h3")}
@@ -6769,7 +6744,6 @@ function renderBlockContent(
                 {removeItemButton(index, "Удалить раздел")}
               </section>
             ))}
-            {addItemButton("Добавить раздел")}
           </article>
         </div>
       );
@@ -6873,7 +6847,6 @@ function renderBlockContent(
                   ))}
                 </div>
                 <div className="builder-gallery-slider__counter">{slideCount} фото</div>
-                {addItemButton("Добавить фото")}
               </div>
             </div>
           </div>
@@ -6894,7 +6867,6 @@ function renderBlockContent(
               {removeItemButton(index, "Удалить изображение")}
             </figure>
           ))}
-          {addItemButton("Добавить изображение")}
         </div>
       );
     case "team":
@@ -6954,7 +6926,6 @@ function renderBlockContent(
                 {removeItemButton(index, "Удалить участника")}
               </article>
             )}
-            addButton={addItemButton("Добавить участника")}
           />
         );
       }
@@ -6980,7 +6951,6 @@ function renderBlockContent(
               </article>
               );
             })}
-            {addItemButton("Добавить участника")}
           </div>
         );
       }
@@ -7005,7 +6975,6 @@ function renderBlockContent(
             </article>
             );
           })}
-          {addItemButton("Добавить участника")}
         </div>
       );
     case "footer":
@@ -7127,14 +7096,4 @@ function renderBlockContent(
     default:
       return null;
   }
-}
-
-function BlockMiniature({ type, variant }: { type: BlockType; variant: string }) {
-  const itemCount = type === "cards" && variant === "tabs" ? 5 : type === "team" && variant === "spotlight" ? 5 : 4;
-
-  return (
-    <span className={`block-miniature block-miniature--${type} block-miniature--${variant}`}>
-      {Array.from({ length: itemCount }, (_, index) => <i key={index} />)}
-    </span>
-  );
 }

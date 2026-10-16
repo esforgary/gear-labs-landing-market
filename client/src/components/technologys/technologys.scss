@@ -1,59 +1,60 @@
 .technologys {
-  padding: 34px 28px;
+  padding: 16px 24px;
   position: relative;
-  margin: 54px 0;
+  margin: 28px 0;
 
   h1 {
     color: var(--text-primary);
-    font-size: clamp(38px, 5vw, 62px);
-    font-weight: 900;
-    letter-spacing: 0;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 750;
+    letter-spacing: -0.035em;
     line-height: 1;
     margin: 0;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
 }
 
 .technologys__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 22px;
+  gap: 14px;
 }
 
 .tech-card__icon {
   display: flex;
   background: var(--icon-bg);
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 12px;
 }
 
 .tech-card {
-  min-height: 278px;
+  min-height: 222px;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--surface) 98%, transparent), color-mix(in srgb, var(--surface-soft) 96%, transparent));
   border: 1px solid var(--border-soft);
-  border-radius: 22px;
+  border-radius: 16px;
   box-shadow: var(--shadow-soft);
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  transform: translate3d(0, 0, 0);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
-    height: 5px;
+    height: 3px;
     background: var(--accent);
     opacity: 0.72;
   }
 
   &__inner {
     min-height: 100%;
-    padding: 30px 28px 28px;
+    padding: 22px 20px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -62,16 +63,16 @@
 
   h3 {
     color: var(--text-primary);
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     line-height: 1.15;
-    margin: 22px 0 12px;
+    margin: 16px 0 10px;
   }
 
   &__description {
     color: var(--text-secondary);
     font-family: Consolas, "SFMono-Regular", "Liberation Mono", "Courier New", monospace;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.48;
     margin: 0;
     max-width: 30ch;
@@ -84,27 +85,29 @@
 
   &__icon {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+    transform: translate3d(0, 0, 0) scale(1);
     transition: box-shadow 0.35s ease, transform 0.35s ease;
+    will-change: transform;
 
     svg {
-      width: 38px;
-      height: 38px;
+      width: 27px;
+      height: 27px;
     }
   }
 
   &:hover {
-    transform: translateY(-6px);
+    transform: translate3d(0, -6px, 0);
     border-color: color-mix(in srgb, var(--accent) 44%, transparent);
     box-shadow: var(--shadow-strong);
   }
 
   &.active {
-    transform: translateY(-8px);
+    transform: translate3d(0, -8px, 0);
     border-color: color-mix(in srgb, var(--accent) 58%, transparent);
     box-shadow: var(--shadow-strong);
 
     .tech-card__icon { 
-      transform: translateY(-2px) scale(1.06);
+      transform: translate3d(0, -2px, 0) scale(1.06);
       box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.75),
         0 14px 30px color-mix(in srgb, var(--accent) 24%, transparent);
@@ -120,7 +123,7 @@
 
 @media (max-width: 640px) {
   .technologys {
-    padding: 26px 14px;
+    padding: 16px 14px;
   }
 
   .technologys__grid {
@@ -131,7 +134,7 @@
     min-height: auto;
 
     &__inner {
-      padding: 26px 22px 24px;
+      padding: 20px;
     }
 
     &__description {

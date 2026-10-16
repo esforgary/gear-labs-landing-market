@@ -1,0 +1,3 @@
+import type { SourceErrorKind } from './source-health';
+export type Story={title:string;source:string;sourceId?:string;publisher?:string;sourceKind?:string;url:string;date:string;category:string;summary:string;signal:number;assets:string[];catalyst?:string;concern?:string;summaryKind?:string;firstSeenAt?:string;ru?:{title:string;summary:string;hash:string;model:string;translatedAt:string};translationStatus?:'ready'|'pending'|'failed'|'unconfigured'};
+export type SourceHealth={id:string;name:string;publisher:string;url:string;homepage:string;kind:string;status:'ok'|'unchanged'|'error';checkedAt:string;lastSuccessAt?:string;latestArticleAt?:string;articles:number;error?:string;errorKind?:SourceErrorKind};

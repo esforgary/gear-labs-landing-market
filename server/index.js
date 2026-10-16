@@ -173,22 +173,6 @@ app.put("/api/builder/state/:id", (req, res) => {
   res.json({ id: stateId, updatedAt });
 });
 
-// =================== Технологии (пример) ===================
-app.get("/api/technologies", (req, res) => {
-  const rows = db.prepare("SELECT * FROM technologies").all();
-  res.json(rows);
-});
-
-app.post("/api/technologies", (req, res) => {
-  const { title, description, iconBg, iconColor } = req.body;
-  const stmt = db.prepare(
-    "INSERT INTO technologies (title, description, iconBg, iconColor) VALUES (?, ?, ?, ?)"
-  );
-  const info = stmt.run(title, description, iconBg, iconColor);
-  const newTech = db.prepare("SELECT * FROM technologies WHERE id = ?").get(info.lastInsertRowid);
-  res.json(newTech);
-});
-
 // =================== Тестовый маршрут ===================
 app.get("/", (req, res) => res.send("Server OK"));
 
