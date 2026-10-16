@@ -1,5 +1,6 @@
 import { useMemo, type CSSProperties, type MouseEvent } from "react";
 import { ArrowUpRight, Github, Mail, Rocket, Send } from "lucide-react";
+import Container from "react-bootstrap/Container";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./footer.scss";
 
@@ -30,7 +31,7 @@ export default function Footer() {
       <div className="footer-glow footer-glow-orange" />
       <div className="footer-glow footer-glow-blue" />
 
-      <div className="footer-inner">
+      <Container className="footer-inner">
         <div className="footer-content">
           <div className="footer-brand">
             <a className="footer-logo" href="#home" onClick={scrollToSection("home")} aria-label="GearLabs">
@@ -103,12 +104,12 @@ export default function Footer() {
             <ArrowUpRight size={20} />
           </a>
         </div>
-      </div>
+      </Container>
 
-      <div className="footer-copy">
+      <Container className="footer-copy">
         <span>Copyright © {year} GearLabs.</span>
         <span>{t("footer.copy")}</span>
-      </div>
+      </Container>
     </footer>
   );
 }
