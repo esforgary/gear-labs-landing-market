@@ -3,6 +3,7 @@ import { useLayoutEffect } from "react";
 import { Bot, MessageCircle, Send, X } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./faq-chat-bot.scss";
+import { answerQuestion, getFaqSuggestions } from "./faq-engine.mjs";
 
 type ChatRole = "bot" | "user";
 
@@ -82,33 +83,58 @@ const chatCopy: Record<string, ChatCopy> = {
     retry: "Réessayer",
     thinking: "Préparation de la réponse…",
   },
-};
-
-const fallbackSuggestions: Record<string, ChatSuggestion[]> = {
-  ru: [
-    { id: "price", title: "Как считается цена?" },
-    { id: "timeline", title: "Сколько длится запуск?" },
-    { id: "builder", title: "Что делает конструктор?" },
-  ],
-  en: [
-    { id: "price", title: "How is the price calculated?" },
-    { id: "timeline", title: "How long does launch take?" },
-    { id: "builder", title: "What does the builder do?" },
-  ],
-  de: [
-    { id: "price", title: "Wie wird der Preis berechnet?" },
-    { id: "timeline", title: "Wie lange dauert der Start?" },
-    { id: "builder", title: "Was macht der Konstruktor?" },
-  ],
-  fr: [
-    { id: "price", title: "Comment le prix est calcule ?" },
-    { id: "timeline", title: "Combien de temps prend le lancement ?" },
-    { id: "builder", title: "A quoi sert le constructeur ?" },
-  ],
+  it: {
+    title: "Chat GearLabs",
+    subtitle: "Domande frequenti sull'avvio del progetto",
+    greeting: "Ciao. Posso aiutarti con i modelli, il configuratore, i prezzi e la pubblicazione del sito.",
+    placeholder: "Fai una domanda sul sito...",
+    send: "Invia",
+    open: "Apri la chat",
+    close: "Chiudi la chat",
+    fallback: "Non è stato possibile ricevere una risposta. Riprova: la tua domanda è stata salvata.",
+    retry: "Riprova",
+    thinking: "Sto preparando la risposta…",
+  },
+  pl: {
+    title: "Czat GearLabs",
+    subtitle: "Pytania o uruchomienie projektu",
+    greeting: "Cześć. Pomogę Ci z szablonami, kreatorem, cenami i uruchomieniem strony.",
+    placeholder: "Zapytaj o stronę...",
+    send: "Wyślij",
+    open: "Otwórz czat",
+    close: "Zamknij czat",
+    fallback: "Nie udało się uzyskać odpowiedzi. Spróbuj ponownie — Twoje pytanie zostało zapisane.",
+    retry: "Spróbuj ponownie",
+    thinking: "Przygotowuję odpowiedź…",
+  },
+  cz: {
+    title: "Chat GearLabs",
+    subtitle: "Časté dotazy ke spuštění projektu",
+    greeting: "Ahoj. Pomohu ti se šablonami, konfigurátorem, cenami a spuštěním webu.",
+    placeholder: "Zeptej se na web...",
+    send: "Odeslat",
+    open: "Otevřít chat",
+    close: "Zavřít chat",
+    fallback: "Odpověď se nepodařilo získat. Zkus to znovu — tvůj dotaz je uložený.",
+    retry: "Zkusit znovu",
+    thinking: "Připravuji odpověď…",
+  },
+  sk: {
+    title: "Chat GearLabs",
+    subtitle: "Časté otázky k spusteniu projektu",
+    greeting: "Ahoj. Pomôžem ti so šablónami, konfigurátorom, cenami a spustením webu.",
+    placeholder: "Opýtaj sa na web...",
+    send: "Odoslať",
+    open: "Otvoriť chat",
+    close: "Zavrieť chat",
+    fallback: "Odpoveď sa nepodarilo získať. Skús to znova — tvoja otázka je uložená.",
+    retry: "Skúsiť znova",
+    thinking: "Pripravujem odpoveď…",
+  },
 };
 
 const getCopy = (lang: string) => chatCopy[lang] ?? chatCopy.ru;
-const getFallbackSuggestions = (lang: string) => fallbackSuggestions[lang] ?? fallbackSuggestions.ru;
+const getFallbackSuggestions = getFaqSuggestions;
 
 const makeMessageId = () => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
@@ -187,26 +213,6 @@ function FaqChatBot() {
     return () => document.removeEventListener("click", handleOutsideClick, true);
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
-
-    const controller = new AbortController();
-    fetch(`${apiBaseUrl}/api/chatbot/faqs?lang=${encodeURIComponent(lang)}`, { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error("FAQ unavailable");
-        return response.json() as Promise<{ suggestions?: ChatSuggestion[] }>;
-      })
-      .then((payload) => {
-        if (Array.isArray(payload.suggestions) && payload.suggestions.length) {
-          setSuggestions(payload.suggestions);
-        }
-      })
-      .catch((error) => {
-        if (error.name !== "AbortError") setSuggestions(getFallbackSuggestions(lang));
-      });
-
-    return () => controller.abort();
-  }, [isOpen, lang]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -219,7 +225,7 @@ function FaqChatBot() {
       if (!cleanQuestion || requestRef.current) return;
       const controller = new AbortController();
       requestRef.current = controller;
-      const timeout = window.setTimeout(() => controller.abort(), 12000);
+      const timeout = apiBaseUrl ? window.setTimeout(() => controller.abort(), 12000) : undefined;
 
       setMessages((current) => retryId ? current.filter(message => message.id !== retryId) : [
         ...current,
@@ -229,17 +235,20 @@ function FaqChatBot() {
       setIsThinking(true);
 
       try {
-        const response = await fetch(`${apiBaseUrl}/api/chatbot/message`, {
-          body: JSON.stringify({ message: cleanQuestion, lang }),
-          headers: { "Content-Type": "application/json" },
-          method: "POST",
-          signal: controller.signal,
-        });
-
-        if (!response.ok) throw new Error("Chat response failed");
-        const payload = (await response.json()) as { answer?: string; suggestions?: ChatSuggestion[] };
+        let payload = answerQuestion(cleanQuestion, lang);
+        if (apiBaseUrl) {
+          const response = await fetch(`${apiBaseUrl}/api/chatbot/message`, {
+            body: JSON.stringify({ message: cleanQuestion, lang }),
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            signal: controller.signal,
+          });
+          if (!response.ok) throw new Error("Chat response failed");
+          const remote = (await response.json()) as { answer?: string; suggestions?: ChatSuggestion[] };
+          if (typeof remote.answer !== "string" || !remote.answer.trim()) throw new Error("Empty chat response");
+          payload = { answer: remote.answer, suggestions: remote.suggestions ?? payload.suggestions };
+        }
         if (requestRef.current !== controller) return;
-        if (typeof payload.answer !== "string" || !payload.answer.trim()) throw new Error("Empty chat response");
         const answer = payload.answer;
 
         setMessages((current) => [
@@ -252,10 +261,12 @@ function FaqChatBot() {
         }
       } catch {
         if (requestRef.current !== controller) return;
+        const payload = answerQuestion(cleanQuestion, lang);
         setMessages((current) => [
           ...current,
-          { id: makeMessageId(), role: "bot", text: copy.fallback, retryQuestion: cleanQuestion },
+          { id: makeMessageId(), role: "bot", text: payload.answer },
         ]);
+        setSuggestions(payload.suggestions);
       } finally {
         window.clearTimeout(timeout);
         if (requestRef.current === controller) {
@@ -264,7 +275,7 @@ function FaqChatBot() {
         }
       }
     },
-    [copy.fallback, lang],
+    [lang],
   );
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
