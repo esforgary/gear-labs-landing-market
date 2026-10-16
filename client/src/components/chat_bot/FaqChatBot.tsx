@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useLayoutEffect } from "react";
 import { Bot, MessageCircle, Send, X } from "lucide-react";
 import { useThemeLang } from "../../context/ThemeLangContext";
 import "./faq-chat-bot.scss";
@@ -142,6 +143,34 @@ function FaqChatBot() {
       requestRef.current = null;
     };
   }, [copy.greeting, lang]);
+
+  useLayoutEffect(() => {
+    const chat = chatRef.current;
+    const footer = document.querySelector<HTMLElement>(".footer-wrapper");
+    if (!chat || !footer) return;
+
+    let frame = 0;
+    const updatePosition = () => {
+      frame = 0;
+      const overlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+      chat.style.setProperty("--chat-footer-offset", `${overlap}px`);
+    };
+    const schedulePosition = () => {
+      if (!frame) frame = window.requestAnimationFrame(updatePosition);
+    };
+    const observer = new ResizeObserver(schedulePosition);
+    observer.observe(document.body);
+    observer.observe(footer);
+    window.addEventListener("scroll", schedulePosition, { passive: true });
+    window.addEventListener("resize", schedulePosition);
+    updatePosition();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedulePosition);
+      window.removeEventListener("resize", schedulePosition);
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen) inputRef.current?.focus({ preventScroll: true });

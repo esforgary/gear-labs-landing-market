@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./reviews.scss";
+import { useModalScrollLock } from "../../../use-modal-scroll-lock";
 
 interface ReviewItem {
   id: number;
@@ -99,6 +100,7 @@ const Reviews: React.FC = () => {
   const [modalReview, setModalReview] = useState<ReviewItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const allReviewsRef = useRef<ReviewItem[]>([]);
+  useModalScrollLock(Boolean(modalReview), isModalOpen);
 
   const formatDate = (d: Date) => {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

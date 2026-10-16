@@ -1,6 +1,7 @@
 ﻿import { useCallback, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useLayoutEffect, useRef } from "react";
+import { useModalScrollLock } from "../../use-modal-scroll-lock";
 import { getImportedProjectCopy, getWorkshopPreviewLabels } from "./imported-project-copy";
 import { Suspense, lazy, type LazyExoticComponent } from "react";
 import ButtonWithExplosion from "../Button/button"
@@ -584,7 +585,7 @@ function WorkShop() {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const previewCloseTimer = useRef<number | null>(null);
   const previewOpenFrame = useRef<number | null>(null);
-  const backgroundScrollbarRef = useRef<HTMLDivElement | null>(null);
+  useModalScrollLock(Boolean(activePreview), isPreviewVisible);
   const [serverItems, setServerItems] = useState<WorkshopCatalogItem[] | null>(null);
 
   const categories = useMemo(
@@ -999,43 +1000,6 @@ function WorkShop() {
   useLayoutEffect(() => {
     if (!activePreview) return undefined;
 
-    const body = document.body;
-    const root = document.documentElement;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const scrollbarWidth = window.innerWidth - root.getBoundingClientRect().width;
-    const pageHeight = root.scrollHeight;
-    const previousBodyPadding = body.style.paddingRight;
-    const previousRootOverflow = root.style.overflow;
-    const previousScrollBehavior = root.style.scrollBehavior;
-    const bodyPadding = Number.parseFloat(getComputedStyle(body).paddingRight) || 0;
-
-    // Keep the sticky header in its original scroll container and preserve page width.
-    root.style.overflow = "hidden";
-    root.style.scrollBehavior = "auto";
-    body.style.paddingRight = `${bodyPadding + scrollbarWidth}px`;
-
-    // Fade a frozen scrollbar out and back in while native scrolling is locked.
-    const backgroundScrollbar = document.createElement("div");
-    backgroundScrollbar.className = "preview-background-scrollbar";
-    backgroundScrollbar.setAttribute("aria-hidden", "true");
-    backgroundScrollbar.inert = true;
-    backgroundScrollbar.style.width = `${Math.max(scrollbarWidth, 8)}px`;
-    const thumb = document.createElement("div");
-    thumb.className = "preview-background-scrollbar__thumb";
-    const updateScrollbar = () => {
-      const height = window.innerHeight;
-      const thumbHeight = Math.min(height, Math.max(28, height * height / pageHeight));
-      const progress = scrollY / Math.max(1, pageHeight - height);
-      thumb.style.height = `${thumbHeight}px`;
-      thumb.style.top = `${Math.min(1, Math.max(0, progress)) * (height - thumbHeight)}px`;
-    };
-    updateScrollbar();
-    backgroundScrollbar.append(thumb);
-    if (scrollbarWidth > 0) body.append(backgroundScrollbar);
-    backgroundScrollbarRef.current = backgroundScrollbar;
-    window.addEventListener("resize", updateScrollbar);
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closePreview();
     };
@@ -1053,23 +1017,12 @@ function WorkShop() {
     window.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
 
     return () => {
-      backgroundScrollbar.remove();
-      backgroundScrollbarRef.current = null;
-      window.removeEventListener("resize", updateScrollbar);
       document.body.classList.remove("is-preview-open");
-      body.style.paddingRight = previousBodyPadding;
-      root.style.overflow = previousRootOverflow;
-      window.scrollTo(scrollX, scrollY);
-      root.style.scrollBehavior = previousScrollBehavior;
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("wheel", preventBackgroundScroll);
       window.removeEventListener("touchmove", preventBackgroundScroll);
     };
   }, [activePreview, closePreview]);
-
-  useLayoutEffect(() => {
-    backgroundScrollbarRef.current?.classList.toggle("is-hidden", isPreviewVisible);
-  }, [activePreview, isPreviewVisible]);
 
   const handleSelectProject = (item: (typeof items)[number]) => {
     selectProject({

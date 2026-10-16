@@ -1,10 +1,11 @@
 .faq-chat {
-  bottom: 24px;
+  --chat-edge-gap: 24px;
+  bottom: calc(var(--chat-edge-gap) + var(--chat-footer-offset, 0px));
   display: grid;
   justify-items: end;
   pointer-events: none;
   position: fixed;
-  right: 24px;
+  right: var(--chat-edge-gap);
   z-index: 950;
 }
 
@@ -91,7 +92,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 14px;
-  max-height: min(620px, calc(100dvh - 116px));
+  max-height: max(0px, min(620px, calc(100dvh - 116px - var(--chat-footer-offset, 0px))));
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
@@ -346,12 +347,11 @@
 
 @media (max-width: 640px) {
   .faq-chat {
-    bottom: 16px;
-    right: 16px;
+    --chat-edge-gap: 16px;
   }
 
   .faq-chat__panel {
-    max-height: calc(100dvh - 104px);
+    max-height: max(0px, calc(100dvh - 104px - var(--chat-footer-offset, 0px)));
   }
 }
 
