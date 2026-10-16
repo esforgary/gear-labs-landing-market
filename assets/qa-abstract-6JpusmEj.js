@@ -1,0 +1,1 @@
+import{u as t,j as o,o as s}from"./index-Ci900JYJ.js";function l(){const{lang:a}=t();return o.jsx("iframe",{className:"qa-abstract-demo",src:"/gear-labs-landing-market/imported/qa-abstract/index.html",title:s("qa-abstract",a).title,sandbox:"allow-scripts allow-same-origin allow-downloads allow-popups allow-popups-to-escape-sandbox",allow:"clipboard-write"})}export{l as default};
